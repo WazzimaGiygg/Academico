@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Científica - WZZM Academic</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-pink.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a5f7a;
+            --primary-dark: #0d3b4f;
+            --secondary-color: #2c7da0;
+            --accent-color: #61a5c2;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --light-bg: #f8f9fa;
+            --border-color: #e0e0e0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+        }
+
+        /* Header Científico */
+        .scientific-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scientific-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><path fill="white" d="M20,50 L30,40 L40,50 L30,60 Z M60,30 L70,20 L80,30 L70,40 Z M50,70 L60,60 L70,70 L60,80 Z"/></svg>') repeat;
+            opacity: 0.1;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Roboto Slab', serif;
+            margin-bottom: 10px;
+        }
+
+        .header-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stats-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stats-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stats-label {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* Search Section - Estilo Google Acadêmico */
+        .search-section {
+            background: white;
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 1400px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .search-main {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 95, 122, 0.1);
+        }
+
+        .search-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 32px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .advanced-filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .filter-select {
+            padding: 10px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            background: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-select:hover {
+            border-color: var(--primary-color);
+        }
+
+        /* Main Layout - Estilo SciELO */
+        .main-layout {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+        }
+
+        /* Sidebar - Filtros Avançados */
+        .sidebar {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow-sm);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            font-family: 'Roboto Slab', serif;
+        }
+
+        .filter-group {
+            margin-bottom: 25px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .filter-group select, .filter-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .year-range {
+            display: flex;
+            gap: 10px;
+        }
+
+        .year-range input {
+            width: 50%;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: normal;
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+
+        /* Articles List */
+        .articles-container {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .results-count {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .sort-select {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* Article Card */
+        .article-card {
+            padding: 25px;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .article-card:hover {
+            background: var(--light-bg);
+            transform: translateX(5px);
+        }
+
+        .article-title {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Roboto Slab', serif;
+            margin-bottom: 10px;
+        }
+
+        .article-title a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .article-title a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .article-authors {
+            color: #2e7d32;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .article-meta i {
+            font-size: 14px;
+            vertical-align: middle;
+            margin-right: 4px;
+        }
+
+        .article-abstract {
+            color: var(--text-dark);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .article-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .keyword {
+            background: #e3f2fd;
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .article-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: rgba(0,0,0,0.05);
+            color: var(--primary-color);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status-published {
+            background: #4caf50;
+            color: white;
+        }
+
+        .status-draft {
+            background: #ff9800;
+            color: white;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .page-btn {
+            padding: 8px 14px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .page-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .page-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Loading */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border-color);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: var(--text-light);
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .close-modal {
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--text-light);
+        }
+
+        .citation-box {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin-top: 15px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container, .stats-container, .main-layout, .search-section {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .search-main {
+                flex-direction: column;
+            }
+            .search-btn {
+                padding: 12px;
+                justify-content: center;
+            }
+        }
+
+        /* Toolbar */
+        .admin-toolbar {
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 0;
+        }
+
+        .admin-toolbar .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .btn-add {
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-add:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Científico -->
+    <div class="scientific-header">
+        <div class="header-container">
+            <div class="header-title">
+                <i class="material-icons" style="font-size: 36px; vertical-align: middle;">menu_book</i>
+                Biblioteca Científica WZZM
+            </div>
+            <div class="header-subtitle">
+                Artigos científicos, revisões, monografias e mais - Acesso livre e gratuito
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stats-container">
+            <div class="stats-item">
+                <span class="stats-number" id="total-articles">0</span>
+                <span class="stats-label">Artigos Publicados</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-number" id="total-authors">0</span>
+                <span class="stats-label">Pesquisadores</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-number" id="total-views">0</span>
+                <span class="stats-label">Visualizações</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-number" id="last-update">-</span>
+                <span class="stats-label">Última atualização</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Toolbar -->
+    <div class="admin-toolbar" id="admin-toolbar" style="display: none;">
+        <div class="container">
+            <a href="add-article.html" class="btn-add">
+                <i class="material-icons">add</i> Novo Artigo
+            </a>
+        </div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <div class="search-main">
+            <div class="search-input-wrapper">
+                <input type="text" id="search-input" class="search-input" placeholder="Pesquisar por título, autor, palavras-chave..." autocomplete="off">
+            </div>
+            <button id="search-btn" class="search-btn">
+                <i class="material-icons">search</i> Buscar
+            </button>
+        </div>
+        <div class="advanced-filters">
+            <select id="type-filter" class="filter-select">
+                <option value="all">Todos os tipos</option>
+                <option value="cientifico">Científico</option>
+                <option value="revisao">Revisão Bibliográfica</option>
+                <option value="monografia">Monografia</option>
+                <option value="dissertacao">Dissertação</option>
+                <option value="tese">Tese</option>
+                <option value="noticia">Notícia</option>
+                <option value="tutorial">Tutorial</option>
+            </select>
+            <select id="language-filter" class="filter-select">
+                <option value="all">Todos os idiomas</option>
+                <option value="pt-BR">Português</option>
+                <option value="en-US">English</option>
+                <option value="es-ES">Español</option>
+            </select>
+            <select id="sort-by" class="filter-select">
+                <option value="recent">Mais recentes primeiro</option>
+                <option value="oldest">Mais antigos primeiro</option>
+                <option value="title">Título (A-Z)</option>
+                <option value="views">Mais visualizados</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Filtros Avançados</div>
+            
+            <div class="filter-group">
+                <label>Ano de publicação</label>
+                <div class="year-range">
+                    <input type="number" id="year-start" placeholder="De" min="1900" max="2025">
+                    <input type="number" id="year-end" placeholder="Até" min="1900" max="2025">
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label>Status</label>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="status-published" checked> Publicados
+                    </label>
+                    <label>
+                        <input type="checkbox" id="status-draft"> Rascunhos
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label>Palavras-chave populares</label>
+                <div class="checkbox-group" id="keywords-list">
+                    <!-- Keywords serão carregadas dinamicamente -->
+                </div>
+            </div>
+
+            <button id="apply-filters-btn" class="search-btn" style="width: 100%; justify-content: center; margin-top: 20px;">
+                <i class="material-icons">filter_list</i> Aplicar Filtros
+            </button>
+        </aside>
+
+        <!-- Articles List -->
+        <div class="articles-container">
+            <div class="results-header">
+                <div class="results-count" id="results-count">Carregando artigos...</div>
+            </div>
+
+            <div id="articles-list">
+                <div class="loading-container">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 20px;">Carregando artigos...</p>
+                </div>
+            </div>
+
+            <div id="pagination" class="pagination"></div>
+        </div>
+    </div>
+
+    <!-- Modal de Citação -->
+    <div id="citation-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="material-icons">format_quote</i> Como Citar este Artigo</h3>
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="citation-content"></div>
+                <button class="search-btn" onclick="copyCitation()" style="margin-top: 20px; padding: 10px 20px;">
+                    <i class="material-icons">content_copy</i> Copiar Citação
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Visualização Rápida -->
+    <div id="quickview-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="quickview-title">Artigo</h3>
+                <span class="close-modal" onclick="closeModal('quickview-modal')">&times;</span>
+            </div>
+            <div class="modal-body" id="quickview-body"></div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+
+    <script>
+        // ============================================
+        // CONFIGURAÇÃO FIREBASE
+        // ============================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyB9GkSqTIZ0kbVsba_WOdQeVAETrF9qna0",
+            authDomain: "wzzm-ce3fc.firebaseapp.com",
+            projectId: "wzzm-ce3fc",
+            storageBucket: "wzzm-ce3fc.appspot.com",
+            messagingSenderId: "249427877153",
+            appId: "1:249427877153:web:0e4297294794a5aadeb260"
+        };
+
+        let app;
+        try {
+            app = firebase.app();
+        } catch (e) {
+            app = firebase.initializeApp(firebaseConfig);
+        }
+        
+        const firestore = firebase.firestore();
+        const auth = firebase.auth();
+
+        // ============================================
+        // VARIÁVEIS GLOBAIS
+        // ============================================
+        let currentUser = null;
+        let isAdmin = false;
+        let allArticles = [];
+        let filteredArticles = [];
+        let currentPage = 1;
+        const itemsPerPage = 10;
+
+        // UIDs de administradores
+        const ADMIN_UIDS = ['sZxfMuOBPbXdR8nttVPXIN8QOOl1', '6aPqWVh8JVYL5NqEb78iDGPD7dH3'];
+
+        // ============================================
+        // FUNÇÕES AUXILIARES
+        // ============================================
+        
+        function formatDate(date) {
+            if (!date) return 'Data desconhecida';
+            if (date.toDate) date = date.toDate();
+            return date.toLocaleDateString('pt-BR');
+        }
+
+        function getTypeLabel(type) {
+            const types = {
+                'cientifico': 'Artigo Científico',
+                'revisao': 'Revisão Bibliográfica',
+                'noticia': 'Notícia',
+                'editorial': 'Editorial',
+                'opiniao': 'Opinião',
+                'entrevista': 'Entrevista',
+                'tutorial': 'Tutorial',
+                'monografia': 'Monografia',
+                'dissertacao': 'Dissertação',
+                'tese': 'Tese'
+            };
+            return types[type] || type;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function stripHtml(html) {
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+            return temp.textContent || temp.innerText || '';
+        }
+
+        async function checkIsAdmin(user) {
+            if (!user) return false;
+            if (ADMIN_UIDS.includes(user.uid)) return true;
+            try {
+                const userDoc = await firestore.collection('users').doc(user.uid).get();
+                return userDoc.exists && userDoc.data().isAdmin === true;
+            } catch { return false; }
+        }
+
+        // ============================================
+        // FUNÇÃO PRINCIPAL - CARREGAR ARTIGOS
+        // ============================================
+        
+        async function loadArticles() {
+            showLoading();
+            
+            try {
+                const snapshot = await firestore.collection('articlesdoc')
+                    .orderBy('lastModified', 'desc')
+                    .get();
+                
+                allArticles = [];
+                const authorsSet = new Set();
+                let totalViews = 0;
+                
+                for (const doc of snapshot.docs) {
+                    const data = doc.data();
+                    
+                    // Processar autores
+                    if (data.authors && Array.isArray(data.authors)) {
+                        data.authors.forEach(author => authorsSet.add(author));
+                    }
+                    
+                    // Contar visualizações
+                    totalViews += (data.views || 0);
+                    
+                    allArticles.push({
+                        id: doc.id,
+                        title: data.title || 'Sem título',
+                        description: data.description || '',
+                        content: data.formattedContent || '',
+                        authors: data.authors || [],
+                        students: data.students || [],
+                        type: data.articleType || 'cientifico',
+                        language: data.language || 'pt-BR',
+                        status: data.status || 'published',
+                        uid: data.uid || doc.id,
+                        views: data.views || 0,
+                        shares: data.shares || 0,
+                        citation: data.citation || '',
+                        createdAt: data.createdAt || data.timestamp?.toDate() || null,
+                        lastModified: data.lastModified?.toDate() || null,
+                        sources: data.sources || []
+                    });
+                }
+                
+                // Atualizar estatísticas
+                document.getElementById('total-articles').textContent = allArticles.length;
+                document.getElementById('total-authors').textContent = authorsSet.size;
+                document.getElementById('total-views').textContent = totalViews.toLocaleString();
+                
+                // Última atualização
+                const lastModified = allArticles[0]?.lastModified;
+                if (lastModified) {
+                    document.getElementById('last-update').textContent = formatDate(lastModified);
+                }
+                
+                // Extrair palavras-chave únicas
+                extractKeywords();
+                
+                // Aplicar filtros iniciais
+                applyFilters();
+                
+            } catch (error) {
+                console.error('Erro ao carregar artigos:', error);
+                document.getElementById('articles-list').innerHTML = `
+                    <div class="empty-state">
+                        <i class="material-icons">error</i>
+                        <h3>Erro ao carregar artigos</h3>
+                        <p>${escapeHtml(error.message)}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function extractKeywords() {
+            const keywordMap = new Map();
+            
+            allArticles.forEach(article => {
+                // Extrair do título
+                const titleWords = article.title.toLowerCase().split(/\s+/);
+                titleWords.forEach(word => {
+                    if (word.length > 4 && !['artigo', 'estudo', 'pesquisa', 'análise'].includes(word)) {
+                        keywordMap.set(word, (keywordMap.get(word) || 0) + 1);
+                    }
+                });
+                
+                // Extrair da descrição
+                if (article.description) {
+                    const descWords = article.description.toLowerCase().split(/\s+/);
+                    descWords.forEach(word => {
+                        if (word.length > 4) {
+                            keywordMap.set(word, (keywordMap.get(word) || 0) + 1);
+                        }
+                    });
+                }
+            });
+            
+            // Ordenar por frequência e pegar as 10 mais comuns
+            const topKeywords = Array.from(keywordMap.entries())
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+            
+            const keywordsList = document.getElementById('keywords-list');
+            if (keywordsList) {
+                keywordsList.innerHTML = topKeywords.map(([keyword, count]) => `
+                    <label>
+                        <input type="checkbox" class="keyword-checkbox" value="${escapeHtml(keyword)}" onchange="applyFilters()">
+                        ${escapeHtml(keyword)} <span style="color:#999;">(${count})</span>
+                    </label>
+                `).join('');
+            }
+        }
+        
+        function showLoading() {
+            const container = document.getElementById('articles-list');
+            container.innerHTML = `
+                <div class="loading-container">
+                    <div class="spinner"></div>
+                    <p>Carregando artigos...</p>
+                </div>
+            `;
+        }
+        
+        function applyFilters() {
+            const searchTerm = document.getElementById('search-input')?.value.toLowerCase() || '';
+            const typeFilter = document.getElementById('type-filter')?.value || 'all';
+            const languageFilter = document.getElementById('language-filter')?.value || 'all';
+            const sortBy = document.getElementById('sort-by')?.value || 'recent';
+            const yearStart = document.getElementById('year-start')?.value;
+            const yearEnd = document.getElementById('year-end')?.value;
+            const showPublished = document.getElementById('status-published')?.checked || false;
+            const showDraft = document.getElementById('status-draft')?.checked || false;
+            
+            // Palavras-chave selecionadas
+            const selectedKeywords = Array.from(document.querySelectorAll('.keyword-checkbox:checked'))
+                .map(cb => cb.value.toLowerCase());
+            
+            filteredArticles = allArticles.filter(article => {
+                // Filtro de status
+                if (!showPublished && article.status === 'published') return false;
+                if (!showDraft && article.status === 'draft') return false;
+                
+                // Filtro de tipo
+                if (typeFilter !== 'all' && article.type !== typeFilter) return false;
+                
+                // Filtro de idioma
+                if (languageFilter !== 'all' && article.language !== languageFilter) return false;
+                
+                // Filtro de ano
+                if (yearStart && article.createdAt) {
+                    const year = article.createdAt.getFullYear();
+                    if (year < parseInt(yearStart)) return false;
+                }
+                if (yearEnd && article.createdAt) {
+                    const year = article.createdAt.getFullYear();
+                    if (year > parseInt(yearEnd)) return false;
+                }
+                
+                // Filtro de busca
+                if (searchTerm) {
+                    const inTitle = article.title.toLowerCase().includes(searchTerm);
+                    const inAuthors = article.authors.some(a => a.toLowerCase().includes(searchTerm));
+                    const inDescription = article.description.toLowerCase().includes(searchTerm);
+                    const inContent = stripHtml(article.content).toLowerCase().includes(searchTerm);
+                    if (!inTitle && !inAuthors && !inDescription && !inContent) return false;
+                }
+                
+                // Filtro de palavras-chave
+                if (selectedKeywords.length > 0) {
+                    const articleText = (article.title + ' ' + article.description).toLowerCase();
+                    const hasKeyword = selectedKeywords.some(kw => articleText.includes(kw));
+                    if (!hasKeyword) return false;
+                }
+                
+                return true;
+            });
+            
+            // Ordenação
+            if (sortBy === 'recent') {
+                filteredArticles.sort((a, b) => (b.lastModified || 0) - (a.lastModified || 0));
+            } else if (sortBy === 'oldest') {
+                filteredArticles.sort((a, b) => (a.lastModified || 0) - (b.lastModified || 0));
+            } else if (sortBy === 'title') {
+                filteredArticles.sort((a, b) => a.title.localeCompare(b.title));
+            } else if (sortBy === 'views') {
+                filteredArticles.sort((a, b) => (b.views || 0) - (a.views || 0));
+            }
+            
+            // Resetar página
+            currentPage = 1;
+            
+            // Atualizar contagem
+            document.getElementById('results-count').textContent = `${filteredArticles.length} artigo(s) encontrado(s)`;
+            
+            // Renderizar
+            renderArticles();
+            renderPagination();
+        }
+        
+        function renderArticles() {
+            const container = document.getElementById('articles-list');
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageArticles = filteredArticles.slice(start, end);
+            
+            if (pageArticles.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="material-icons">search_off</i>
+                        <h3>Nenhum artigo encontrado</h3>
+                        <p>Tente ajustar seus filtros ou buscar por outros termos.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = pageArticles.map(article => `
+                <div class="article-card">
+                    <div class="article-title">
+                        <a href="#" onclick="viewArticle('${article.id}'); return false;">
+                            ${escapeHtml(article.title)}
+                        </a>
+                        ${article.status === 'draft' ? '<span class="status-badge status-draft">Rascunho</span>' : ''}
+                    </div>
+                    
+                    <div class="article-authors">
+                        <i class="material-icons" style="font-size: 14px;">people</i>
+                        ${article.authors.length > 0 ? article.authors.join('; ') : 'Autor não informado'}
+                        ${article.students && article.students.length > 0 ? ` (Orientandos: ${article.students.join(', ')})` : ''}
+                    </div>
+                    
+                    <div class="article-meta">
+                        <span><i class="material-icons">schedule</i> ${formatDate(article.lastModified)}</span>
+                        <span><i class="material-icons">category</i> ${getTypeLabel(article.type)}</span>
+                        <span><i class="material-icons">language</i> ${article.language === 'pt-BR' ? 'Português' : article.language === 'en-US' ? 'English' : 'Español'}</span>
+                        <span><i class="material-icons">visibility</i> ${(article.views || 0).toLocaleString()} visualizações</span>
+                    </div>
+                    
+                    <div class="article-abstract">
+                        ${escapeHtml(article.description.substring(0, 200))}${article.description.length > 200 ? '...' : ''}
+                    </div>
+                    
+                    <div class="article-actions">
+                        <button class="action-btn" onclick="quickView('${article.id}')">
+                            <i class="material-icons">visibility</i> Visualizar
+                        </button>
+                        <button class="action-btn" onclick="showCitation('${article.id}')">
+                            <i class="material-icons">format_quote</i> Como Citar
+                        </button>
+                        ${isAdmin ? `
+                            <a href="add-article.html?id=${article.id}" class="action-btn">
+                                <i class="material-icons">edit</i> Editar
+                            </a>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let html = '';
+            
+            // Botão anterior
+            html += `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>«</button>`;
+            
+            // Números das páginas
+            const startPage = Math.max(1, currentPage - 2);
+            const endPage = Math.min(totalPages, currentPage + 2);
+            
+            if (startPage > 1) {
+                html += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
+                if (startPage > 2) html += `<span class="page-btn" style="background:none;">...</span>`;
+            }
+            
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+            
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) html += `<span class="page-btn" style="background:none;">...</span>`;
+                html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+            }
+            
+            // Botão próximo
+            html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>»</button>`;
+            
+            pagination.innerHTML = html;
+        }
+        
+        function goToPage(page) {
+            const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderArticles();
+            renderPagination();
+            window.scrollTo({ top: 400, behavior: 'smooth' });
+        }
+        
+        // ============================================
+        // FUNÇÕES DE VISUALIZAÇÃO
+        // ============================================
+        
+        async function viewArticle(articleId) {
+            const article = allArticles.find(a => a.id === articleId);
+            if (!article) return;
+            
+            // Incrementar visualizações
+            try {
+                await firestore.collection('articlesdoc').doc(articleId).update({
+                    views: firebase.firestore.FieldValue.increment(1)
+                });
+                article.views = (article.views || 0) + 1;
+                
+                // Atualizar estatísticas
+                const totalViews = allArticles.reduce((sum, a) => sum + (a.views || 0), 0);
+                document.getElementById('total-views').textContent = totalViews.toLocaleString();
+            } catch (e) {
+                console.warn('Erro ao incrementar visualizações:', e);
+            }
+            
+            // Abrir em nova aba ou modal
+            window.open(`view-article.html?uid=${article.uid}`, '_blank');
+        }
+        
+        function quickView(articleId) {
+            const article = allArticles.find(a => a.id === articleId);
+            if (!article) return;
+            
+            const modal = document.getElementById('quickview-modal');
+            const title = document.getElementById('quickview-title');
+            const body = document.getElementById('quickview-body');
+            
+            title.textContent = article.title;
+            body.innerHTML = `
+                <div class="article-authors">
+                    <strong>Autores:</strong> ${article.authors.join('; ') || 'Não informado'}
+                </div>
+                <div class="article-meta" style="margin: 15px 0;">
+                    <span><strong>Tipo:</strong> ${getTypeLabel(article.type)}</span>
+                    <span><strong>Idioma:</strong> ${article.language === 'pt-BR' ? 'Português' : article.language === 'en-US' ? 'English' : 'Español'}</span>
+                    <span><strong>Publicado:</strong> ${formatDate(article.lastModified)}</span>
+                </div>
+                <div class="article-abstract" style="margin: 15px 0;">
+                    <strong>Resumo:</strong><br>
+                    ${escapeHtml(article.description || 'Sem resumo disponível')}
+                </div>
+                <div style="margin: 15px 0;">
+                    <strong>Conteúdo:</strong>
+                    <div style="margin-top: 10px; padding: 15px; background: #f8f9fa; border-radius: 8px; max-height: 300px; overflow-y: auto;">
+                        ${article.content || '<em>Conteúdo não disponível para visualização rápida</em>'}
+                    </div>
+                </div>
+                <div style="text-align: right; margin-top: 20px;">
+                    <button class="search-btn" onclick="window.open('view-article.html?uid=${article.uid}', '_blank')">
+                        <i class="material-icons">open_in_new</i> Ler Artigo Completo
+                    </button>
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+        
+        function showCitation(articleId) {
+            const article = allArticles.find(a => a.id === articleId);
+            if (!article) return;
+            
+            const modal = document.getElementById('citation-modal');
+            const content = document.getElementById('citation-content');
+            
+            let citation = article.citation;
+            if (!citation) {
+                // Gerar citação automática
+                const authors = article.authors.join(', ');
+                const year = article.createdAt ? article.createdAt.getFullYear() : new Date().getFullYear();
+                citation = `${authors}. ${article.title}. WZZM Academic. ${year}. Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}. Acesso em: ${new Date().toLocaleDateString('pt-BR')}.`;
+            }
+            
+            content.innerHTML = `
+                <div class="citation-box">
+                    <strong>ABNT:</strong><br>
+                    ${escapeHtml(citation)}
+                </div>
+                <div class="citation-box" style="margin-top: 15px;">
+                    <strong>APA (7ª edição):</strong><br>
+                    ${escapeHtml(citation.replace(/\. /g, '. ').replace(/, /g, ', '))}
+                </div>
+                <div class="citation-box" style="margin-top: 15px;">
+                    <strong>Vancouver:</strong><br>
+                    ${escapeHtml(article.authors.join(', '))}. ${article.title}. WZZM Academic. ${article.createdAt ? article.createdAt.getFullYear() : new Date().getFullYear()}; Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}.
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+        
+        let currentCitationText = '';
+        
+        function copyCitation() {
+            const citationText = document.querySelector('#citation-content .citation-box:first-child')?.innerText || '';
+            if (citationText) {
+                navigator.clipboard.writeText(citationText).then(() => {
+                    alert('Citação copiada para a área de transferência!');
+                }).catch(() => {
+                    alert('Erro ao copiar. Selecione manualmente.');
+                });
+            }
+        }
+        
+        function closeModal(modalId = 'citation-modal') {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // ============================================
+        // AUTENTICAÇÃO
+        // ============================================
+        
+        auth.onAuthStateChanged(async (user) => {
+            currentUser = user;
+            if (user) {
+                isAdmin = await checkIsAdmin(user);
+                if (isAdmin) {
+                    document.getElementById('admin-toolbar').style.display = 'block';
+                }
+                await loadArticles();
+            } else {
+                await loadArticles();
+            }
+        });
+        
+        // Event Listeners
+        document.getElementById('search-btn')?.addEventListener('click', applyFilters);
+        document.getElementById('search-input')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') applyFilters();
+        });
+        document.getElementById('apply-filters-btn')?.addEventListener('click', applyFilters);
+        
+        // Expor funções globalmente
+        window.applyFilters = applyFilters;
+        window.viewArticle = viewArticle;
+        window.quickView = quickView;
+        window.showCitation = showCitation;
+        window.copyCitation = copyCitation;
+        window.closeModal = closeModal;
+        window.goToPage = goToPage;
+    </script>
+</body>
+</html>
