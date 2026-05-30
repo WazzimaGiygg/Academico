@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar/Editar Artigo - WazzimaGiygg Academic</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a5f7a;
+            --primary-dark: #0d3b4f;
+            --secondary-color: #2c7da0;
+            --accent-color: #61a5c2;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --light-bg: #f8f9fa;
+            --border-color: #e0e0e0;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --warning-color: #ffc107;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .scientific-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: 'Roboto Slab', serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-title a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-icon {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .btn-icon:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'Roboto Slab', serif;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-published {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .status-draft {
+            background: var(--warning-color);
+            color: #333;
+        }
+
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .form-group label .required {
+            color: var(--error-color);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 95, 122, 0.1);
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Authors Section */
+        .authors-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: var(--light-bg);
+            border-radius: 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-color);
+        }
+
+        .author-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .author-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-family: inherit;
+        }
+
+        .remove-author {
+            background: var(--error-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .remove-author:hover {
+            transform: scale(1.05);
+        }
+
+        .add-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .add-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Quill Editor */
+        .rich-text-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        #editor-container {
+            height: 400px;
+            margin-bottom: 25px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            transition: border-color 0.3s;
+        }
+
+        #editor-container:hover {
+            border-color: var(--primary-color);
+        }
+
+        .ql-toolbar.ql-snow {
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            border-bottom: none;
+        }
+
+        .ql-container.ql-snow {
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .char-count {
+            color: var(--text-light);
+        }
+
+        .char-count.warning {
+            color: var(--warning-color);
+        }
+
+        .char-count.error {
+            color: var(--error-color);
+        }
+
+        /* Actions */
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary, .btn-danger {
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--light-bg);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+
+        .btn-danger {
+            background: var(--error-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-primary:disabled, .btn-secondary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border-color);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Link Info */
+        .link-info {
+            background: var(--light-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 25px;
+            display: none;
+        }
+
+        .link-info h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .link-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .form-card {
+                padding: 25px;
+            }
+            .form-title {
+                font-size: 22px;
+            }
+            .form-actions {
+                flex-direction: column;
+            }
+            .btn-primary, .btn-secondary, .btn-danger {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="scientific-header">
+        <div class="header-container">
+            <div class="header-title">
+                <a href="/">
+                    <i class="material-icons">menu_book</i>
+                    WazzimaGiygg Academic
+                </a>
+            </div>
+            <div class="header-actions">
+                <a href="/articles.html" class="btn-icon">
+                    <i class="material-icons">article</i> Artigos
+                </a>
+                <div id="auth-section"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <div class="form-card">
+            <div class="form-title">
+                <span id="form-title">Adicionar Novo Artigo</span>
+                <span id="status-badge" class="status-badge status-draft" style="display: none;">Rascunho</span>
+            </div>
+
+            <div id="alert-message" class="alert"></div>
+
+            <form id="article-form">
+                <!-- Status do Artigo -->
+                <div class="form-group full-width">
+                    <label>Status do Artigo</label>
+                    <select id="article-status" style="width: auto; display: inline-block; width: 200px;">
+                        <option value="published">📖 Publicado</option>
+                        <option value="draft" selected>✏️ Rascunho</option>
+                    </select>
+                </div>
+
+                <!-- Grid de Campos -->
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Título do Artigo <span class="required">*</span></label>
+                        <input type="text" id="article-title" placeholder="Digite o título completo do artigo" maxlength="200" required>
+                        <div class="stats-bar">
+                            <span id="title-char-count" class="char-count">0/200</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Idioma <span class="required">*</span></label>
+                        <select id="article-language" required>
+                            <option value="">Selecione...</option>
+                            <option value="pt-BR">Português (Brasil)</option>
+                            <option value="en-US">English (United States)</option>
+                            <option value="es-ES">Español (España)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo de Artigo <span class="required">*</span></label>
+                        <select id="article-type" required>
+                            <option value="">Selecione...</option>
+                            <option value="cientifico">🔬 Artigo Científico</option>
+                            <option value="revisao">📚 Revisão Bibliográfica</option>
+                            <option value="monografia">📖 Monografia</option>
+                            <option value="dissertacao">🎓 Dissertação</option>
+                            <option value="tese">🏛️ Tese</option>
+                            <option value="noticia">📰 Notícia</option>
+                            <option value="tutorial">💻 Tutorial</option>
+                            <option value="editorial">✍️ Editorial</option>
+                            <option value="opiniao">💭 Opinião</option>
+                            <option value="entrevista">🎙️ Entrevista</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>URL do Artigo Original</label>
+                        <input type="url" id="article-url" placeholder="https://...">
+                        <span class="help-text">Link para o artigo completo em PDF ou HTML externo</span>
+                    </div>
+                </div>
+
+                <!-- Descrição Curta -->
+                <div class="form-group full-width">
+                    <label>Resumo / Descrição Curta</label>
+                    <textarea id="article-description" rows="3" maxlength="300" placeholder="Digite um resumo do artigo (até 300 caracteres)..."></textarea>
+                    <div class="stats-bar">
+                        <span id="desc-char-count" class="char-count">0/300</span>
+                    </div>
+                </div>
+
+                <!-- Autores -->
+                <div class="authors-section">
+                    <div class="section-title">
+                        <i class="material-icons">people</i> Autores do Artigo
+                    </div>
+                    <div id="authors-container"></div>
+                    <button type="button" class="add-btn" id="add-author-btn">
+                        <i class="material-icons">person_add</i> Adicionar Autor
+                    </button>
+                </div>
+
+                <!-- Discentes/Orientandos -->
+                <div class="authors-section">
+                    <div class="section-title">
+                        <i class="material-icons">school</i> Discentes / Orientandos
+                    </div>
+                    <div id="students-container"></div>
+                    <button type="button" class="add-btn" id="add-student-btn">
+                        <i class="material-icons">person_add</i> Adicionar Discente
+                    </button>
+                </div>
+
+                <!-- Conteúdo -->
+                <label class="rich-text-label">Conteúdo do Artigo <span class="required">*</span></label>
+                <div id="editor-container"></div>
+                <div class="stats-bar">
+                    <span id="content-stats">Digite o conteúdo acima...</span>
+                </div>
+
+                <!-- Fontes -->
+                <div class="form-group full-width">
+                    <label>Fontes (separadas por vírgula)</label>
+                    <input type="text" id="article-sources" placeholder="Ex: Livro X, Artigo Y, Site Z">
+                    <span class="help-text">Cite as fontes utilizadas neste artigo</span>
+                </div>
+
+                <!-- Como Referenciar -->
+                <div class="form-group full-width">
+                    <label>Citação (opcional)</label>
+                    <textarea id="article-citation" rows="3" placeholder="Digite o texto de citação no formato ABNT, APA, etc..."></textarea>
+                    <span class="help-text">Se deixar em branco, uma citação será gerada automaticamente</span>
+                </div>
+
+                <!-- Link Info (para edição) -->
+                <div id="link-info" class="link-info">
+                    <h4><i class="material-icons">share</i> Links do Artigo</h4>
+                    <div class="form-group">
+                        <label>UID do Artigo</label>
+                        <input type="text" id="article-uid" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Link Público</label>
+                        <input type="text" id="article-link" readonly>
+                    </div>
+                    <div class="link-actions">
+                        <button type="button" class="btn-secondary" id="copy-link-btn">
+                            <i class="material-icons">content_copy</i> Copiar Link
+                        </button>
+                        <button type="button" class="btn-secondary" id="view-link-btn">
+                            <i class="material-icons">open_in_new</i> Visualizar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Botões -->
+                <div class="form-actions">
+                    <button type="button" id="preview-btn" class="btn-secondary">
+                        <i class="material-icons">visibility</i> Pré-visualizar
+                    </button>
+                    <button type="button" id="cancel-btn" class="btn-secondary">
+                        <i class="material-icons">close</i> Cancelar
+                    </button>
+                    <button type="submit" id="save-btn" class="btn-primary">
+                        <i class="material-icons">save</i> Salvar Artigo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p id="loading-text" style="margin-top: 20px;">Salvando artigo...</p>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <script>
+        // ============================================
+        // CONFIGURAÇÃO FIREBASE
+        // ============================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyB9GkSqTIZ0kbVsba_WOdQeVAETrF9qna0",
+            authDomain: "wzzm-ce3fc.firebaseapp.com",
+            projectId: "wzzm-ce3fc",
+            storageBucket: "wzzm-ce3fc.appspot.com",
+            messagingSenderId: "249427877153",
+            appId: "1:249427877153:web:0e4297294794a5aadeb260"
+        };
+
+        let app;
+        try {
+            app = firebase.app();
+        } catch (e) {
+            app = firebase.initializeApp(firebaseConfig);
+        }
+
+        const firestore = firebase.firestore();
+        const auth = firebase.auth();
+
+        // ============================================
+        // VARIÁVEIS GLOBAIS
+        // ============================================
+        let currentUser = null;
+        let isAdmin = false;
+        let currentArticleId = null;
+        let currentArticleUID = null;
+        let isSubmitting = false;
+
+        const ADMIN_UIDS = ['sZxfMuOBPbXdR8nttVPXIN8QOOl1', '6aPqWVh8JVYL5NqEb78iDGPD7dH3'];
+
+        // Elementos DOM
+        const elements = {
+            formTitle: document.getElementById('form-title'),
+            statusBadge: document.getElementById('status-badge'),
+            alertMessage: document.getElementById('alert-message'),
+            articleForm: document.getElementById('article-form'),
+            title: document.getElementById('article-title'),
+            description: document.getElementById('article-description'),
+            language: document.getElementById('article-language'),
+            type: document.getElementById('article-type'),
+            url: document.getElementById('article-url'),
+            sources: document.getElementById('article-sources'),
+            citation: document.getElementById('article-citation'),
+            status: document.getElementById('article-status'),
+            uid: document.getElementById('article-uid'),
+            link: document.getElementById('article-link'),
+            saveBtn: document.getElementById('save-btn'),
+            cancelBtn: document.getElementById('cancel-btn'),
+            previewBtn: document.getElementById('preview-btn'),
+            loadingOverlay: document.getElementById('loading-overlay'),
+            loadingText: document.getElementById('loading-text'),
+            authorsContainer: document.getElementById('authors-container'),
+            studentsContainer: document.getElementById('students-container'),
+            linkInfo: document.getElementById('link-info'),
+            copyLinkBtn: document.getElementById('copy-link-btn'),
+            viewLinkBtn: document.getElementById('view-link-btn'),
+            titleCharCount: document.getElementById('title-char-count'),
+            descCharCount: document.getElementById('desc-char-count'),
+            contentStats: document.getElementById('content-stats')
+        };
+
+        // Quill Editor
+        const quill = new Quill('#editor-container', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'script': 'sub'}, { 'script': 'super' }],
+                    [{ 'indent': '-1'}, { 'indent': '+1' }],
+                    [{ 'align': [] }],
+                    ['link', 'image'],
+                    ['clean']
+                ]
+            },
+            placeholder: 'Digite o conteúdo completo do artigo aqui...'
+        });
+
+        // ============================================
+        // FUNÇÕES AUXILIARES
+        // ============================================
+        
+        function showAlert(message, type) {
+            elements.alertMessage.className = `alert alert-${type}`;
+            elements.alertMessage.innerHTML = `<i class="material-icons" style="vertical-align: middle; margin-right: 8px;">${type === 'success' ? 'check_circle' : type === 'error' ? 'error' : 'warning'}</i>${message}`;
+            elements.alertMessage.style.display = 'block';
+            setTimeout(() => {
+                elements.alertMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        function showLoading(show, text = 'Processando...') {
+            elements.loadingText.textContent = text;
+            elements.loadingOverlay.style.display = show ? 'flex' : 'none';
+            elements.saveBtn.disabled = show;
+            isSubmitting = show;
+        }
+
+        function updateCharCount(input, counter, max) {
+            const count = input.value.length;
+            counter.textContent = `${count}/${max}`;
+            counter.className = 'char-count ' + (count > max * 0.9 ? 'error' : count > max * 0.7 ? 'warning' : '');
+        }
+
+        function updateContentStats() {
+            const text = quill.getText();
+            const wordCount = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+            const charCount = text.length;
+            elements.contentStats.textContent = `${wordCount} palavras | ${charCount} caracteres`;
+        }
+
+        function generateUID(title) {
+            let uid = title
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .trim();
+            
+            const timestamp = Date.now().toString().slice(-6);
+            return `${uid}-${timestamp}`;
+        }
+
+        function updateLinkDisplay() {
+            if (currentArticleId && currentArticleUID) {
+                elements.linkInfo.style.display = 'block';
+                elements.uid.value = currentArticleUID;
+                const articleLink = `${window.location.origin}/view-article.html?uid=${currentArticleUID}`;
+                elements.link.value = articleLink;
+            }
+        }
+
+        function updateStatusBadge() {
+            const status = elements.status.value;
+            elements.statusBadge.style.display = 'inline-block';
+            elements.statusBadge.className = `status-badge ${status === 'published' ? 'status-published' : 'status-draft'}`;
+            elements.statusBadge.textContent = status === 'published' ? 'Publicado' : 'Rascunho';
+        }
+
+        // ============================================
+        // AUTORES E ESTUDANTES
+        // ============================================
+        
+        function createAuthorField(container, value = '', isStudent = false) {
+            const fieldId = `author-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`;
+            const div = document.createElement('div');
+            div.className = 'author-item';
+            div.innerHTML = `
+                <input type="text" class="author-input" id="${fieldId}" placeholder="${isStudent ? 'Nome do discente/orientando' : 'Nome do autor'}" value="${escapeHtml(value)}" maxlength="100">
+                <button type="button" class="remove-author" onclick="removeAuthorField('${fieldId}')">
+                    <i class="material-icons" style="font-size: 18px;">close</i>
+                </button>
+            `;
+            container.appendChild(div);
+        }
+
+        window.removeAuthorField = function(fieldId) {
+            const field = document.getElementById(fieldId);
+            if (field && field.parentNode) {
+                field.parentNode.remove();
+            }
+        }
+
+        function getAuthors(containerId) {
+            const container = document.getElementById(containerId);
+            const inputs = container.querySelectorAll('.author-input');
+            return Array.from(inputs).map(input => input.value.trim()).filter(name => name.length > 0);
+        }
+
+        // ============================================
+        // VERIFICAÇÃO DE ADMIN
+        // ============================================
+        
+        async function checkIsAdmin(user) {
+            if (!user) return false;
+            if (ADMIN_UIDS.includes(user.uid)) return true;
+            try {
+                const userDoc = await firestore.collection('users').doc(user.uid).get();
+                return userDoc.exists && userDoc.data().isAdmin === true;
+            } catch { return false; }
+        }
+
+        // ============================================
+        // CARREGAR DADOS DO ARTIGO
+        // ============================================
+        
+        async function loadArticleData(articleId) {
+            try {
+                showLoading(true, 'Carregando artigo...');
+                const doc = await firestore.collection('articlesdoc').doc(articleId).get();
+                
+                if (doc.exists) {
+                    const data = doc.data();
+                    currentArticleUID = data.uid;
+                    
+                    // Preencher campos
+                    elements.title.value = data.title || '';
+                    elements.description.value = data.description || '';
+                    elements.language.value = data.language || '';
+                    elements.type.value = data.articleType || '';
+                    elements.url.value = data.originalUrl || '';
+                    elements.sources.value = (data.sources || []).join(', ');
+                    elements.citation.value = data.citation || '';
+                    elements.status.value = data.status || 'draft';
+                    
+                    // Carregar autores
+                    if (data.authors && data.authors.length > 0) {
+                        elements.authorsContainer.innerHTML = '';
+                        data.authors.forEach(author => createAuthorField(elements.authorsContainer, author));
+                    }
+                    
+                    // Carregar estudantes
+                    if (data.students && data.students.length > 0) {
+                        elements.studentsContainer.innerHTML = '';
+                        data.students.forEach(student => createAuthorField(elements.studentsContainer, student, true));
+                    }
+                    
+                    // Carregar conteúdo
+                    if (data.formattedContent) {
+                        quill.root.innerHTML = data.formattedContent;
+                    }
+                    
+                    updateCharCount(elements.title, elements.titleCharCount, 200);
+                    updateCharCount(elements.description, elements.descCharCount, 300);
+                    updateContentStats();
+                    updateStatusBadge();
+                    updateLinkDisplay();
+                    
+                    elements.formTitle.textContent = 'Editar Artigo';
+                    
+                    showLoading(false);
+                    showAlert('Artigo carregado com sucesso!', 'success');
+                } else {
+                    showLoading(false);
+                    showAlert('Artigo não encontrado.', 'error');
+                }
+            } catch (error) {
+                console.error('Erro ao carregar:', error);
+                showLoading(false);
+                showAlert('Erro ao carregar artigo: ' + error.message, 'error');
+            }
+        }
+
+        // ============================================
+        // SALVAR ARTIGO
+        // ============================================
+        
+        async function saveArticle(event) {
+            event.preventDefault();
+            
+            if (isSubmitting) return;
+            
+            // Validações
+            const title = elements.title.value.trim();
+            const language = elements.language.value;
+            const type = elements.type.value;
+            const content = quill.root.innerHTML;
+            
+            if (!title) {
+                showAlert('O título do artigo é obrigatório.', 'error');
+                elements.title.focus();
+                return;
+            }
+            if (!language) {
+                showAlert('Selecione o idioma do artigo.', 'error');
+                return;
+            }
+            if (!type) {
+                showAlert('Selecione o tipo de artigo.', 'error');
+                return;
+            }
+            if (!content || content === '<p><br></p>') {
+                showAlert('O conteúdo do artigo é obrigatório.', 'error');
+                return;
+            }
+            
+            showLoading(true, 'Salvando artigo...');
+            
+            // Gerar UID se necessário
+            if (!currentArticleUID) {
+                currentArticleUID = generateUID(title);
+            }
+            
+            const authorsList = getAuthors('authors-container');
+            const studentsList = getAuthors('students-container');
+            const sourcesList = elements.sources.value.split(',').map(s => s.trim()).filter(s => s);
+            
+            const articleData = {
+                userId: currentUser.uid,
+                userEmail: currentUser.email,
+                title: title,
+                description: elements.description.value.trim(),
+                formattedContent: content,
+                originalUrl: elements.url.value.trim(),
+                sources: sourcesList,
+                language: language,
+                articleType: type,
+                citation: elements.citation.value.trim(),
+                authors: authorsList,
+                students: studentsList,
+                status: elements.status.value,
+                uid: currentArticleUID,
+                lastModified: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            
+            if (!currentArticleId) {
+                articleData.timestamp = firebase.firestore.FieldValue.serverTimestamp();
+                articleData.createdAt = new Date().toISOString();
+                articleData.views = 0;
+                articleData.shares = 0;
+            }
+            
+            try {
+                if (currentArticleId) {
+                    await firestore.collection('articlesdoc').doc(currentArticleId).update(articleData);
+                    showAlert('Artigo atualizado com sucesso!', 'success');
+                } else {
+                    const docRef = await firestore.collection('articlesdoc').add(articleData);
+                    currentArticleId = docRef.id;
+                    elements.formTitle.textContent = 'Editar Artigo';
+                    updateLinkDisplay();
+                    showAlert(`Artigo criado com sucesso! ID: ${currentArticleId.substring(0, 8)}`, 'success');
+                    
+                    // Atualizar URL sem recarregar a página
+                    const newUrl = `${window.location.pathname}?id=${currentArticleId}`;
+                    window.history.pushState({ path: newUrl }, '', newUrl);
+                }
+                
+                showLoading(false);
+                
+            } catch (error) {
+                console.error('Erro ao salvar:', error);
+                showLoading(false);
+                showAlert('Erro ao salvar artigo: ' + error.message, 'error');
+            }
+        }
+
+        // ============================================
+        // FUNÇÕES AUXILIARES
+        // ============================================
+        
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function previewArticle() {
+            const title = elements.title.value.trim() || 'Sem título';
+            const authors = getAuthors('authors-container');
+            const content = quill.root.innerHTML;
+            
+            const previewWindow = window.open('', '_blank');
+            previewWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Pré-visualização: ${escapeHtml(title)}</title>
+                    <meta charset="UTF-8">
+                    <style>
+                        body { font-family: 'Georgia', serif; padding: 40px; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+                        h1 { color: #1a5f7a; border-bottom: 2px solid #1a5f7a; padding-bottom: 10px; }
+                        .meta { color: #666; font-size: 14px; margin: 20px 0; padding-bottom: 20px; border-bottom: 1px solid #ddd; }
+                        .authors { color: #2e7d32; font-weight: 500; }
+                        img { max-width: 100%; height: auto; }
+                        pre { background: #f5f5f5; padding: 15px; overflow-x: auto; }
+                        blockquote { border-left: 4px solid #1a5f7a; padding-left: 20px; margin: 20px 0; color: #555; }
+                    </style>
+                </head>
+                <body>
+                    <h1>${escapeHtml(title)}</h1>
+                    <div class="meta">
+                        <div class="authors">${authors.join('; ') || 'Autor não informado'}</div>
+                        <div>Pré-visualização - ${new Date().toLocaleDateString('pt-BR')}</div>
+                    </div>
+                    <div>${content}</div>
+                    <hr>
+                    <p style="font-size: 12px; color: #999;">Pré-visualização gerada automaticamente | WZZM Academic</p>
+                </body>
+                </html>
+            `);
+            previewWindow.document.close();
+        }
+
+        function copyLink() {
+            const link = elements.link.value;
+            if (link) {
+                navigator.clipboard.writeText(link);
+                showAlert('Link copiado para a área de transferência!', 'success');
+            }
+        }
+
+        function viewLink() {
+            const link = elements.link.value;
+            if (link) {
+                window.open(link, '_blank');
+            }
+        }
+
+        // ============================================
+        // AUTENTICAÇÃO
+        // ============================================
+        
+        function updateAuthUI() {
+            const authSection = document.getElementById('auth-section');
+            if (!authSection) return;
+            
+            if (currentUser) {
+                authSection.innerHTML = `
+                    <div class="btn-icon" style="background: rgba(255,255,255,0.15);">
+                        <i class="material-icons">account_circle</i>
+                        ${currentUser.displayName?.split(' ')[0] || 'Usuário'}
+                    </div>
+                    <button class="btn-icon" onclick="logout()">
+                        <i class="material-icons">logout</i> Sair
+                    </button>
+                `;
+            } else {
+                authSection.innerHTML = `
+                    <button class="btn-icon" onclick="login()">
+                        <i class="material-icons">login</i> Entrar
+                    </button>
+                `;
+            }
+        }
+
+        async function login() {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                await auth.signInWithPopup(provider);
+            } catch (error) {
+                console.error('Erro no login:', error);
+                showAlert('Erro ao fazer login: ' + error.message, 'error');
+            }
+        }
+
+        async function logout() {
+            try {
+                await auth.signOut();
+                window.location.href = '/';
+            } catch (error) {
+                console.error('Erro no logout:', error);
+            }
+        }
+
+        // ============================================
+        // INICIALIZAÇÃO
+        // ============================================
+        
+        function setupEventListeners() {
+            elements.title.addEventListener('input', () => updateCharCount(elements.title, elements.titleCharCount, 200));
+            elements.description.addEventListener('input', () => updateCharCount(elements.description, elements.descCharCount, 300));
+            quill.on('text-change', updateContentStats);
+            elements.status.addEventListener('change', updateStatusBadge);
+            elements.cancelBtn.addEventListener('click', () => {
+                if (confirm('Tem certeza que deseja cancelar? As alterações não salvas serão perdidas.')) {
+                    window.location.href = '/articles.html';
+                }
+            });
+            elements.previewBtn.addEventListener('click', previewArticle);
+            elements.copyLinkBtn.addEventListener('click', copyLink);
+            elements.viewLinkBtn.addEventListener('click', viewLink);
+            document.getElementById('add-author-btn').addEventListener('click', () => createAuthorField(elements.authorsContainer));
+            document.getElementById('add-student-btn').addEventListener('click', () => createAuthorField(elements.studentsContainer, '', true));
+        }
+
+        // Inicialização principal
+        auth.onAuthStateChanged(async (user) => {
+            currentUser = user;
+            
+            if (user) {
+                isAdmin = await checkIsAdmin(user);
+                if (!isAdmin) {
+                    showAlert('Você não tem permissão para acessar esta página.', 'error');
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 2000);
+                    return;
+                }
+                
+                updateAuthUI();
+                
+                // Verificar se é edição
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get('id');
+                
+                if (id) {
+                    currentArticleId = id;
+                    await loadArticleData(id);
+                } else {
+                    // Adicionar um autor padrão
+                    createAuthorField(elements.authorsContainer);
+                    updateStatusBadge();
+                    showLoading(false);
+                }
+                
+                setupEventListeners();
+                elements.articleForm.addEventListener('submit', saveArticle);
+                
+            } else {
+                updateAuthUI();
+                showAlert('Faça login para acessar esta página.', 'warning');
+            }
+        });
+
+        window.login = login;
+        window.logout = logout;
+    </script>
+</body>
+</html>
