@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página não encontrada - Biblioteca Científica WZZM</title>
+    <meta name="description" content="Página não encontrada. O artigo ou recurso que você procura não está disponível. Volte para a biblioteca ou utilize a busca para encontrar o que precisa.">
+    <meta name="robots" content="noindex, follow">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://wiki.wazzimagiygg.com/Favicom.png" type="image/x-icon">
+    
+    <style>
+        :root {
+            --primary-color: #1a5f7a;
+            --primary-dark: #0d3b4f;
+            --secondary-color: #2c7da0;
+            --accent-color: #61a5c2;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --light-bg: #f8f9fa;
+            --border-color: #e0e0e0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        /* Header Científico */
+        .scientific-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scientific-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.08"><path fill="white" d="M20,50 L30,40 L40,50 L30,60 Z M60,30 L70,20 L80,30 L70,40 Z M50,70 L60,60 L70,70 L60,80 Z M30,80 L35,75 L40,80 L35,85 Z M70,55 L75,50 L80,55 L75,60 Z"/></svg>') repeat;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Roboto Slab', serif;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-title a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-title a:hover {
+            text-decoration: none;
+            opacity: 0.9;
+        }
+
+        /* Main Error Content */
+        .error-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 30px;
+        }
+
+        .error-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-header {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            padding: 50px 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .error-code {
+            font-size: 120px;
+            font-weight: 800;
+            font-family: 'Roboto Slab', serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+            margin-bottom: 20px;
+            letter-spacing: 8px;
+        }
+
+        .error-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .error-title {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'Roboto Slab', serif;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .error-message {
+            color: var(--text-light);
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Search Section */
+        .search-section {
+            padding: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-wrapper {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 95, 122, 0.1);
+        }
+
+        .search-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 32px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        /* Quick Links */
+        .quick-links-section {
+            padding: 30px 40px;
+            background: var(--light-bg);
+        }
+
+        .quick-links-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .quick-link-card {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .quick-link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .quick-link-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .quick-link-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .quick-link-info p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Popular Articles */
+        .popular-section {
+            padding: 30px 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Roboto Slab', serif;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .articles-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .popular-article {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+        .popular-article:hover {
+            background: var(--light-bg);
+        }
+
+        .article-number {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+            width: 35px;
+        }
+
+        .article-info h4 {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .article-info p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Action Buttons */
+        .actions-section {
+            padding: 30px 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 30px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Loading */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast Notification */
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            z-index: 1000;
+            animation: slideInBottom 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        @keyframes slideInBottom {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 80px;
+                letter-spacing: 4px;
+            }
+            
+            .error-header {
+                padding: 30px 20px;
+            }
+            
+            .search-section, .quick-links-section, 
+            .popular-section, .actions-section {
+                padding: 25px;
+            }
+            
+            .search-wrapper {
+                flex-direction: column;
+            }
+            
+            .search-btn {
+                padding: 12px;
+                justify-content: center;
+            }
+            
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-primary, .btn-secondary {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Científico -->
+    <div class="scientific-header">
+        <div class="header-container">
+            <div class="header-title">
+                <a href="/">
+                    <i class="material-icons" style="font-size: 32px;">menu_book</i>
+                    Biblioteca Científica WZZM
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Error Content -->
+    <div class="error-container">
+        <div class="error-card">
+            <div class="error-header">
+                <div class="error-icon">🔍</div>
+                <div class="error-code">404</div>
+                <h1 class="error-title">Página não encontrada</h1>
+                <p class="error-message">
+                    O artigo, documento ou recurso que você procura não está disponível.<br>
+                    Pode ter sido removido, renomeado ou está temporariamente indisponível.
+                </p>
+            </div>
+
+            <!-- Seção de Busca -->
+            <div class="search-section">
+                <div class="search-title">
+                    <i class="material-icons">search</i>
+                    Buscar na biblioteca
+                </div>
+                <div class="search-wrapper">
+                    <div class="search-input-wrapper">
+                        <input type="text" id="search-input" class="search-input" 
+                               placeholder="Pesquisar por título, autor, palavras-chave..." 
+                               autocomplete="off">
+                    </div>
+                    <button id="search-btn" class="search-btn">
+                        <i class="material-icons">search</i> Buscar
+                    </button>
+                </div>
+                <div id="search-loading" style="display: none; margin-top: 15px;">
+                    <span class="loading-spinner"></span> Buscando...
+                </div>
+                <div id="search-results" style="margin-top: 20px; display: none;"></div>
+            </div>
+
+            <!-- Links Rápidos -->
+            <div class="quick-links-section">
+                <div class="quick-links-title">
+                    <i class="material-icons">dashboard</i>
+                    Navegue rapidamente
+                </div>
+                <div class="links-grid">
+                    <a href="/" class="quick-link-card">
+                        <div class="quick-link-icon">
+                            <i class="material-icons">home</i>
+                        </div>
+                        <div class="quick-link-info">
+                            <h4>Página Inicial</h4>
+                            <p>Voltar para a biblioteca</p>
+                        </div>
+                    </a>
+                    <a href="/articles" class="quick-link-card">
+                        <div class="quick-link-icon">
+                            <i class="material-icons">article</i>
+                        </div>
+                        <div class="quick-link-info">
+                            <h4>Artigos Científicos</h4>
+                            <p>Últimas publicações</p>
+                        </div>
+                    </a>
+                    <a href="/about" class="quick-link-card">
+                        <div class="quick-link-icon">
+                            <i class="material-icons">info</i>
+                        </div>
+                        <div class="quick-link-info">
+                            <h4>Sobre a Biblioteca</h4>
+                            <p>Conheça nosso acervo</p>
+                        </div>
+                    </a>
+                    <a href="/contact" class="quick-link-card">
+                        <div class="quick-link-icon">
+                            <i class="material-icons">email</i>
+                        </div>
+                        <div class="quick-link-info">
+                            <h4>Contato</h4>
+                            <p>Suporte e dúvidas</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Artigos Populares -->
+            <div class="popular-section" id="popular-articles">
+                <div class="section-title">
+                    <i class="material-icons">trending_up</i>
+                    Artigos mais acessados
+                </div>
+                <div id="popular-list" class="articles-list">
+                    <div class="loading-spinner" style="margin: 20px auto;"></div>
+                    <p style="text-align: center; color: var(--text-light);">Carregando artigos populares...</p>
+                </div>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="actions-section">
+                <div class="action-buttons">
+                    <a href="/" class="btn-primary">
+                        <i class="material-icons">home</i> Ir para a página inicial
+                    </a>
+                    <a href="#" class="btn-secondary" onclick="window.history.back(); return false;">
+                        <i class="material-icons">arrow_back</i> Voltar para página anterior
+                    </a>
+                    <a href="/contact" class="btn-secondary">
+                        <i class="material-icons">help</i> Reportar problema
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Biblioteca Científica WZZM - Acesso livre ao conhecimento</p>
+        <p style="margin-top: 10px;">
+            <a href="/privacidade">Política de Privacidade</a> |
+            <a href="/termos">Termos de Uso</a> |
+            <a href="/contato">Contato</a>
+        </p>
+        <p style="margin-top: 10px;">© 2024 Biblioteca Científica WZZM - Todos os direitos reservados</p>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+
+    <script>
+        // ============================================
+        // CONFIGURAÇÃO FIREBASE
+        // ============================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyB9GkSqTIZ0kbVsba_WOdQeVAETrF9qna0",
+            authDomain: "wzzm-ce3fc.firebaseapp.com",
+            projectId: "wzzm-ce3fc",
+            storageBucket: "wzzm-ce3fc.appspot.com",
+            messagingSenderId: "249427877153",
+            appId: "1:249427877153:web:0e4297294794a5aadeb260",
+            measurementId: "G-PLKNZNFCQ8"
+        };
+
+        let app;
+        try {
+            app = firebase.app();
+        } catch (e) {
+            app = firebase.initializeApp(firebaseConfig);
+        }
+        
+        const firestore = firebase.firestore();
+        const auth = firebase.auth();
+
+        // ============================================
+        // VARIÁVEIS
+        // ============================================
+        let popularArticles = [];
+        let searchTimeout = null;
+        let currentUser = null;
+
+        // ============================================
+        // FUNÇÕES AUXILIARES
+        // ============================================
+        
+        function formatDate(date) {
+            if (!date) return 'Data desconhecida';
+            if (date.toDate) date = date.toDate();
+            return date.toLocaleDateString('pt-BR');
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function stripHtml(html) {
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+            return temp.textContent || temp.innerText || '';
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.innerHTML = `
+                <i class="material-icons" style="vertical-align: middle; margin-right: 8px;">
+                    ${type === 'success' ? 'check_circle' : type === 'error' ? 'error' : 'info'}
+                </i>
+                ${message}
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // ============================================
+        // CARREGAR ARTIGOS POPULARES
+        // ============================================
+        
+        async function loadPopularArticles() {
+            try {
+                const snapshot = await firestore.collection('articlesdoc')
+                    .where('status', '==', 'published')
+                    .orderBy('views', 'desc')
+                    .limit(5)
+                    .get();
+                
+                popularArticles = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    popularArticles.push({
+                        id: doc.id,
+                        title: data.title || 'Sem título',
+                        authors: data.authors || [],
+                        views: data.views || 0,
+                        uid: data.uid || doc.id
+                    });
+                });
+                
+                renderPopularArticles();
+                
+            } catch (error) {
+                console.error('Erro ao carregar artigos populares:', error);
+                document.getElementById('popular-list').innerHTML = `
+                    <div style="text-align: center; color: var(--text-light);">
+                        <i class="material-icons">error</i>
+                        <p>Erro ao carregar artigos populares</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function renderPopularArticles() {
+            const container = document.getElementById('popular-list');
+            
+            if (popularArticles.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; color: var(--text-light); padding: 20px;">
+                        <i class="material-icons">inbox</i>
+                        <p>Nenhum artigo disponível no momento</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = popularArticles.map((article, index) => `
+                <a href="/view-article.html?uid=${article.uid}" class="popular-article">
+                    <div class="article-number">${String(index + 1).padStart(2, '0')}</div>
+                    <div class="article-info">
+                        <h4>${escapeHtml(article.title)}</h4>
+                        <p>${article.authors.slice(0, 3).join('; ') || 'Autor não informado'} • ${article.views} visualizações</p>
+                    </div>
+                    <i class="material-icons" style="margin-left: auto; color: var(--text-light);">chevron_right</i>
+                </a>
+            `).join('');
+        }
+
+        // ============================================
+        // FUNÇÃO DE BUSCA
+        // ============================================
+        
+        async function performSearch() {
+            const searchTerm = document.getElementById('search-input').value.trim();
+            const resultsDiv = document.getElementById('search-results');
+            const loadingDiv = document.getElementById('search-loading');
+            
+            if (!searchTerm) {
+                resultsDiv.style.display = 'none';
+                return;
+            }
+            
+            loadingDiv.style.display = 'block';
+            resultsDiv.style.display = 'none';
+            
+            try {
+                const snapshot = await firestore.collection('articlesdoc')
+                    .where('status', '==', 'published')
+                    .limit(5)
+                    .get();
+                
+                const results = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const title = data.title || '';
+                    const description = data.description || '';
+                    const authors = (data.authors || []).join(' ');
+                    const content = stripHtml(data.formattedContent || '');
+                    
+                    if (title.toLowerCase().includes(searchTerm) ||
+                        description.toLowerCase().includes(searchTerm) ||
+                        authors.toLowerCase().includes(searchTerm) ||
+                        content.toLowerCase().includes(searchTerm)) {
+                        results.push({
+                            id: doc.id,
+                            title: title,
+                            authors: data.authors || [],
+                            uid: data.uid || doc.id
+                        });
+                    }
+                });
+                
+                if (results.length === 0) {
+                    resultsDiv.innerHTML = `
+                        <div style="text-align: center; padding: 30px; color: var(--text-light);">
+                            <i class="material-icons" style="font-size: 48px;">search_off</i>
+                            <p>Nenhum artigo encontrado para "<strong>${escapeHtml(searchTerm)}</strong>"</p>
+                            <p style="font-size: 14px; margin-top: 10px;">Tente usar outros termos ou navegue pelos links rápidos acima.</p>
+                        </div>
+                    `;
+                } else {
+                    resultsDiv.innerHTML = `
+                        <div style="border-top: 1px solid var(--border-color); padding-top: 15px;">
+                            <p style="margin-bottom: 15px; color: var(--text-light);">
+                                <strong>${results.length}</strong> resultado(s) encontrado(s) para "<strong>${escapeHtml(searchTerm)}</strong>"
+                            </p>
+                            ${results.map(article => `
+                                <a href="/view-article.html?uid=${article.uid}" style="text-decoration: none; display: block; margin-bottom: 15px;">
+                                    <div style="padding: 12px; background: var(--light-bg); border-radius: 10px; transition: all 0.2s;">
+                                        <h4 style="color: var(--primary-color); margin-bottom: 5px;">${escapeHtml(article.title)}</h4>
+                                        <p style="font-size: 12px; color: var(--text-light);">${article.authors.slice(0, 3).join('; ') || 'Autor não informado'}</p>
+                                    </div>
+                                </a>
+                            `).join('')}
+                            <div style="text-align: center; margin-top: 15px;">
+                                <a href="/articles?search=${encodeURIComponent(searchTerm)}" class="btn-secondary" style="display: inline-flex; padding: 8px 20px;">
+                                    Ver todos os resultados <i class="material-icons" style="font-size: 18px;">arrow_forward</i>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                resultsDiv.style.display = 'block';
+                
+            } catch (error) {
+                console.error('Erro na busca:', error);
+                resultsDiv.innerHTML = `
+                    <div style="text-align: center; padding: 30px; color: var(--text-light);">
+                        <i class="material-icons">error</i>
+                        <p>Erro ao realizar a busca. Tente novamente.</p>
+                    </div>
+                `;
+                resultsDiv.style.display = 'block';
+            } finally {
+                loadingDiv.style.display = 'none';
+            }
+        }
+
+        // ============================================
+        // INICIALIZAÇÃO E EVENTOS
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPopularArticles();
+            
+            // Busca com debounce
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+            
+            searchInput.addEventListener('input', () => {
+                if (searchTimeout) clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    performSearch();
+                }, 500);
+            });
+            
+            searchBtn.addEventListener('click', performSearch);
+            
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Registrar erro 404
+            console.log('📄 Página 404 acessada:', window.location.pathname);
+            
+            // Se tiver analytics, registrar
+            if (typeof gtag === 'function') {
+                gtag('event', '404_error', {
+                    'page_path': window.location.pathname,
+                    'page_title': '404 - Página não encontrada'
+                });
+            }
+        });
+
+        // Autenticação (opcional - para verificar se usuário é admin)
+        auth.onAuthStateChanged(async (user) => {
+            currentUser = user;
+            if (user) {
+                // Verificar se é admin (opcional)
+                try {
+                    const userDoc = await firestore.collection('users').doc(user.uid).get();
+                    if (userDoc.exists && userDoc.data().isAdmin === true) {
+                        // Adicionar link admin se necessário
+                        const actionsSection = document.querySelector('.actions-section .action-buttons');
+                        if (actionsSection) {
+                            const adminLink = document.createElement('a');
+                            adminLink.href = '/admin';
+                            adminLink.className = 'btn-secondary';
+                            adminLink.innerHTML = '<i class="material-icons">admin_panel_settings</i> Painel Admin';
+                            actionsSection.appendChild(adminLink);
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Erro ao verificar admin:', e);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
