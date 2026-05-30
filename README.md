@@ -1,2 +1,0 @@
-# Academico
-Template Acadêmico
