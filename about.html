@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade - LGPD e Marco Civil | WZZM</title>
+    <meta name="description" content="Política de Privacidade em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei 13.709/2018) e o Marco Civil da Internet (Lei 12.965/2014).">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a5f7a;
+            --primary-dark: #0d3b4f;
+            --secondary-color: #2c7da0;
+            --accent-color: #61a5c2;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --light-bg: #f8f9fa;
+            --border-color: #e0e0e0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .scientific-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 25px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Roboto Slab', serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-title a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-icon {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .btn-icon:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Hero */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .hero-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: 36px;
+            font-weight: 700;
+            font-family: 'Roboto Slab', serif;
+            margin-bottom: 15px;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 30px;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Roboto Slab', serif;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+        }
+
+        .card-subtitle {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 25px 0 15px 0;
+            color: var(--primary-color);
+        }
+
+        .card-text {
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .highlight-box {
+            background: #e8f0fe;
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .rights-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .rights-table th, .rights-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        .rights-table th {
+            background: var(--light-bg);
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .badge-lgpd {
+            background: #1a5f7a;
+            color: white;
+        }
+
+        .badge-marco {
+            background: #2c7da0;
+            color: white;
+        }
+
+        .footer {
+            background: var(--primary-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 30px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .content-card {
+                padding: 25px;
+            }
+            .hero-title {
+                font-size: 28px;
+            }
+            .rights-table {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scientific-header">
+        <div class="header-container">
+            <div class="header-title">
+                <a href="/">
+                    <i class="material-icons">menu_book</i>
+                    Biblioteca Científica WZZM
+                </a>
+            </div>
+            <div class="header-actions">
+                <a href="/" class="btn-icon"><i class="material-icons">home</i> Início</a>
+                <a href="/articles.html" class="btn-icon"><i class="material-icons">article</i> Artigos</a>
+                <a href="/about.html" class="btn-icon"><i class="material-icons">info</i> Sobre</a>
+                <div id="auth-section"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-section">
+        <div class="hero-container">
+            <div class="hero-icon">🔒</div>
+            <h1 class="hero-title">Política de Privacidade</h1>
+            <p class="hero-subtitle">Em conformidade com a LGPD (Lei 13.709/2018) e o Marco Civil da Internet (Lei 12.965/2014)</p>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Resumo das Leis -->
+        <div class="content-card">
+            <h2 class="card-title">📋 Visão Geral</h2>
+            <p class="card-text">A Biblioteca Científica WZZM está comprometida com a proteção da sua privacidade e com a transparência no tratamento dos seus dados pessoais. Esta Política de Privacidade descreve como coletamos, usamos, armazenamos e protegemos suas informações, em conformidade com a <strong>Lei Geral de Proteção de Dados (LGPD - Lei 13.709/2018)</strong> e o <strong>Marco Civil da Internet (Lei 12.965/2014)</strong>.</p>
+            
+            <div class="highlight-box">
+                <p><strong>📌 Última atualização:</strong> 30 de maio de 2026</p>
+                <p><strong>📌 Versão:</strong> 2.0</p>
+                <p><strong>📌 Encarregado (DPO):</strong> <a href="mailto:wazzimagiygg@gmail.com">wazzimagiygg@gmail.com</a></p>
+            </div>
+        </div>
+
+        <!-- LGPD Section -->
+        <div class="content-card">
+            <h2 class="card-title">🔒 Lei Geral de Proteção de Dados (LGPD)</h2>
+            
+            <h3 class="card-subtitle">1. Quais dados coletamos?</h3>
+            <ul>
+                <li><strong>Dados de identificação:</strong> Nome, e-mail (fornecidos via autenticação Google)</li>
+                <li><strong>UID (Identificador único):</strong> Para identificação segura do usuário</li>
+                <li><strong>Conteúdo criado:</strong> Artigos, comentários e contribuições</li>
+                <li><strong>Dados de navegação:</strong> Endereço de IP, user agent, páginas acessadas</li>
+                <li><strong>Histórico de interações:</strong> Data de acesso, visualizações de artigos</li>
+            </ul>
+
+            <h3 class="card-subtitle">2. Bases Legais para Tratamento (Art. 7º)</h3>
+            <table class="rights-table">
+                <thead><tr><th>Base Legal</th><th>Aplicação</th></tr></thead>
+                <tbody>
+                    <tr><td>Consentimento (Art. 7º, I)</td><td>Aceite dos termos e políticas</td></tr>
+                    <tr><td>Execução de contrato (Art. 7º, V)</td><td>Prestação dos serviços da biblioteca</td></tr>
+                    <tr><td>Interesse legítimo (Art. 7º, IX)</td><td>Melhorias de segurança e experiência</td></tr>
+                    <tr><td>Cumprimento de obrigação legal (Art. 7º, II)</td><td>Manutenção de registros conforme lei</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="card-subtitle">3. Seus Direitos como Titular (Arts. 18-22)</h3>
+            <div class="success-box">
+                <ul>
+                    <li>✅ <strong>Confirmação de tratamento:</strong> Saber se seus dados são processados</li>
+                    <li>✅ <strong>Acesso aos dados:</strong> Visualizar todas as informações armazenadas</li>
+                    <li>✅ <strong>Correção de dados:</strong> Retificar informações incompletas ou erradas</li>
+                    <li>✅ <strong>Portabilidade:</strong> Exportar seus dados em formato estruturado</li>
+                    <li>✅ <strong>Eliminação (Direito ao esquecimento):</strong> Solicitar exclusão permanente</li>
+                    <li>✅ <strong>Revogação de consentimento:</strong> Retirar autorização a qualquer momento</li>
+                </ul>
+            </div>
+
+            <h3 class="card-subtitle">4. Prazo de Retenção (Art. 19)</h3>
+            <p>Seus dados serão mantidos enquanto sua conta estiver ativa. Após solicitação de exclusão, os dados serão anonimizados em até <strong>30 dias</strong>. Registros de auditoria podem ser mantidos por até 6 meses para fins legais.</p>
+
+            <h3 class="card-subtitle">5. Compartilhamento de Dados (Art. 7º)</h3>
+            <p>Seus dados podem ser compartilhados com:</p>
+            <ul>
+                <li><strong>Google (Firebase):</strong> Armazenamento e autenticação - <a href="https://policies.google.com/privacy" target="_blank">Política de Privacidade do Google</a></li>
+                <li><strong>GitHub (Pages):</strong> Hospedagem do site - <a href="https://docs.github.com/pt/site-policy/privacy-policies/github-privacy-statement" target="_blank">Política de Privacidade do GitHub</a></li>
+            </ul>
+        </div>
+
+        <!-- Marco Civil Section -->
+        <div class="content-card">
+            <h2 class="card-title">⚖️ Marco Civil da Internet (Lei 12.965/2014)</h2>
+            
+            <h3 class="card-subtitle">1. Princípios Fundamentais (Art. 2º e 3º)</h3>
+            <ul>
+                <li><strong>Liberdade de expressão:</strong> Respeito à manifestação do pensamento</li>
+                <li><strong>Proteção à privacidade:</strong> Dados pessoais tratados com sigilo</li>
+                <li><strong>Neutralidade de rede:</strong> Tratamento isonômico dos pacotes de dados</li>
+                <li><strong>Estabilidade e segurança:</strong> Infraestrutura robusta e protegida</li>
+            </ul>
+
+            <h3 class="card-subtitle">2. Direitos dos Usuários (Art. 7º)</h3>
+            <ul>
+                <li><strong>Inviolabilidade da privacidade:</strong> Comunicações protegidas</li>
+                <li><strong>Integridade dos dados:</strong> Dados armazenados com segurança</li>
+                <li><strong>Informação clara:</strong> Termos de uso transparentes</li>
+                <li><strong>Não suspensão arbitrária:</strong> Apenas por justa causa</li>
+            </ul>
+
+            <h3 class="card-subtitle">3. Guarda de Registros (Art. 10 e 15)</h3>
+            <p>Mantemos registros de acesso e logs de atividades pelo período mínimo exigido por lei, garantindo rastreabilidade e segurança. Os dados são armazenados em servidores seguros com criptografia.</p>
+
+            <h3 class="card-subtitle">4. Responsabilidade (Art. 18 e 19)</h3>
+            <p>A plataforma remove conteúdo mediante notificação válida, conforme previsto no Marco Civil. Não nos responsabilizamos por conteúdos publicados por terceiros, mas atuamos prontamente para remoção quando notificados.</p>
+        </div>
+
+        <!-- Como Exercer Seus Direitos -->
+        <div class="content-card">
+            <h2 class="card-title">📞 Como Exercer Seus Direitos</h2>
+            
+            <table class="rights-table">
+                <thead><tr><th>Direito</th><th>Como exercer</th><th>Prazo</th></tr></thead>
+                <tbody>
+                    <tr><td>🔍 Acessar dados</td><td>Área "Meus Dados" no menu</td><td>Imediato</td></tr>
+                    <tr><td>📥 Portabilidade</td><td>Botão "Exportar Dados"</td><td>Imediato</td></tr>
+                    <tr><td>🗑️ Exclusão (Esquecimento)</td><td>Solicitar via ticket ou formulário</td><td>Até 30 dias</td></tr>
+                    <tr><td>✏️ Correção</td><td>Contatar o DPO via e-mail</td><td>Até 15 dias</td></tr>
+                    <tr><td>🔄 Revogar consentimento</td><td>Botão "Revogar Consentimento"</td><td>Imediato</td></tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box">
+                <h4>📧 Encarregado de Proteção de Dados (DPO)</h4>
+                <p><strong>Nome:</strong> Encarregado WZZM<br>
+                <strong>E-mail:</strong> <a href="mailto:wazzimagiygg@gmail.com">wazzimagiygg@gmail.com</a><br>
+                <strong>Assuntos:</strong> LGPD, privacidade, direitos do titular, solicitações de dados</p>
+            </div>
+        </div>
+
+        <!-- Cookies e Segurança -->
+        <div class="content-card">
+            <h2 class="card-title">🍪 Cookies e Tecnologias</h2>
+            <p>Utilizamos cookies essenciais para o funcionamento da plataforma, como autenticação e preferências de idioma. Não utilizamos cookies de rastreamento para publicidade comportamental.</p>
+            
+            <h3 class="card-subtitle">Segurança</h3>
+            <p>Adotamos medidas de segurança técnicas e organizacionais para proteger seus dados, incluindo:</p>
+            <ul>
+                <li>Criptografia em trânsito (TLS/SSL)</li>
+                <li>Criptografia em repouso (Firebase)</li>
+                <li>Controle de acesso baseado em função (RBAC)</li>
+                <li>Logs de auditoria completos</li>
+            </ul>
+        </div>
+
+        <!-- Atualizações -->
+        <div class="content-card">
+            <h2 class="card-title">🔄 Atualizações desta Política</h2>
+            <p>Esta política pode ser atualizada periodicamente. Recomendamos revisar esta página regularmente. Em caso de alterações significativas, os usuários serão notificados via e-mail ou através da plataforma.</p>
+            <p><strong>Versões anteriores:</strong></p>
+            <ul>
+                <li>Versão 1.0 - 19 de maio de 2026 (Implementação inicial)</li>
+                <li>Versão 2.0 - 30 de maio de 2026 (Atualização para conformidade total com LGPD)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Biblioteca Científica WZZM - Acesso livre ao conhecimento</p>
+        <p>
+            <a href="/privacidade.html">Política de Privacidade (LGPD)</a> |
+            <a href="/termos.html">Termos de Uso</a> |
+            <a href="/about.html">Sobre</a>
+        </p>
+        <p>© 2024 Biblioteca Científica WZZM - Em conformidade com a Lei 13.709/2018 (LGPD) e Lei 12.965/2014 (Marco Civil da Internet)</p>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyB9GkSqTIZ0kbVsba_WOdQeVAETrF9qna0",
+            authDomain: "wzzm-ce3fc.firebaseapp.com",
+            projectId: "wzzm-ce3fc",
+            storageBucket: "wzzm-ce3fc.appspot.com",
+            messagingSenderId: "249427877153",
+            appId: "1:249427877153:web:0e4297294794a5aadeb260"
+        };
+
+        let app;
+        try {
+            app = firebase.app();
+        } catch (e) {
+            app = firebase.initializeApp(firebaseConfig);
+        }
+
+        const auth = firebase.auth();
+        let currentUser = null;
+
+        function updateAuthUI() {
+            const authSection = document.getElementById('auth-section');
+            if (!authSection) return;
+            
+            if (currentUser) {
+                authSection.innerHTML = `
+                    <div class="btn-icon" style="background: rgba(255,255,255,0.15);">
+                        <i class="material-icons">account_circle</i>
+                        ${currentUser.displayName?.split(' ')[0] || 'Usuário'}
+                    </div>
+                    <button class="btn-icon" onclick="logout()">
+                        <i class="material-icons">logout</i> Sair
+                    </button>
+                `;
+            } else {
+                authSection.innerHTML = `
+                    <button class="btn-icon" onclick="login()">
+                        <i class="material-icons">login</i> Entrar
+                    </button>
+                `;
+            }
+        }
+
+        async function login() {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                await auth.signInWithPopup(provider);
+            } catch (error) {
+                console.error('Erro no login:', error);
+            }
+        }
+
+        async function logout() {
+            try {
+                await auth.signOut();
+                window.location.reload();
+            } catch (error) {
+                console.error('Erro no logout:', error);
+            }
+        }
+
+        auth.onAuthStateChanged((user) => {
+            currentUser = user;
+            updateAuthUI();
+        });
+
+        window.login = login;
+        window.logout = logout;
+    </script>
+</body>
+</html>
