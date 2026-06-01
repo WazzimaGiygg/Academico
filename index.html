@@ -1218,38 +1218,56 @@
             modal.style.display = 'flex';
         }
         
-        function showCitation(articleId) {
-            const article = allArticles.find(a => a.id === articleId);
-            if (!article) return;
-            
-            const modal = document.getElementById('citation-modal');
-            const content = document.getElementById('citation-content');
-            
-            let citation = article.citation;
-            if (!citation) {
-                // Gerar citação automática
-                const authors = article.authors.join(', ');
-                const year = article.createdAt ? article.createdAt.getFullYear() : new Date().getFullYear();
-                citation = `${authors}. ${article.title}. WZZM Academic. ${year}. Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}. Acesso em: ${new Date().toLocaleDateString('pt-BR')}.`;
+       function showCitation(articleId) {
+    const article = allArticles.find(a => a.id === articleId);
+    if (!article) return;
+    
+    const modal = document.getElementById('citation-modal');
+    const content = document.getElementById('citation-content');
+    
+    let citation = article.citation;
+    if (!citation) {
+        // Gerar citação automática
+        const authors = article.authors.join(', ');
+        
+        // CORREÇÃO: Verificar se createdAt é um objeto Date válido
+        let year = new Date().getFullYear();
+        if (article.createdAt) {
+            if (article.createdAt.toDate) {
+                // É um timestamp do Firestore
+                year = article.createdAt.toDate().getFullYear();
+            } else if (article.createdAt.getFullYear) {
+                // Já é um objeto Date
+                year = article.createdAt.getFullYear();
+            } else if (typeof article.createdAt === 'string') {
+                // É uma string
+                year = new Date(article.createdAt).getFullYear();
+            } else if (article.createdAt.seconds) {
+                // É um timestamp do Firestore em formato raw
+                year = new Date(article.createdAt.seconds * 1000).getFullYear();
             }
-            
-            content.innerHTML = `
-                <div class="citation-box">
-                    <strong>ABNT:</strong><br>
-                    ${escapeHtml(citation)}
-                </div>
-                <div class="citation-box" style="margin-top: 15px;">
-                    <strong>APA (7ª edição):</strong><br>
-                    ${escapeHtml(citation.replace(/\. /g, '. ').replace(/, /g, ', '))}
-                </div>
-                <div class="citation-box" style="margin-top: 15px;">
-                    <strong>Vancouver:</strong><br>
-                    ${escapeHtml(article.authors.join(', '))}. ${article.title}. WZZM Academic. ${article.createdAt ? article.createdAt.getFullYear() : new Date().getFullYear()}; Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}.
-                </div>
-            `;
-            
-            modal.style.display = 'flex';
         }
+        
+        citation = `${authors}. ${article.title}. WZZM Academic. ${year}. Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}. Acesso em: ${new Date().toLocaleDateString('pt-BR')}.`;
+    }
+    
+    content.innerHTML = `
+        <div class="citation-box">
+            <strong>ABNT:</strong><br>
+            ${escapeHtml(citation)}
+        </div>
+        <div class="citation-box" style="margin-top: 15px;">
+            <strong>APA (7ª edição):</strong><br>
+            ${escapeHtml(citation.replace(/\. /g, '. ').replace(/, /g, ', '))}
+        </div>
+        <div class="citation-box" style="margin-top: 15px;">
+            <strong>Vancouver:</strong><br>
+            ${escapeHtml(article.authors.join(', '))}. ${article.title}. WZZM Academic. ${year}; Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}.
+        </div>
+    `;
+    
+    modal.style.display = 'flex';
+}
         
         let currentCitationText = '';
         
