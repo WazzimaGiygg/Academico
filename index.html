@@ -736,7 +736,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3><i class="material-icons">format_quote</i> Como Citar este Artigo</h3>
-                <span class="close-modal" onclick="closeModal()">&times;</span>
+                <span class="close-modal" onclick="closeModal('citation-modal')">&times;</span>
             </div>
             <div class="modal-body">
                 <div id="citation-content"></div>
@@ -799,13 +799,55 @@
         const ADMIN_UIDS = ['sZxfMuOBPbXdR8nttVPXIN8QOOl1', '6aPqWVh8JVYL5NqEb78iDGPD7dH3'];
 
         // ============================================
-        // FUNÇÕES AUXILIARES
+        // FUNÇÕES AUXILIARES DE DATA (CORRIGIDAS)
         // ============================================
         
+        // Função para converter qualquer formato de data para objeto Date
+        function safeToDate(dateValue) {
+            if (!dateValue) return null;
+            
+            // Se já é um objeto Date válido
+            if (dateValue instanceof Date && !isNaN(dateValue)) {
+                return dateValue;
+            }
+            
+            // Se é um timestamp do Firestore com método toDate()
+            if (dateValue.toDate && typeof dateValue.toDate === 'function') {
+                return dateValue.toDate();
+            }
+            
+            // Se é um timestamp do Firestore com segundos
+            if (dateValue.seconds && typeof dateValue.seconds === 'number') {
+                return new Date(dateValue.seconds * 1000);
+            }
+            
+            // Se é uma string ISO
+            if (typeof dateValue === 'string') {
+                const date = new Date(dateValue);
+                if (!isNaN(date)) return date;
+            }
+            
+            // Se é um número (timestamp Unix)
+            if (typeof dateValue === 'number') {
+                const date = new Date(dateValue);
+                if (!isNaN(date)) return date;
+            }
+            
+            return null;
+        }
+
         function formatDate(date) {
             if (!date) return 'Data desconhecida';
-            if (date.toDate) date = date.toDate();
-            return date.toLocaleDateString('pt-BR');
+            const validDate = safeToDate(date);
+            if (!validDate) return 'Data inválida';
+            return validDate.toLocaleDateString('pt-BR');
+        }
+
+        // Função segura para obter o ano
+        function getSafeYear(date) {
+            const validDate = safeToDate(date);
+            if (!validDate) return new Date().getFullYear();
+            return validDate.getFullYear();
         }
 
         function getTypeLabel(type) {
@@ -873,6 +915,21 @@
                     // Contar visualizações
                     totalViews += (data.views || 0);
                     
+                    // Converter datas de forma segura
+                    let createdAt = null;
+                    if (data.createdAt) {
+                        createdAt = safeToDate(data.createdAt);
+                    } else if (data.timestamp) {
+                        createdAt = safeToDate(data.timestamp);
+                    }
+                    
+                    let lastModified = null;
+                    if (data.lastModified) {
+                        lastModified = safeToDate(data.lastModified);
+                    } else if (data.timestamp) {
+                        lastModified = safeToDate(data.timestamp);
+                    }
+                    
                     allArticles.push({
                         id: doc.id,
                         title: data.title || 'Sem título',
@@ -887,8 +944,8 @@
                         views: data.views || 0,
                         shares: data.shares || 0,
                         citation: data.citation || '',
-                        createdAt: data.createdAt || data.timestamp?.toDate() || null,
-                        lastModified: data.lastModified?.toDate() || null,
+                        createdAt: createdAt,
+                        lastModified: lastModified,
                         sources: data.sources || []
                     });
                 }
@@ -996,13 +1053,13 @@
                 // Filtro de idioma
                 if (languageFilter !== 'all' && article.language !== languageFilter) return false;
                 
-                // Filtro de ano
+                // Filtro de ano - USANDO FUNÇÃO SEGURA
                 if (yearStart && article.createdAt) {
-                    const year = article.createdAt.getFullYear();
+                    const year = getSafeYear(article.createdAt);
                     if (year < parseInt(yearStart)) return false;
                 }
                 if (yearEnd && article.createdAt) {
-                    const year = article.createdAt.getFullYear();
+                    const year = getSafeYear(article.createdAt);
                     if (year > parseInt(yearEnd)) return false;
                 }
                 
@@ -1027,9 +1084,9 @@
             
             // Ordenação
             if (sortBy === 'recent') {
-                filteredArticles.sort((a, b) => (b.lastModified || 0) - (a.lastModified || 0));
+                filteredArticles.sort((a, b) => (b.lastModified?.getTime() || 0) - (a.lastModified?.getTime() || 0));
             } else if (sortBy === 'oldest') {
-                filteredArticles.sort((a, b) => (a.lastModified || 0) - (b.lastModified || 0));
+                filteredArticles.sort((a, b) => (a.lastModified?.getTime() || 0) - (b.lastModified?.getTime() || 0));
             } else if (sortBy === 'title') {
                 filteredArticles.sort((a, b) => a.title.localeCompare(b.title));
             } else if (sortBy === 'views') {
@@ -1176,7 +1233,7 @@
                 console.warn('Erro ao incrementar visualizações:', e);
             }
             
-            // Abrir em nova aba ou modal
+            // Abrir em nova aba
             window.open(`view-article.html?uid=${article.uid}`, '_blank');
         }
         
@@ -1218,58 +1275,48 @@
             modal.style.display = 'flex';
         }
         
-       function showCitation(articleId) {
-    const article = allArticles.find(a => a.id === articleId);
-    if (!article) return;
-    
-    const modal = document.getElementById('citation-modal');
-    const content = document.getElementById('citation-content');
-    
-    let citation = article.citation;
-    if (!citation) {
-        // Gerar citação automática
-        const authors = article.authors.join(', ');
+        // ============================================
+        // FUNÇÃO DE CITAÇÃO CORRIGIDA
+        // ============================================
         
-        // CORREÇÃO: Verificar se createdAt é um objeto Date válido
-        let year = new Date().getFullYear();
-        if (article.createdAt) {
-            if (article.createdAt.toDate) {
-                // É um timestamp do Firestore
-                year = article.createdAt.toDate().getFullYear();
-            } else if (article.createdAt.getFullYear) {
-                // Já é um objeto Date
-                year = article.createdAt.getFullYear();
-            } else if (typeof article.createdAt === 'string') {
-                // É uma string
-                year = new Date(article.createdAt).getFullYear();
-            } else if (article.createdAt.seconds) {
-                // É um timestamp do Firestore em formato raw
-                year = new Date(article.createdAt.seconds * 1000).getFullYear();
+        function showCitation(articleId) {
+            const article = allArticles.find(a => a.id === articleId);
+            if (!article) return;
+            
+            const modal = document.getElementById('citation-modal');
+            const content = document.getElementById('citation-content');
+            
+            let citation = article.citation;
+            if (!citation || citation === '') {
+                // Gerar citação automática
+                const authors = article.authors.length > 0 ? article.authors.join(', ') : 'Autor desconhecido';
+                
+                // CORREÇÃO: Usar a função segura para obter o ano
+                const year = getSafeYear(article.createdAt);
+                
+                citation = `${authors}. ${article.title}. WZZM Academic. ${year}. Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}. Acesso em: ${new Date().toLocaleDateString('pt-BR')}.`;
             }
+            
+            // Obter o ano novamente para as outras citações (caso não tenha sido definido no escopo)
+            const citationYear = getSafeYear(article.createdAt);
+            
+            content.innerHTML = `
+                <div class="citation-box">
+                    <strong>ABNT:</strong><br>
+                    ${escapeHtml(citation)}
+                </div>
+                <div class="citation-box" style="margin-top: 15px;">
+                    <strong>APA (7ª edição):</strong><br>
+                    ${escapeHtml(article.authors.join(', '))}. (${citationYear}). ${article.title}. <em>WZZM Academic</em>. Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}
+                </div>
+                <div class="citation-box" style="margin-top: 15px;">
+                    <strong>Vancouver:</strong><br>
+                    ${escapeHtml(article.authors.join(', '))}. ${article.title}. WZZM Academic. ${citationYear}; Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}.
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
         }
-        
-        citation = `${authors}. ${article.title}. WZZM Academic. ${year}. Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}. Acesso em: ${new Date().toLocaleDateString('pt-BR')}.`;
-    }
-    
-    content.innerHTML = `
-        <div class="citation-box">
-            <strong>ABNT:</strong><br>
-            ${escapeHtml(citation)}
-        </div>
-        <div class="citation-box" style="margin-top: 15px;">
-            <strong>APA (7ª edição):</strong><br>
-            ${escapeHtml(citation.replace(/\. /g, '. ').replace(/, /g, ', '))}
-        </div>
-        <div class="citation-box" style="margin-top: 15px;">
-            <strong>Vancouver:</strong><br>
-            ${escapeHtml(article.authors.join(', '))}. ${article.title}. WZZM Academic. ${year}; Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}.
-        </div>
-    `;
-    
-    modal.style.display = 'flex';
-}
-        
-        let currentCitationText = '';
         
         function copyCitation() {
             const citationText = document.querySelector('#citation-content .citation-box:first-child')?.innerText || '';
@@ -1282,7 +1329,7 @@
             }
         }
         
-        function closeModal(modalId = 'citation-modal') {
+        function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
         }
         
