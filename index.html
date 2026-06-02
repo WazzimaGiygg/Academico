@@ -63,6 +63,25 @@
             z-index: 1;
         }
 
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo-img {
+            height: 70px;
+            width: auto;
+            border-radius: 12px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
         .header-title {
             font-size: 2.2rem;
             font-weight: 700;
@@ -558,6 +577,12 @@
                 padding: 12px;
                 justify-content: center;
             }
+            .logo-img {
+                height: 50px;
+            }
+            .header-title {
+                font-size: 1.5rem;
+            }
         }
 
         /* Toolbar */
@@ -596,15 +621,23 @@
     </style>
 </head>
 <body>
-    <!-- Header Científico -->
+    <!-- Header Científico com Logotipo -->
     <div class="scientific-header">
         <div class="header-container">
-            <div class="header-title">
-                <i class="material-icons" style="font-size: 36px; vertical-align: middle;">menu_book</i>
-                Biblioteca Científica WazzimaGiygg
-            </div>
-            <div class="header-subtitle">
-                Artigos científicos, revisões, monografias e mais - Acesso livre e gratuito
+            <div class="header-logo">
+                <img src="https://academico.wazzimagiygg.com/Favicom.png" 
+                     alt="Logo WazzimaGiygg Academico" 
+                     class="logo-img"
+                     onerror="this.style.display='none'">
+                <div>
+                    <div class="header-title">
+                        <i class="material-icons" style="font-size: 36px; vertical-align: middle;">menu_book</i>
+                        Biblioteca Científica WazzimaGiygg
+                    </div>
+                    <div class="header-subtitle">
+                        Artigos científicos, revisões, monografias e mais - Acesso livre e gratuito
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1297,7 +1330,7 @@
                 citation = `${authors}. ${article.title}. WZZM Academic. ${year}. Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}. Acesso em: ${new Date().toLocaleDateString('pt-BR')}.`;
             }
             
-            // Obter o ano novamente para as outras citações (caso não tenha sido definido no escopo)
+            // Obter o ano novamente para as outras citações
             const citationYear = getSafeYear(article.createdAt);
             
             content.innerHTML = `
