@@ -24,6 +24,8 @@
             --danger-color: #dc3545;
             --success-color: #28a745;
             --warning-color: #ffc107;
+            --google-color: #4285f4;
+            --google-hover: #357ae8;
         }
 
         * {
@@ -160,6 +162,13 @@
             justify-content: center;
             font-weight: 700;
             font-size: 16px;
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* Stats Bar */
@@ -247,11 +256,13 @@
             color: var(--primary-color);
             margin-bottom: 8px;
             font-size: 24px;
+            text-align: center;
         }
 
         .login-box .subtitle {
             color: var(--text-light);
             font-size: 14px;
+            text-align: center;
             margin-bottom: 25px;
         }
 
@@ -271,88 +282,75 @@
             color: var(--text-dark);
         }
 
-        .form-group {
+        .login-logo {
+            text-align: center;
             margin-bottom: 20px;
         }
 
-        .form-group label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 6px;
-            font-size: 14px;
-            color: var(--text-dark);
+        .login-logo img {
+            height: 60px;
+            width: auto;
         }
 
-        .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(26, 95, 122, 0.1);
-        }
-
-        .form-group input.error {
-            border-color: var(--danger-color);
-        }
-
-        .form-group .error-message {
-            color: var(--danger-color);
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
-        }
-
-        .form-group .error-message.show {
-            display: block;
-        }
-
-        .login-btn {
+        .btn-google {
             width: 100%;
             padding: 14px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
+            background: white;
+            color: #333;
+            border: 2px solid #ddd;
             border-radius: 10px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-family: inherit;
         }
 
-        .login-btn:hover {
-            background: var(--primary-dark);
+        .btn-google:hover {
+            background: #f8f9fa;
+            border-color: var(--google-color);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
         }
 
-        .login-btn:disabled {
+        .btn-google:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
-        .login-footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 13px;
+        .btn-google img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
             color: var(--text-light);
+            font-size: 13px;
         }
 
-        .login-footer a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
         }
 
-        .login-footer a:hover {
-            text-decoration: underline;
+        .login-divider::before {
+            margin-right: 15px;
+        }
+
+        .login-divider::after {
+            margin-left: 15px;
         }
 
         /* Alertas */
@@ -919,7 +917,9 @@
                 <div class="header-actions">
                     <div id="user-info" style="display: none;">
                         <div class="user-info">
-                            <div class="user-avatar" id="user-avatar">U</div>
+                            <div class="user-avatar" id="user-avatar">
+                                <span id="avatar-text">U</span>
+                            </div>
                             <span id="user-name">Usuário</span>
                         </div>
                     </div>
@@ -968,32 +968,31 @@
         </div>
     </div>
 
-    <!-- Modal de Login -->
+    <!-- Modal de Login com Google -->
     <div class="login-modal" id="login-modal">
         <div class="login-box">
             <button class="close-btn" onclick="closeLoginModal()">&times;</button>
-            <h2><i class="material-icons" style="font-size: 28px; vertical-align: middle;">account_circle</i> Acesso</h2>
-            <p class="subtitle">Entre com suas credenciais para adicionar artigos</p>
+            
+            <div class="login-logo">
+                <img src="https://academico.wazzimagiygg.com/Favicom.png" alt="WazzimaGiygg" onerror="this.style.display='none'">
+            </div>
+            
+            <h2>Bem-vindo</h2>
+            <p class="subtitle">Faça login com sua conta Google para acessar o sistema</p>
 
             <div id="login-alert" class="alert alert-danger"></div>
             <div id="login-success" class="alert alert-success"></div>
 
-            <form id="login-form" onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label for="login-email">E-mail</label>
-                    <input type="email" id="login-email" placeholder="seu@email.com" required autocomplete="email">
-                    <div class="error-message" id="email-error">E-mail inválido</div>
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Senha</label>
-                    <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password">
-                    <div class="error-message" id="password-error">Senha incorreta</div>
-                </div>
-                <button type="submit" class="login-btn" id="login-submit-btn">Entrar</button>
-            </form>
+            <button id="google-login-btn" class="btn-google" onclick="loginWithGoogle()">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                Entrar com Google
+            </button>
 
-            <div class="login-footer">
-                <p>Não tem conta? <a href="#" onclick="alert('Entre em contato com o administrador para criar uma conta.')">Solicitar acesso</a></p>
+            <div class="login-divider">ou</div>
+
+            <div style="text-align: center; font-size: 13px; color: var(--text-light);">
+                <p>⚠️ Apenas usuários autorizados podem adicionar artigos</p>
+                <p style="margin-top: 5px;">Entre em contato com o administrador para solicitar acesso</p>
             </div>
         </div>
     </div>
@@ -1142,6 +1141,7 @@
         
         const firestore = firebase.firestore();
         const auth = firebase.auth();
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
 
         // ============================================
         // VARIÁVEIS GLOBAIS
@@ -1159,13 +1159,11 @@
         const ADMIN_UIDS = ['sZxfMuOBPbXdR8nttVPXIN8QOOl1', '6aPqWVh8JVYL5NqEb78iDGPD7dH3'];
 
         // ============================================
-        // FUNÇÕES DE AUTENTICAÇÃO
+        // FUNÇÕES DE AUTENTICAÇÃO COM GOOGLE
         // ============================================
 
         function openLoginModal() {
             document.getElementById('login-modal').classList.add('active');
-            document.getElementById('login-email').focus();
-            // Limpar mensagens anteriores
             hideAlerts();
         }
 
@@ -1177,8 +1175,6 @@
         function hideAlerts() {
             document.getElementById('login-alert').classList.remove('show');
             document.getElementById('login-success').classList.remove('show');
-            document.querySelectorAll('.error-message').forEach(el => el.classList.remove('show'));
-            document.querySelectorAll('.form-group input').forEach(el => el.classList.remove('error'));
         }
 
         function showAlert(message, type = 'danger') {
@@ -1196,27 +1192,14 @@
             }
         }
 
-        async function handleLogin(event) {
-            event.preventDefault();
+        async function loginWithGoogle() {
+            const btn = document.getElementById('google-login-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner" style="width:20px;height:20px;border-width:3px;"></span> Aguarde...';
             
-            const email = document.getElementById('login-email').value.trim();
-            const password = document.getElementById('login-password').value;
-            const submitBtn = document.getElementById('login-submit-btn');
-            
-            // Limpar erros anteriores
-            hideAlerts();
-            
-            if (!email || !password) {
-                showAlert('Preencha todos os campos.');
-                return;
-            }
-
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Entrando...';
-
             try {
-                const userCredential = await auth.signInWithEmailAndPassword(email, password);
-                const user = userCredential.user;
+                const result = await auth.signInWithPopup(googleProvider);
+                const user = result.user;
                 
                 // Verificar se o usuário está bloqueado
                 const userDoc = await firestore.collection('users').doc(user.uid).get();
@@ -1225,9 +1208,33 @@
                 if (userData.blocked === true) {
                     await auth.signOut();
                     showAlert('❌ Esta conta está bloqueada. Entre em contato com o administrador.');
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Entrar';
+                    btn.disabled = false;
+                    btn.innerHTML = `
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                        Entrar com Google
+                    `;
                     return;
+                }
+
+                // Se não existir, criar registro do usuário
+                if (!userDoc.exists) {
+                    await firestore.collection('users').doc(user.uid).set({
+                        name: user.displayName || user.email?.split('@')[0] || 'Usuário',
+                        email: user.email,
+                        photoURL: user.photoURL || '',
+                        isAdmin: false,
+                        blocked: false,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    userData.isAdmin = false;
+                    userData.blocked = false;
+                    userData.name = user.displayName || user.email?.split('@')[0] || 'Usuário';
+                } else {
+                    // Atualizar último login
+                    await firestore.collection('users').doc(user.uid).update({
+                        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                    });
                 }
 
                 // Login bem sucedido
@@ -1236,34 +1243,29 @@
                 setTimeout(() => {
                     closeLoginModal();
                     // Atualizar UI
-                    updateUI(user, userData);
+                    const isAdminUser = ADMIN_UIDS.includes(user.uid) || userData.isAdmin === true;
+                    const isBlockedUser = userData.blocked === true;
+                    updateUI(user, userData, isAdminUser, isBlockedUser);
                 }, 1000);
 
             } catch (error) {
-                console.error('Erro no login:', error);
+                console.error('Erro no login com Google:', error);
                 let message = 'Erro ao fazer login. Tente novamente.';
                 
-                switch (error.code) {
-                    case 'auth/user-not-found':
-                        message = '❌ Usuário não encontrado. Verifique seu e-mail.';
-                        break;
-                    case 'auth/wrong-password':
-                        message = '❌ Senha incorreta. Tente novamente.';
-                        break;
-                    case 'auth/invalid-email':
-                        message = '❌ E-mail inválido.';
-                        break;
-                    case 'auth/user-disabled':
-                        message = '❌ Esta conta foi desativada.';
-                        break;
-                    case 'auth/too-many-requests':
-                        message = '❌ Muitas tentativas. Aguarde alguns minutos.';
-                        break;
+                if (error.code === 'auth/popup-closed-by-user') {
+                    message = '❌ Janela de login fechada. Tente novamente.';
+                } else if (error.code === 'auth/cancelled-popup-request') {
+                    message = '❌ Login cancelado.';
+                } else if (error.code === 'auth/network-request-failed') {
+                    message = '❌ Erro de rede. Verifique sua conexão.';
                 }
                 
                 showAlert(message);
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Entrar';
+                btn.disabled = false;
+                btn.innerHTML = `
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                    Entrar com Google
+                `;
             }
         }
 
@@ -1274,8 +1276,7 @@
                 currentUserData = null;
                 isAdmin = false;
                 isBlocked = false;
-                updateUI(null, null);
-                // Recarregar artigos (mostrar todos)
+                updateUI(null, null, false, false);
                 await loadArticles();
             } catch (error) {
                 console.error('Erro ao fazer logout:', error);
@@ -1294,7 +1295,6 @@
                 const userDoc = await firestore.collection('users').doc(user.uid).get();
                 const userData = userDoc.exists ? userDoc.data() : {};
                 
-                // Verificar se é admin (super admin ou admin no Firestore)
                 const isAdminUser = ADMIN_UIDS.includes(user.uid) || userData.isAdmin === true;
                 const isBlockedUser = userData.blocked === true;
                 
@@ -1309,12 +1309,12 @@
         // FUNÇÃO PARA ATUALIZAR A UI
         // ============================================
 
-        function updateUI(user, userData) {
+        function updateUI(user, userData, isAdminUser, isBlockedUser) {
             const loginBtn = document.getElementById('login-btn');
             const logoutBtn = document.getElementById('logout-btn');
             const userInfo = document.getElementById('user-info');
             const userName = document.getElementById('user-name');
-            const userAvatar = document.getElementById('user-avatar');
+            const avatarText = document.getElementById('avatar-text');
             const adminToolbar = document.getElementById('admin-toolbar');
             const addBtn = document.getElementById('add-article-btn');
             const blockedWarning = document.getElementById('blocked-warning');
@@ -1327,11 +1327,15 @@
                 
                 const name = userData?.name || user.displayName || user.email?.split('@')[0] || 'Usuário';
                 userName.textContent = name;
-                userAvatar.textContent = name.charAt(0).toUpperCase();
+                avatarText.textContent = name.charAt(0).toUpperCase();
                 
-                // Verificar se é admin e não está bloqueado
-                const isAdminUser = ADMIN_UIDS.includes(user.uid) || userData?.isAdmin === true;
-                const isBlockedUser = userData?.blocked === true;
+                // Se tiver foto, mostrar a foto
+                const avatarContainer = document.getElementById('user-avatar');
+                if (user.photoURL) {
+                    avatarContainer.innerHTML = `<img src="${user.photoURL}" alt="${name}">`;
+                } else {
+                    avatarContainer.innerHTML = `<span id="avatar-text">${name.charAt(0).toUpperCase()}</span>`;
+                }
                 
                 if (isBlockedUser) {
                     // Usuário bloqueado
@@ -1881,14 +1885,14 @@
                 isAdmin = status.isAdmin;
                 isBlocked = status.isBlocked;
                 currentUserData = status.userData;
-                updateUI(user, status.userData);
+                updateUI(user, status.userData, status.isAdmin, status.isBlocked);
                 await loadArticles();
             } else {
                 currentUser = null;
                 currentUserData = null;
                 isAdmin = false;
                 isBlocked = false;
-                updateUI(null, null);
+                updateUI(null, null, false, false);
                 await loadArticles();
             }
         });
@@ -1910,7 +1914,7 @@
         window.goToPage = goToPage;
         window.openLoginModal = openLoginModal;
         window.closeLoginModal = closeLoginModal;
-        window.handleLogin = handleLogin;
+        window.loginWithGoogle = loginWithGoogle;
         window.logoutUser = logoutUser;
     </script>
 
