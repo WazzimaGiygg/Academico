@@ -21,11 +21,6 @@
             --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
             --shadow-md: 0 4px 8px rgba(0,0,0,0.1);
             --shadow-lg: 0 8px 16px rgba(0,0,0,0.1);
-            --danger-color: #dc3545;
-            --success-color: #28a745;
-            --warning-color: #ffc107;
-            --google-color: #4285f4;
-            --google-hover: #357ae8;
         }
 
         * {
@@ -68,14 +63,6 @@
             z-index: 1;
         }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
         .header-logo {
             display: flex;
             align-items: center;
@@ -105,70 +92,6 @@
         .header-subtitle {
             font-size: 1rem;
             opacity: 0.9;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        /* Botão de Login/Logout */
-        .btn-login {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 24px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            text-decoration: none;
-        }
-
-        .btn-login:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .btn-login.logout {
-            background: rgba(220, 53, 69, 0.3);
-            border-color: rgba(220, 53, 69, 0.5);
-        }
-
-        .btn-login.logout:hover {
-            background: rgba(220, 53, 69, 0.5);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            font-size: 14px;
-        }
-
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
-            overflow: hidden;
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         /* Stats Bar */
@@ -210,181 +133,7 @@
             font-size: 14px;
         }
 
-        /* Modal de Login */
-        .login-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-        }
-
-        .login-modal.active {
-            display: flex;
-        }
-
-        .login-box {
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            max-width: 420px;
-            width: 90%;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .login-box h2 {
-            font-family: 'Roboto Slab', serif;
-            color: var(--primary-color);
-            margin-bottom: 8px;
-            font-size: 24px;
-            text-align: center;
-        }
-
-        .login-box .subtitle {
-            color: var(--text-light);
-            font-size: 14px;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .login-box .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 28px;
-            cursor: pointer;
-            color: var(--text-light);
-            transition: color 0.2s;
-            background: none;
-            border: none;
-        }
-
-        .login-box .close-btn:hover {
-            color: var(--text-dark);
-        }
-
-        .login-logo {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .login-logo img {
-            height: 60px;
-            width: auto;
-        }
-
-        .btn-google {
-            width: 100%;
-            padding: 14px;
-            background: white;
-            color: #333;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-family: inherit;
-        }
-
-        .btn-google:hover {
-            background: #f8f9fa;
-            border-color: var(--google-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
-        }
-
-        .btn-google:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .btn-google img {
-            width: 24px;
-            height: 24px;
-        }
-
-        .login-divider {
-            display: flex;
-            align-items: center;
-            margin: 25px 0;
-            color: var(--text-light);
-            font-size: 13px;
-        }
-
-        .login-divider::before,
-        .login-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border-color);
-        }
-
-        .login-divider::before {
-            margin-right: 15px;
-        }
-
-        .login-divider::after {
-            margin-left: 15px;
-        }
-
-        /* Alertas */
-        .alert {
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            display: none;
-        }
-
-        .alert.show {
-            display: block;
-        }
-
-        .alert-danger {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .alert-warning {
-            background: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeaa7;
-        }
-
-        /* Search Section */
+        /* Search Section - Estilo Google Acadêmico */
         .search-section {
             background: white;
             padding: 30px;
@@ -464,7 +213,7 @@
             border-color: var(--primary-color);
         }
 
-        /* Main Layout */
+        /* Main Layout - Estilo SciELO */
         .main-layout {
             max-width: 1400px;
             margin: 0 auto;
@@ -474,7 +223,7 @@
             gap: 30px;
         }
 
-        /* Sidebar */
+        /* Sidebar - Filtros Avançados */
         .sidebar {
             background: white;
             border-radius: 16px;
@@ -559,6 +308,15 @@
             font-size: 14px;
         }
 
+        .sort-select {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* Article Card */
         .article-card {
             padding: 25px;
             border-bottom: 1px solid var(--border-color);
@@ -617,11 +375,26 @@
             margin-bottom: 15px;
         }
 
+        .article-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .keyword {
+            background: #e3f2fd;
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
         .article-actions {
             display: flex;
             gap: 15px;
             margin-top: 15px;
-            flex-wrap: wrap;
         }
 
         .action-btn {
@@ -636,7 +409,6 @@
             padding: 6px 12px;
             border-radius: 20px;
             transition: all 0.2s;
-            text-decoration: none;
         }
 
         .action-btn:hover {
@@ -663,11 +435,6 @@
             color: white;
         }
 
-        .status-blocked {
-            background: var(--danger-color);
-            color: white;
-        }
-
         /* Pagination */
         .pagination {
             display: flex;
@@ -676,7 +443,6 @@
             margin-top: 30px;
             padding-top: 20px;
             border-top: 1px solid var(--border-color);
-            flex-wrap: wrap;
         }
 
         .page-btn {
@@ -698,11 +464,6 @@
             background: var(--primary-color);
             color: white;
             border-color: var(--primary-color);
-        }
-
-        .page-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
         }
 
         /* Loading */
@@ -782,8 +543,6 @@
             cursor: pointer;
             font-size: 24px;
             color: var(--text-light);
-            background: none;
-            border: none;
         }
 
         .citation-box {
@@ -795,132 +554,6 @@
             margin-top: 15px;
         }
 
-        /* Toolbar */
-        .admin-toolbar {
-            background: white;
-            border-bottom: 1px solid var(--border-color);
-            padding: 10px 0;
-        }
-
-        .admin-toolbar .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 30px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn-add {
-            background: var(--primary-color);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-        }
-
-        .btn-add:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            color: white;
-        }
-
-        .btn-add.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        .blocked-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: var(--danger-color);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        /* BANNED OVERLAY */
-        .banned-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            flex-direction: column;
-            padding: 20px;
-        }
-
-        .banned-overlay.show {
-            display: flex;
-        }
-
-        .banned-box {
-            background: #1a1a1a;
-            border: 2px solid #dc3545;
-            border-radius: 16px;
-            padding: 50px;
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            color: white;
-        }
-
-        .banned-box .icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-        }
-
-        .banned-box h2 {
-            color: #dc3545;
-            margin-bottom: 15px;
-        }
-
-        .banned-box p {
-            color: #aaa;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .banned-box .btn-logout-banned {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-
-        .banned-box .btn-logout-banned:hover {
-            background: #c0392b;
-        }
-
-        .banned-box .ban-details {
-            background: #2a2a2a;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            font-size: 13px;
-            color: #888;
-        }
-
         /* Responsive */
         @media (max-width: 1024px) {
             .main-layout {
@@ -929,13 +562,6 @@
             .sidebar {
                 position: static;
                 margin-bottom: 20px;
-            }
-            .header-content {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .header-actions {
-                justify-content: flex-start;
             }
         }
 
@@ -957,65 +583,60 @@
             .header-title {
                 font-size: 1.5rem;
             }
-            .login-box {
-                padding: 30px 20px;
-            }
-            .stats-container {
-                justify-content: center;
-            }
+        }
+
+        /* Toolbar */
+        .admin-toolbar {
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 0;
+        }
+
+        .admin-toolbar .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .btn-add {
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-add:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
-
-    <!-- BANNED OVERLAY -->
-    <div id="bannedOverlay" class="banned-overlay">
-        <div class="banned-box">
-            <div class="icon">🚫</div>
-            <h2>⚠️ Conta Banida</h2>
-            <p>Sua conta foi banida permanentemente da Biblioteca Científica.</p>
-            <div id="banDetails" class="ban-details">
-                Motivo: Violação das políticas de uso
-            </div>
-            <p style="font-size: 14px; color: #666;">Se você acredita que isso é um erro, entre em contato com o suporte.</p>
-            <button class="btn-logout-banned" onclick="logoutBanned()">🚪 Sair da conta</button>
-        </div>
-    </div>
-
-    <!-- Header Científico com Logotipo e Login -->
+    <!-- Header Científico com Logotipo -->
     <div class="scientific-header">
         <div class="header-container">
-            <div class="header-content">
-                <div class="header-logo">
-                    <img src="https://academico.wazzimagiygg.com/Favicom.png" 
-                         alt="Logo WazzimaGiygg Academico" 
-                         class="logo-img"
-                         onerror="this.style.display='none'">
-                    <div>
-                        <div class="header-title">
-                            <i class="material-icons" style="font-size: 36px; vertical-align: middle;">menu_book</i>
-                            Biblioteca Científica WazzimaGiygg
-                        </div>
-                        <div class="header-subtitle">
-                            Artigos científicos, revisões, monografias e mais - Acesso livre e gratuito
-                        </div>
+            <div class="header-logo">
+                <img src="https://academico.wazzimagiygg.com/Favicom.png" 
+                     alt="Logo WazzimaGiygg Academico" 
+                     class="logo-img"
+                     onerror="this.style.display='none'">
+                <div>
+                    <div class="header-title">
+                        <i class="material-icons" style="font-size: 36px; vertical-align: middle;">menu_book</i>
+                        Biblioteca Científica WazzimaGiygg
                     </div>
-                </div>
-                <div class="header-actions">
-                    <div id="user-info" style="display: none;">
-                        <div class="user-info">
-                            <div class="user-avatar" id="user-avatar">
-                                <span id="avatar-text">U</span>
-                            </div>
-                            <span id="user-name">Usuário</span>
-                        </div>
+                    <div class="header-subtitle">
+                        Artigos científicos, revisões, monografias e mais - Acesso livre e gratuito
                     </div>
-                    <button id="login-btn" class="btn-login" onclick="redirectToLogin()">
-                        <i class="material-icons">person</i> Entrar
-                    </button>
-                    <button id="logout-btn" class="btn-login logout" style="display: none;" onclick="logoutUser()">
-                        <i class="material-icons">exit_to_app</i> Sair
-                    </button>
                 </div>
             </div>
         </div>
@@ -1046,12 +667,9 @@
     <!-- Admin Toolbar -->
     <div class="admin-toolbar" id="admin-toolbar" style="display: none;">
         <div class="container">
-            <a href="https://academico.wazzimagiygg.com/add-article.html" class="btn-add" id="add-article-btn">
+            <a href="add-article.html" class="btn-add">
                 <i class="material-icons">add</i> Novo Artigo
             </a>
-            <span id="blocked-warning" style="display: none;" class="blocked-badge">
-                <i class="material-icons" style="font-size: 16px;">block</i> Usuário Bloqueado
-            </span>
         </div>
     </div>
 
@@ -1151,7 +769,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3><i class="material-icons">format_quote</i> Como Citar este Artigo</h3>
-                <button class="close-modal" onclick="closeModal('citation-modal')">&times;</button>
+                <span class="close-modal" onclick="closeModal('citation-modal')">&times;</span>
             </div>
             <div class="modal-body">
                 <div id="citation-content"></div>
@@ -1167,7 +785,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="quickview-title">Artigo</h3>
-                <button class="close-modal" onclick="closeModal('quickview-modal')">&times;</button>
+                <span class="close-modal" onclick="closeModal('quickview-modal')">&times;</span>
             </div>
             <div class="modal-body" id="quickview-body"></div>
         </div>
@@ -1201,387 +819,48 @@
         const auth = firebase.auth();
 
         // ============================================
-        // SISTEMA DE REDIRECIONAMENTO UNIFICADO
-        // ============================================
-
-        // URL do login unificado
-        const LOGIN_URL = 'https://painel.wazzimagiygg.com/login.html';
-
-        // Obtém a URL atual para usar como parâmetro uid
-        function getCurrentPageUrl() {
-            return window.location.href;
-        }
-
-        // Redireciona para o login com o parâmetro uid
-        function redirectToLogin() {
-            const currentUrl = getCurrentPageUrl();
-            const loginWithReturn = `${LOGIN_URL}?uid=${encodeURIComponent(currentUrl)}`;
-            console.log('🔄 Redirecionando para login unificado:', loginWithReturn);
-            window.location.href = loginWithReturn;
-        }
-
-        // ============================================
-        // SISTEMA DE AUTENTICAÇÃO ENTRE DOMÍNIOS
-        // ============================================
-
-        // Verifica se há um token de autenticação na URL (retorno do login)
-        function checkAuthToken() {
-            const params = new URLSearchParams(window.location.search);
-            const token = params.get('auth_token');
-            const userData = params.get('user_data');
-            
-            if (token && userData) {
-                try {
-                    const user = JSON.parse(decodeURIComponent(userData));
-                    console.log('🔑 Token de autenticação recebido:', user);
-                    
-                    // Salva no localStorage para persistência
-                    localStorage.setItem('academico_auth_user', JSON.stringify(user));
-                    localStorage.setItem('academico_auth_token', token);
-                    localStorage.setItem('academico_auth_expiry', (Date.now() + 3600000).toString());
-                    
-                    // Remove os parâmetros da URL
-                    const newUrl = window.location.pathname + window.location.hash;
-                    window.history.replaceState({}, document.title, newUrl);
-                    
-                    // Aplica o usuário
-                    applyUserSession(user);
-                    return true;
-                } catch (e) {
-                    console.error('Erro ao processar token:', e);
-                }
-            }
-            return false;
-        }
-
-        // Verifica se há uma sessão salva no localStorage
-        function checkStoredSession() {
-            try {
-                const token = localStorage.getItem('academico_auth_token');
-                const userData = localStorage.getItem('academico_auth_user');
-                const expiry = localStorage.getItem('academico_auth_expiry');
-                
-                if (token && userData && expiry && Date.now() < parseInt(expiry)) {
-                    const user = JSON.parse(userData);
-                    console.log('📂 Sessão restaurada do localStorage:', user);
-                    applyUserSession(user);
-                    return true;
-                }
-            } catch (e) {
-                console.error('Erro ao restaurar sessão:', e);
-            }
-            return false;
-        }
-
-        // ============================================
         // VARIÁVEIS GLOBAIS
         // ============================================
         let currentUser = null;
-        let currentUserData = null;
         let isAdmin = false;
-        let isBlocked = false;
-        let isBanned = false;
         let allArticles = [];
         let filteredArticles = [];
         let currentPage = 1;
         const itemsPerPage = 10;
 
-        // UIDs de administradores (super admins)
+        // UIDs de administradores
         const ADMIN_UIDS = ['sZxfMuOBPbXdR8nttVPXIN8QOOl1', '6aPqWVh8JVYL5NqEb78iDGPD7dH3'];
 
         // ============================================
-        // FUNÇÃO PARA APLICAR SESSÃO DO USUÁRIO
+        // FUNÇÕES AUXILIARES DE DATA (CORRIGIDAS)
         // ============================================
-
-        function applyUserSession(user) {
-            if (!user || !user.uid) return;
-            
-            currentUser = {
-                uid: user.uid,
-                displayName: user.displayName || 'Usuário',
-                email: user.email || '',
-                photoURL: user.photoURL || '',
-                isGuest: user.isGuest || false
-            };
-            
-            // Verifica se é admin
-            isAdmin = ADMIN_UIDS.includes(user.uid);
-            
-            // Verifica se é convidado
-            const isGuest = user.isGuest || false;
-            
-            // Verifica banimento
-            checkUserBanned(user.uid);
-            
-            updateUI(currentUser, isAdmin, isBanned || isBlocked);
-            loadArticles();
-        }
-
-        // ============================================
-        // FUNÇÃO PARA VERIFICAR BANIMENTO
-        // ============================================
-
-        async function checkUserBanned(uid) {
-            if (!uid) return false;
-            
-            try {
-                const userDoc = await firestore.collection('users').doc(uid).get();
-                if (userDoc.exists) {
-                    const data = userDoc.data();
-                    isBanned = data.isBanned === true || data.isBan === true;
-                    isBlocked = data.blocked === true;
-                    
-                    if (isBanned) {
-                        showBannedScreen(data.banReason || 'Violação das políticas de uso');
-                        // Esconde o conteúdo
-                        document.querySelector('.main-layout').style.opacity = '0.3';
-                        document.querySelector('.main-layout').style.pointerEvents = 'none';
-                        document.querySelector('.scientific-header').style.opacity = '0.3';
-                        document.querySelector('.scientific-header').style.pointerEvents = 'none';
-                        document.querySelector('.search-section').style.opacity = '0.3';
-                        document.querySelector('.search-section').style.pointerEvents = 'none';
-                        document.querySelector('.stats-bar').style.opacity = '0.3';
-                        document.querySelector('.stats-bar').style.pointerEvents = 'none';
-                        document.querySelector('.footer-links')?.style.setProperty('opacity', '0.3');
-                        document.querySelector('.footer-links')?.style.setProperty('pointer-events', 'none');
-                    }
-                    return isBanned;
-                }
-            } catch (error) {
-                console.log("Erro ao verificar banimento:", error);
-            }
-            return false;
-        }
-
-        // ============================================
-        // FUNÇÃO PARA USUÁRIO BANIDO
-        // ============================================
-
-        function showBannedScreen(reason = 'Violação das políticas de uso') {
-            const overlay = document.getElementById('bannedOverlay');
-            const details = document.getElementById('banDetails');
-            details.textContent = `Motivo: ${reason}`;
-            overlay.classList.add('show');
-        }
-
-        function logoutBanned() {
-            localStorage.removeItem('academico_auth_user');
-            localStorage.removeItem('academico_auth_token');
-            localStorage.removeItem('academico_auth_expiry');
-            auth.signOut().then(() => {
-                location.reload();
-            });
-        }
-
-        // ============================================
-        // FUNÇÃO PARA VERIFICAR STATUS DO USUÁRIO
-        // ============================================
-
-        async function checkUserStatus(user) {
-            if (!user) return { isAdmin: false, isBlocked: false, isBanned: false, userData: null };
-            
-            try {
-                const userDoc = await firestore.collection('users').doc(user.uid).get();
-                const userData = userDoc.exists ? userDoc.data() : {};
-                
-                const isAdminUser = ADMIN_UIDS.includes(user.uid) || userData.isAdmin === true;
-                const isBlockedUser = userData.blocked === true;
-                const isBannedUser = userData.isBanned === true || userData.isBan === true;
-                
-                return { isAdmin: isAdminUser, isBlocked: isBlockedUser, isBanned: isBannedUser, userData };
-            } catch (error) {
-                console.error('Erro ao verificar status do usuário:', error);
-                return { isAdmin: false, isBlocked: false, isBanned: false, userData: null };
-            }
-        }
-
-        // ============================================
-        // FUNÇÃO PARA ATUALIZAR A UI
-        // ============================================
-
-        function updateUI(user, isAdminUser, isBannedUser) {
-            const loginBtn = document.getElementById('login-btn');
-            const logoutBtn = document.getElementById('logout-btn');
-            const userInfo = document.getElementById('user-info');
-            const userName = document.getElementById('user-name');
-            const avatarText = document.getElementById('avatar-text');
-            const adminToolbar = document.getElementById('admin-toolbar');
-            const addBtn = document.getElementById('add-article-btn');
-            const blockedWarning = document.getElementById('blocked-warning');
-
-            if (user && !isBannedUser) {
-                // Usuário logado
-                loginBtn.style.display = 'none';
-                logoutBtn.style.display = 'inline-flex';
-                userInfo.style.display = 'block';
-                
-                const name = user.displayName || user.email?.split('@')[0] || 'Usuário';
-                userName.textContent = name;
-                
-                // Se tiver foto, mostrar a foto
-                const avatarContainer = document.getElementById('user-avatar');
-                if (user.photoURL) {
-                    avatarContainer.innerHTML = `<img src="${user.photoURL}" alt="${name}">`;
-                } else {
-                    avatarContainer.innerHTML = `<span id="avatar-text">${name.charAt(0).toUpperCase()}</span>`;
-                }
-                
-                if (isBlocked) {
-                    // Usuário bloqueado
-                    adminToolbar.style.display = 'block';
-                    addBtn.classList.add('disabled');
-                    addBtn.style.pointerEvents = 'none';
-                    blockedWarning.style.display = 'inline-flex';
-                    addBtn.innerHTML = '<i class="material-icons">block</i> Acesso Bloqueado';
-                } else if (isAdminUser) {
-                    // Admin ativo
-                    adminToolbar.style.display = 'block';
-                    addBtn.classList.remove('disabled');
-                    addBtn.style.pointerEvents = 'auto';
-                    blockedWarning.style.display = 'none';
-                    addBtn.innerHTML = '<i class="material-icons">add</i> Novo Artigo';
-                } else {
-                    // Usuário comum (não admin)
-                    adminToolbar.style.display = 'none';
-                }
-                
-            } else {
-                // Usuário deslogado ou banido
-                loginBtn.style.display = 'inline-flex';
-                logoutBtn.style.display = 'none';
-                userInfo.style.display = 'none';
-                adminToolbar.style.display = 'none';
-            }
-        }
-
-        // ============================================
-        // FUNÇÃO PARA CARREGAR USUÁRIO DO FIREBASE
-        // ============================================
-
-        async function loadFirebaseUser(user) {
-            if (!user) {
-                currentUser = null;
-                isAdmin = false;
-                isBlocked = false;
-                isBanned = false;
-                updateUI(null, false, false);
-                
-                // Remove overlay de banido
-                document.getElementById('bannedOverlay').classList.remove('show');
-                document.querySelector('.main-layout').style.opacity = '1';
-                document.querySelector('.main-layout').style.pointerEvents = 'auto';
-                document.querySelector('.scientific-header').style.opacity = '1';
-                document.querySelector('.scientific-header').style.pointerEvents = 'auto';
-                document.querySelector('.search-section').style.opacity = '1';
-                document.querySelector('.search-section').style.pointerEvents = 'auto';
-                document.querySelector('.stats-bar').style.opacity = '1';
-                document.querySelector('.stats-bar').style.pointerEvents = 'auto';
-                
-                loadArticles();
-                return;
-            }
-            
-            try {
-                const status = await checkUserStatus(user);
-                isAdmin = status.isAdmin;
-                isBlocked = status.isBlocked;
-                isBanned = status.isBanned;
-                currentUserData = status.userData;
-                
-                currentUser = {
-                    uid: user.uid,
-                    displayName: user.displayName || 'Usuário',
-                    email: user.email || '',
-                    photoURL: user.photoURL || ''
-                };
-                
-                if (isBanned) {
-                    showBannedScreen(currentUserData?.banReason || 'Violação das políticas de uso');
-                    document.querySelector('.main-layout').style.opacity = '0.3';
-                    document.querySelector('.main-layout').style.pointerEvents = 'none';
-                    document.querySelector('.scientific-header').style.opacity = '0.3';
-                    document.querySelector('.scientific-header').style.pointerEvents = 'none';
-                    document.querySelector('.search-section').style.opacity = '0.3';
-                    document.querySelector('.search-section').style.pointerEvents = 'none';
-                    document.querySelector('.stats-bar').style.opacity = '0.3';
-                    document.querySelector('.stats-bar').style.pointerEvents = 'none';
-                    updateUI(currentUser, isAdmin, true);
-                    return;
-                }
-                
-                updateUI(currentUser, isAdmin, false);
-                
-                // Salva no localStorage para futuras sessões
-                const userData = {
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    email: user.email,
-                    photoURL: user.photoURL,
-                    isGuest: false
-                };
-                localStorage.setItem('academico_auth_user', JSON.stringify(userData));
-                localStorage.setItem('academico_auth_token', 'firebase_' + Date.now());
-                localStorage.setItem('academico_auth_expiry', (Date.now() + 3600000).toString());
-                
-                loadArticles();
-                
-            } catch (error) {
-                console.error('❌ Erro ao carregar usuário Firebase:', error);
-                currentUser = null;
-                isAdmin = false;
-                isBlocked = false;
-                isBanned = false;
-                updateUI(null, false, false);
-                loadArticles();
-            }
-        }
-
-        // ============================================
-        // FUNÇÃO DE LOGOUT
-        // ============================================
-
-        async function logoutUser() {
-            try {
-                localStorage.removeItem('academico_auth_user');
-                localStorage.removeItem('academico_auth_token');
-                localStorage.removeItem('academico_auth_expiry');
-                await auth.signOut();
-                currentUser = null;
-                isAdmin = false;
-                isBlocked = false;
-                isBanned = false;
-                updateUI(null, false, false);
-                loadArticles();
-            } catch (error) {
-                console.error('Erro ao fazer logout:', error);
-                alert('Erro ao sair. Tente novamente.');
-            }
-        }
-
-        // ============================================
-        // FUNÇÕES AUXILIARES DE DATA
-        // ============================================
-
+        
+        // Função para converter qualquer formato de data para objeto Date
         function safeToDate(dateValue) {
             if (!dateValue) return null;
             
+            // Se já é um objeto Date válido
             if (dateValue instanceof Date && !isNaN(dateValue)) {
                 return dateValue;
             }
             
+            // Se é um timestamp do Firestore com método toDate()
             if (dateValue.toDate && typeof dateValue.toDate === 'function') {
                 return dateValue.toDate();
             }
             
+            // Se é um timestamp do Firestore com segundos
             if (dateValue.seconds && typeof dateValue.seconds === 'number') {
                 return new Date(dateValue.seconds * 1000);
             }
             
+            // Se é uma string ISO
             if (typeof dateValue === 'string') {
                 const date = new Date(dateValue);
                 if (!isNaN(date)) return date;
             }
             
+            // Se é um número (timestamp Unix)
             if (typeof dateValue === 'number') {
                 const date = new Date(dateValue);
                 if (!isNaN(date)) return date;
@@ -1597,6 +876,7 @@
             return validDate.toLocaleDateString('pt-BR');
         }
 
+        // Função segura para obter o ano
         function getSafeYear(date) {
             const validDate = safeToDate(date);
             if (!validDate) return new Date().getFullYear();
@@ -1632,10 +912,19 @@
             return temp.textContent || temp.innerText || '';
         }
 
+        async function checkIsAdmin(user) {
+            if (!user) return false;
+            if (ADMIN_UIDS.includes(user.uid)) return true;
+            try {
+                const userDoc = await firestore.collection('users').doc(user.uid).get();
+                return userDoc.exists && userDoc.data().isAdmin === true;
+            } catch { return false; }
+        }
+
         // ============================================
         // FUNÇÃO PRINCIPAL - CARREGAR ARTIGOS
         // ============================================
-
+        
         async function loadArticles() {
             showLoading();
             
@@ -1651,12 +940,15 @@
                 for (const doc of snapshot.docs) {
                     const data = doc.data();
                     
+                    // Processar autores
                     if (data.authors && Array.isArray(data.authors)) {
                         data.authors.forEach(author => authorsSet.add(author));
                     }
                     
+                    // Contar visualizações
                     totalViews += (data.views || 0);
                     
+                    // Converter datas de forma segura
                     let createdAt = null;
                     if (data.createdAt) {
                         createdAt = safeToDate(data.createdAt);
@@ -1691,16 +983,21 @@
                     });
                 }
                 
+                // Atualizar estatísticas
                 document.getElementById('total-articles').textContent = allArticles.length;
                 document.getElementById('total-authors').textContent = authorsSet.size;
                 document.getElementById('total-views').textContent = totalViews.toLocaleString();
                 
+                // Última atualização
                 const lastModified = allArticles[0]?.lastModified;
                 if (lastModified) {
                     document.getElementById('last-update').textContent = formatDate(lastModified);
                 }
                 
+                // Extrair palavras-chave únicas
                 extractKeywords();
+                
+                // Aplicar filtros iniciais
                 applyFilters();
                 
             } catch (error) {
@@ -1714,11 +1011,12 @@
                 `;
             }
         }
-
+        
         function extractKeywords() {
             const keywordMap = new Map();
             
             allArticles.forEach(article => {
+                // Extrair do título
                 const titleWords = article.title.toLowerCase().split(/\s+/);
                 titleWords.forEach(word => {
                     if (word.length > 4 && !['artigo', 'estudo', 'pesquisa', 'análise'].includes(word)) {
@@ -1726,6 +1024,7 @@
                     }
                 });
                 
+                // Extrair da descrição
                 if (article.description) {
                     const descWords = article.description.toLowerCase().split(/\s+/);
                     descWords.forEach(word => {
@@ -1736,6 +1035,7 @@
                 }
             });
             
+            // Ordenar por frequência e pegar as 10 mais comuns
             const topKeywords = Array.from(keywordMap.entries())
                 .sort((a, b) => b[1] - a[1])
                 .slice(0, 10);
@@ -1750,7 +1050,7 @@
                 `).join('');
             }
         }
-
+        
         function showLoading() {
             const container = document.getElementById('articles-list');
             container.innerHTML = `
@@ -1760,7 +1060,7 @@
                 </div>
             `;
         }
-
+        
         function applyFilters() {
             const searchTerm = document.getElementById('search-input')?.value.toLowerCase() || '';
             const typeFilter = document.getElementById('type-filter')?.value || 'all';
@@ -1771,16 +1071,22 @@
             const showPublished = document.getElementById('status-published')?.checked || false;
             const showDraft = document.getElementById('status-draft')?.checked || false;
             
+            // Palavras-chave selecionadas
             const selectedKeywords = Array.from(document.querySelectorAll('.keyword-checkbox:checked'))
                 .map(cb => cb.value.toLowerCase());
             
             filteredArticles = allArticles.filter(article => {
+                // Filtro de status
                 if (!showPublished && article.status === 'published') return false;
                 if (!showDraft && article.status === 'draft') return false;
                 
+                // Filtro de tipo
                 if (typeFilter !== 'all' && article.type !== typeFilter) return false;
+                
+                // Filtro de idioma
                 if (languageFilter !== 'all' && article.language !== languageFilter) return false;
                 
+                // Filtro de ano - USANDO FUNÇÃO SEGURA
                 if (yearStart && article.createdAt) {
                     const year = getSafeYear(article.createdAt);
                     if (year < parseInt(yearStart)) return false;
@@ -1790,6 +1096,7 @@
                     if (year > parseInt(yearEnd)) return false;
                 }
                 
+                // Filtro de busca
                 if (searchTerm) {
                     const inTitle = article.title.toLowerCase().includes(searchTerm);
                     const inAuthors = article.authors.some(a => a.toLowerCase().includes(searchTerm));
@@ -1798,6 +1105,7 @@
                     if (!inTitle && !inAuthors && !inDescription && !inContent) return false;
                 }
                 
+                // Filtro de palavras-chave
                 if (selectedKeywords.length > 0) {
                     const articleText = (article.title + ' ' + article.description).toLowerCase();
                     const hasKeyword = selectedKeywords.some(kw => articleText.includes(kw));
@@ -1807,6 +1115,7 @@
                 return true;
             });
             
+            // Ordenação
             if (sortBy === 'recent') {
                 filteredArticles.sort((a, b) => (b.lastModified?.getTime() || 0) - (a.lastModified?.getTime() || 0));
             } else if (sortBy === 'oldest') {
@@ -1817,13 +1126,17 @@
                 filteredArticles.sort((a, b) => (b.views || 0) - (a.views || 0));
             }
             
+            // Resetar página
             currentPage = 1;
+            
+            // Atualizar contagem
             document.getElementById('results-count').textContent = `${filteredArticles.length} artigo(s) encontrado(s)`;
             
+            // Renderizar
             renderArticles();
             renderPagination();
         }
-
+        
         function renderArticles() {
             const container = document.getElementById('articles-list');
             const start = (currentPage - 1) * itemsPerPage;
@@ -1874,8 +1187,8 @@
                         <button class="action-btn" onclick="showCitation('${article.id}')">
                             <i class="material-icons">format_quote</i> Como Citar
                         </button>
-                        ${isAdmin && !isBlocked && !isBanned ? `
-                            <a href="https://academico.wazzimagiygg.com/add-article.html?id=${article.id}" class="action-btn">
+                        ${isAdmin ? `
+                            <a href="add-article.html?id=${article.id}" class="action-btn">
                                 <i class="material-icons">edit</i> Editar
                             </a>
                         ` : ''}
@@ -1883,7 +1196,7 @@
                 </div>
             `).join('');
         }
-
+        
         function renderPagination() {
             const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
             const pagination = document.getElementById('pagination');
@@ -1894,8 +1207,11 @@
             }
             
             let html = '';
+            
+            // Botão anterior
             html += `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>«</button>`;
             
+            // Números das páginas
             const startPage = Math.max(1, currentPage - 2);
             const endPage = Math.min(totalPages, currentPage + 2);
             
@@ -1913,11 +1229,12 @@
                 html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
             }
             
+            // Botão próximo
             html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>»</button>`;
             
             pagination.innerHTML = html;
         }
-
+        
         function goToPage(page) {
             const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
             if (page < 1 || page > totalPages) return;
@@ -1926,30 +1243,33 @@
             renderPagination();
             window.scrollTo({ top: 400, behavior: 'smooth' });
         }
-
+        
         // ============================================
         // FUNÇÕES DE VISUALIZAÇÃO
         // ============================================
-
+        
         async function viewArticle(articleId) {
             const article = allArticles.find(a => a.id === articleId);
             if (!article) return;
             
+            // Incrementar visualizações
             try {
                 await firestore.collection('articlesdoc').doc(articleId).update({
                     views: firebase.firestore.FieldValue.increment(1)
                 });
                 article.views = (article.views || 0) + 1;
                 
+                // Atualizar estatísticas
                 const totalViews = allArticles.reduce((sum, a) => sum + (a.views || 0), 0);
                 document.getElementById('total-views').textContent = totalViews.toLocaleString();
             } catch (e) {
                 console.warn('Erro ao incrementar visualizações:', e);
             }
             
+            // Abrir em nova aba
             window.open(`view-article.html?uid=${article.uid}`, '_blank');
         }
-
+        
         function quickView(articleId) {
             const article = allArticles.find(a => a.id === articleId);
             if (!article) return;
@@ -1987,11 +1307,11 @@
             
             modal.style.display = 'flex';
         }
-
+        
         // ============================================
-        // FUNÇÃO DE CITAÇÃO
+        // FUNÇÃO DE CITAÇÃO CORRIGIDA
         // ============================================
-
+        
         function showCitation(articleId) {
             const article = allArticles.find(a => a.id === articleId);
             if (!article) return;
@@ -2001,11 +1321,16 @@
             
             let citation = article.citation;
             if (!citation || citation === '') {
+                // Gerar citação automática
                 const authors = article.authors.length > 0 ? article.authors.join(', ') : 'Autor desconhecido';
+                
+                // CORREÇÃO: Usar a função segura para obter o ano
                 const year = getSafeYear(article.createdAt);
+                
                 citation = `${authors}. ${article.title}. WZZM Academic. ${year}. Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}. Acesso em: ${new Date().toLocaleDateString('pt-BR')}.`;
             }
             
+            // Obter o ano novamente para as outras citações
             const citationYear = getSafeYear(article.createdAt);
             
             content.innerHTML = `
@@ -2025,7 +1350,7 @@
             
             modal.style.display = 'flex';
         }
-
+        
         function copyCitation() {
             const citationText = document.querySelector('#citation-content .citation-box:first-child')?.innerText || '';
             if (citationText) {
@@ -2036,67 +1361,35 @@
                 });
             }
         }
-
+        
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
         }
-
+        
         // ============================================
-        // EVENTOS E INICIALIZAÇÃO
+        // AUTENTICAÇÃO
         // ============================================
-
-        // Fechar modal com ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeModal('citation-modal');
-                closeModal('quickview-modal');
+        
+        auth.onAuthStateChanged(async (user) => {
+            currentUser = user;
+            if (user) {
+                isAdmin = await checkIsAdmin(user);
+                if (isAdmin) {
+                    document.getElementById('admin-toolbar').style.display = 'block';
+                }
+                await loadArticles();
+            } else {
+                await loadArticles();
             }
         });
-
-        // Fechar modal clicando fora
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        });
-
+        
         // Event Listeners
         document.getElementById('search-btn')?.addEventListener('click', applyFilters);
         document.getElementById('search-input')?.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') applyFilters();
         });
         document.getElementById('apply-filters-btn')?.addEventListener('click', applyFilters);
-
-        // ============================================
-        // INICIALIZAÇÃO - VERIFICA SESSÃO
-        // ============================================
-
-        // PASSO 1: Verifica token na URL (retorno do login)
-        const hasToken = checkAuthToken();
-
-        // PASSO 2: Se não tem token, verifica sessão no localStorage
-        if (!hasToken) {
-            const hasSession = checkStoredSession();
-            
-            // PASSO 3: Se não tem sessão, verifica Firebase Auth
-            if (!hasSession) {
-                auth.onAuthStateChanged(async (user) => {
-                    await loadFirebaseUser(user);
-                });
-            }
-        } else {
-            // Se já tem token, registra listener para manter sincronizado
-            auth.onAuthStateChanged(async (user) => {
-                if (user) {
-                    if (!currentUser || currentUser.uid !== user.uid) {
-                        await loadFirebaseUser(user);
-                    }
-                }
-            });
-        }
-
+        
         // Expor funções globalmente
         window.applyFilters = applyFilters;
         window.viewArticle = viewArticle;
@@ -2105,13 +1398,10 @@
         window.copyCitation = copyCitation;
         window.closeModal = closeModal;
         window.goToPage = goToPage;
-        window.redirectToLogin = redirectToLogin;
-        window.logoutUser = logoutUser;
-        window.logoutBanned = logoutBanned;
     </script>
 
-    <!-- Iframe do verificador/logs -->
-    <script src="https://gspotfverwazzimagiygg.wazzimagiygg.com/D6FefD0De/EfdFeF1ExcE0C/De0Var6H6f/QXdv0/dddcefb.js"></script>
+        <!-- Iframe do verificador/logs (mantido como você tinha) -->
+<script src="https://gspotfverwazzimagiygg.wazzimagiygg.com/D6FefD0De/EfdFeF1ExcE0C/De0Var6H6f/QXdv0/dddcefb.js"></script>
     
 </body>
 </html>
