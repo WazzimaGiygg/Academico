@@ -849,6 +849,78 @@
             font-weight: 600;
         }
 
+        /* BANNED OVERLAY */
+        .banned-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .banned-overlay.show {
+            display: flex;
+        }
+
+        .banned-box {
+            background: #1a1a1a;
+            border: 2px solid #dc3545;
+            border-radius: 16px;
+            padding: 50px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+
+        .banned-box .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .banned-box h2 {
+            color: #dc3545;
+            margin-bottom: 15px;
+        }
+
+        .banned-box p {
+            color: #aaa;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .banned-box .btn-logout-banned {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .banned-box .btn-logout-banned:hover {
+            background: #c0392b;
+        }
+
+        .banned-box .ban-details {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 13px;
+            color: #888;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .main-layout {
@@ -895,6 +967,21 @@
     </style>
 </head>
 <body>
+
+    <!-- BANNED OVERLAY -->
+    <div id="bannedOverlay" class="banned-overlay">
+        <div class="banned-box">
+            <div class="icon">🚫</div>
+            <h2>⚠️ Conta Banida</h2>
+            <p>Sua conta foi banida permanentemente da Biblioteca Científica.</p>
+            <div id="banDetails" class="ban-details">
+                Motivo: Violação das políticas de uso
+            </div>
+            <p style="font-size: 14px; color: #666;">Se você acredita que isso é um erro, entre em contato com o suporte.</p>
+            <button class="btn-logout-banned" onclick="logoutBanned()">🚪 Sair da conta</button>
+        </div>
+    </div>
+
     <!-- Header Científico com Logotipo e Login -->
     <div class="scientific-header">
         <div class="header-container">
@@ -923,7 +1010,7 @@
                             <span id="user-name">Usuário</span>
                         </div>
                     </div>
-                    <button id="login-btn" class="btn-login" onclick="openLoginModal()">
+                    <button id="login-btn" class="btn-login" onclick="redirectToLogin()">
                         <i class="material-icons">person</i> Entrar
                     </button>
                     <button id="logout-btn" class="btn-login logout" style="display: none;" onclick="logoutUser()">
@@ -965,35 +1052,6 @@
             <span id="blocked-warning" style="display: none;" class="blocked-badge">
                 <i class="material-icons" style="font-size: 16px;">block</i> Usuário Bloqueado
             </span>
-        </div>
-    </div>
-
-    <!-- Modal de Login com Google -->
-    <div class="login-modal" id="login-modal">
-        <div class="login-box">
-            <button class="close-btn" onclick="closeLoginModal()">&times;</button>
-            
-            <div class="login-logo">
-                <img src="https://academico.wazzimagiygg.com/Favicom.png" alt="WazzimaGiygg" onerror="this.style.display='none'">
-            </div>
-            
-            <h2>Bem-vindo</h2>
-            <p class="subtitle">Faça login com sua conta Google para acessar o sistema</p>
-
-            <div id="login-alert" class="alert alert-danger"></div>
-            <div id="login-success" class="alert alert-success"></div>
-
-            <button id="google-login-btn" class="btn-google" onclick="loginWithGoogle()">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-                Entrar com Google
-            </button>
-
-            <div class="login-divider">ou</div>
-
-            <div style="text-align: center; font-size: 13px; color: var(--text-light);">
-                <p>⚠️ Apenas usuários autorizados podem adicionar artigos</p>
-                <p style="margin-top: 5px;">Entre em contato com o administrador para solicitar acesso</p>
-            </div>
         </div>
     </div>
 
@@ -1141,7 +1199,79 @@
         
         const firestore = firebase.firestore();
         const auth = firebase.auth();
-        const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+        // ============================================
+        // SISTEMA DE REDIRECIONAMENTO UNIFICADO
+        // ============================================
+
+        // URL do login unificado
+        const LOGIN_URL = 'https://painel.wazzimagiygg.com/login.html';
+
+        // Obtém a URL atual para usar como parâmetro uid
+        function getCurrentPageUrl() {
+            return window.location.href;
+        }
+
+        // Redireciona para o login com o parâmetro uid
+        function redirectToLogin() {
+            const currentUrl = getCurrentPageUrl();
+            const loginWithReturn = `${LOGIN_URL}?uid=${encodeURIComponent(currentUrl)}`;
+            console.log('🔄 Redirecionando para login unificado:', loginWithReturn);
+            window.location.href = loginWithReturn;
+        }
+
+        // ============================================
+        // SISTEMA DE AUTENTICAÇÃO ENTRE DOMÍNIOS
+        // ============================================
+
+        // Verifica se há um token de autenticação na URL (retorno do login)
+        function checkAuthToken() {
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get('auth_token');
+            const userData = params.get('user_data');
+            
+            if (token && userData) {
+                try {
+                    const user = JSON.parse(decodeURIComponent(userData));
+                    console.log('🔑 Token de autenticação recebido:', user);
+                    
+                    // Salva no localStorage para persistência
+                    localStorage.setItem('academico_auth_user', JSON.stringify(user));
+                    localStorage.setItem('academico_auth_token', token);
+                    localStorage.setItem('academico_auth_expiry', (Date.now() + 3600000).toString());
+                    
+                    // Remove os parâmetros da URL
+                    const newUrl = window.location.pathname + window.location.hash;
+                    window.history.replaceState({}, document.title, newUrl);
+                    
+                    // Aplica o usuário
+                    applyUserSession(user);
+                    return true;
+                } catch (e) {
+                    console.error('Erro ao processar token:', e);
+                }
+            }
+            return false;
+        }
+
+        // Verifica se há uma sessão salva no localStorage
+        function checkStoredSession() {
+            try {
+                const token = localStorage.getItem('academico_auth_token');
+                const userData = localStorage.getItem('academico_auth_user');
+                const expiry = localStorage.getItem('academico_auth_expiry');
+                
+                if (token && userData && expiry && Date.now() < parseInt(expiry)) {
+                    const user = JSON.parse(userData);
+                    console.log('📂 Sessão restaurada do localStorage:', user);
+                    applyUserSession(user);
+                    return true;
+                }
+            } catch (e) {
+                console.error('Erro ao restaurar sessão:', e);
+            }
+            return false;
+        }
 
         // ============================================
         // VARIÁVEIS GLOBAIS
@@ -1150,6 +1280,7 @@
         let currentUserData = null;
         let isAdmin = false;
         let isBlocked = false;
+        let isBanned = false;
         let allArticles = [];
         let filteredArticles = [];
         let currentPage = 1;
@@ -1159,137 +1290,95 @@
         const ADMIN_UIDS = ['sZxfMuOBPbXdR8nttVPXIN8QOOl1', '6aPqWVh8JVYL5NqEb78iDGPD7dH3'];
 
         // ============================================
-        // FUNÇÕES DE AUTENTICAÇÃO COM GOOGLE
+        // FUNÇÃO PARA APLICAR SESSÃO DO USUÁRIO
         // ============================================
 
-        function openLoginModal() {
-            document.getElementById('login-modal').classList.add('active');
-            hideAlerts();
-        }
-
-        function closeLoginModal() {
-            document.getElementById('login-modal').classList.remove('active');
-            hideAlerts();
-        }
-
-        function hideAlerts() {
-            document.getElementById('login-alert').classList.remove('show');
-            document.getElementById('login-success').classList.remove('show');
-        }
-
-        function showAlert(message, type = 'danger') {
-            const alertEl = document.getElementById('login-alert');
-            const successEl = document.getElementById('login-success');
+        function applyUserSession(user) {
+            if (!user || !user.uid) return;
             
-            if (type === 'success') {
-                successEl.textContent = message;
-                successEl.classList.add('show');
-                alertEl.classList.remove('show');
-            } else {
-                alertEl.textContent = message;
-                alertEl.classList.add('show');
-                successEl.classList.remove('show');
-            }
-        }
-
-        async function loginWithGoogle() {
-            const btn = document.getElementById('google-login-btn');
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner" style="width:20px;height:20px;border-width:3px;"></span> Aguarde...';
+            currentUser = {
+                uid: user.uid,
+                displayName: user.displayName || 'Usuário',
+                email: user.email || '',
+                photoURL: user.photoURL || '',
+                isGuest: user.isGuest || false
+            };
             
-            try {
-                const result = await auth.signInWithPopup(googleProvider);
-                const user = result.user;
-                
-                // Verificar se o usuário está bloqueado
-                const userDoc = await firestore.collection('users').doc(user.uid).get();
-                const userData = userDoc.exists ? userDoc.data() : {};
-                
-                if (userData.blocked === true) {
-                    await auth.signOut();
-                    showAlert('❌ Esta conta está bloqueada. Entre em contato com o administrador.');
-                    btn.disabled = false;
-                    btn.innerHTML = `
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-                        Entrar com Google
-                    `;
-                    return;
-                }
-
-                // Se não existir, criar registro do usuário
-                if (!userDoc.exists) {
-                    await firestore.collection('users').doc(user.uid).set({
-                        name: user.displayName || user.email?.split('@')[0] || 'Usuário',
-                        email: user.email,
-                        photoURL: user.photoURL || '',
-                        isAdmin: false,
-                        blocked: false,
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                    userData.isAdmin = false;
-                    userData.blocked = false;
-                    userData.name = user.displayName || user.email?.split('@')[0] || 'Usuário';
-                } else {
-                    // Atualizar último login
-                    await firestore.collection('users').doc(user.uid).update({
-                        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                }
-
-                // Login bem sucedido
-                showAlert('✅ Login realizado com sucesso!', 'success');
-                
-                setTimeout(() => {
-                    closeLoginModal();
-                    // Atualizar UI
-                    const isAdminUser = ADMIN_UIDS.includes(user.uid) || userData.isAdmin === true;
-                    const isBlockedUser = userData.blocked === true;
-                    updateUI(user, userData, isAdminUser, isBlockedUser);
-                }, 1000);
-
-            } catch (error) {
-                console.error('Erro no login com Google:', error);
-                let message = 'Erro ao fazer login. Tente novamente.';
-                
-                if (error.code === 'auth/popup-closed-by-user') {
-                    message = '❌ Janela de login fechada. Tente novamente.';
-                } else if (error.code === 'auth/cancelled-popup-request') {
-                    message = '❌ Login cancelado.';
-                } else if (error.code === 'auth/network-request-failed') {
-                    message = '❌ Erro de rede. Verifique sua conexão.';
-                }
-                
-                showAlert(message);
-                btn.disabled = false;
-                btn.innerHTML = `
-                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-                    Entrar com Google
-                `;
-            }
-        }
-
-        async function logoutUser() {
-            try {
-                await auth.signOut();
-                currentUser = null;
-                currentUserData = null;
-                isAdmin = false;
-                isBlocked = false;
-                updateUI(null, null, false, false);
-                await loadArticles();
-            } catch (error) {
-                console.error('Erro ao fazer logout:', error);
-                alert('Erro ao sair. Tente novamente.');
-            }
+            // Verifica se é admin
+            isAdmin = ADMIN_UIDS.includes(user.uid);
+            
+            // Verifica se é convidado
+            const isGuest = user.isGuest || false;
+            
+            // Verifica banimento
+            checkUserBanned(user.uid);
+            
+            updateUI(currentUser, isAdmin, isBanned || isBlocked);
+            loadArticles();
         }
 
         // ============================================
-        // FUNÇÃO PARA VERIFICAR BLOQUEIO
+        // FUNÇÃO PARA VERIFICAR BANIMENTO
+        // ============================================
+
+        async function checkUserBanned(uid) {
+            if (!uid) return false;
+            
+            try {
+                const userDoc = await firestore.collection('users').doc(uid).get();
+                if (userDoc.exists) {
+                    const data = userDoc.data();
+                    isBanned = data.isBanned === true || data.isBan === true;
+                    isBlocked = data.blocked === true;
+                    
+                    if (isBanned) {
+                        showBannedScreen(data.banReason || 'Violação das políticas de uso');
+                        // Esconde o conteúdo
+                        document.querySelector('.main-layout').style.opacity = '0.3';
+                        document.querySelector('.main-layout').style.pointerEvents = 'none';
+                        document.querySelector('.scientific-header').style.opacity = '0.3';
+                        document.querySelector('.scientific-header').style.pointerEvents = 'none';
+                        document.querySelector('.search-section').style.opacity = '0.3';
+                        document.querySelector('.search-section').style.pointerEvents = 'none';
+                        document.querySelector('.stats-bar').style.opacity = '0.3';
+                        document.querySelector('.stats-bar').style.pointerEvents = 'none';
+                        document.querySelector('.footer-links')?.style.setProperty('opacity', '0.3');
+                        document.querySelector('.footer-links')?.style.setProperty('pointer-events', 'none');
+                    }
+                    return isBanned;
+                }
+            } catch (error) {
+                console.log("Erro ao verificar banimento:", error);
+            }
+            return false;
+        }
+
+        // ============================================
+        // FUNÇÃO PARA USUÁRIO BANIDO
+        // ============================================
+
+        function showBannedScreen(reason = 'Violação das políticas de uso') {
+            const overlay = document.getElementById('bannedOverlay');
+            const details = document.getElementById('banDetails');
+            details.textContent = `Motivo: ${reason}`;
+            overlay.classList.add('show');
+        }
+
+        function logoutBanned() {
+            localStorage.removeItem('academico_auth_user');
+            localStorage.removeItem('academico_auth_token');
+            localStorage.removeItem('academico_auth_expiry');
+            auth.signOut().then(() => {
+                location.reload();
+            });
+        }
+
+        // ============================================
+        // FUNÇÃO PARA VERIFICAR STATUS DO USUÁRIO
         // ============================================
 
         async function checkUserStatus(user) {
-            if (!user) return { isAdmin: false, isBlocked: false, userData: null };
+            if (!user) return { isAdmin: false, isBlocked: false, isBanned: false, userData: null };
             
             try {
                 const userDoc = await firestore.collection('users').doc(user.uid).get();
@@ -1297,11 +1386,12 @@
                 
                 const isAdminUser = ADMIN_UIDS.includes(user.uid) || userData.isAdmin === true;
                 const isBlockedUser = userData.blocked === true;
+                const isBannedUser = userData.isBanned === true || userData.isBan === true;
                 
-                return { isAdmin: isAdminUser, isBlocked: isBlockedUser, userData };
+                return { isAdmin: isAdminUser, isBlocked: isBlockedUser, isBanned: isBannedUser, userData };
             } catch (error) {
                 console.error('Erro ao verificar status do usuário:', error);
-                return { isAdmin: false, isBlocked: false, userData: null };
+                return { isAdmin: false, isBlocked: false, isBanned: false, userData: null };
             }
         }
 
@@ -1309,7 +1399,7 @@
         // FUNÇÃO PARA ATUALIZAR A UI
         // ============================================
 
-        function updateUI(user, userData, isAdminUser, isBlockedUser) {
+        function updateUI(user, isAdminUser, isBannedUser) {
             const loginBtn = document.getElementById('login-btn');
             const logoutBtn = document.getElementById('logout-btn');
             const userInfo = document.getElementById('user-info');
@@ -1319,15 +1409,14 @@
             const addBtn = document.getElementById('add-article-btn');
             const blockedWarning = document.getElementById('blocked-warning');
 
-            if (user) {
+            if (user && !isBannedUser) {
                 // Usuário logado
                 loginBtn.style.display = 'none';
                 logoutBtn.style.display = 'inline-flex';
                 userInfo.style.display = 'block';
                 
-                const name = userData?.name || user.displayName || user.email?.split('@')[0] || 'Usuário';
+                const name = user.displayName || user.email?.split('@')[0] || 'Usuário';
                 userName.textContent = name;
-                avatarText.textContent = name.charAt(0).toUpperCase();
                 
                 // Se tiver foto, mostrar a foto
                 const avatarContainer = document.getElementById('user-avatar');
@@ -1337,7 +1426,7 @@
                     avatarContainer.innerHTML = `<span id="avatar-text">${name.charAt(0).toUpperCase()}</span>`;
                 }
                 
-                if (isBlockedUser) {
+                if (isBlocked) {
                     // Usuário bloqueado
                     adminToolbar.style.display = 'block';
                     addBtn.classList.add('disabled');
@@ -1356,22 +1445,116 @@
                     adminToolbar.style.display = 'none';
                 }
                 
-                currentUser = user;
-                currentUserData = userData;
-                isAdmin = isAdminUser && !isBlockedUser;
-                isBlocked = isBlockedUser;
-                
             } else {
-                // Usuário deslogado
+                // Usuário deslogado ou banido
                 loginBtn.style.display = 'inline-flex';
                 logoutBtn.style.display = 'none';
                 userInfo.style.display = 'none';
                 adminToolbar.style.display = 'none';
-                
+            }
+        }
+
+        // ============================================
+        // FUNÇÃO PARA CARREGAR USUÁRIO DO FIREBASE
+        // ============================================
+
+        async function loadFirebaseUser(user) {
+            if (!user) {
                 currentUser = null;
-                currentUserData = null;
                 isAdmin = false;
                 isBlocked = false;
+                isBanned = false;
+                updateUI(null, false, false);
+                
+                // Remove overlay de banido
+                document.getElementById('bannedOverlay').classList.remove('show');
+                document.querySelector('.main-layout').style.opacity = '1';
+                document.querySelector('.main-layout').style.pointerEvents = 'auto';
+                document.querySelector('.scientific-header').style.opacity = '1';
+                document.querySelector('.scientific-header').style.pointerEvents = 'auto';
+                document.querySelector('.search-section').style.opacity = '1';
+                document.querySelector('.search-section').style.pointerEvents = 'auto';
+                document.querySelector('.stats-bar').style.opacity = '1';
+                document.querySelector('.stats-bar').style.pointerEvents = 'auto';
+                
+                loadArticles();
+                return;
+            }
+            
+            try {
+                const status = await checkUserStatus(user);
+                isAdmin = status.isAdmin;
+                isBlocked = status.isBlocked;
+                isBanned = status.isBanned;
+                currentUserData = status.userData;
+                
+                currentUser = {
+                    uid: user.uid,
+                    displayName: user.displayName || 'Usuário',
+                    email: user.email || '',
+                    photoURL: user.photoURL || ''
+                };
+                
+                if (isBanned) {
+                    showBannedScreen(currentUserData?.banReason || 'Violação das políticas de uso');
+                    document.querySelector('.main-layout').style.opacity = '0.3';
+                    document.querySelector('.main-layout').style.pointerEvents = 'none';
+                    document.querySelector('.scientific-header').style.opacity = '0.3';
+                    document.querySelector('.scientific-header').style.pointerEvents = 'none';
+                    document.querySelector('.search-section').style.opacity = '0.3';
+                    document.querySelector('.search-section').style.pointerEvents = 'none';
+                    document.querySelector('.stats-bar').style.opacity = '0.3';
+                    document.querySelector('.stats-bar').style.pointerEvents = 'none';
+                    updateUI(currentUser, isAdmin, true);
+                    return;
+                }
+                
+                updateUI(currentUser, isAdmin, false);
+                
+                // Salva no localStorage para futuras sessões
+                const userData = {
+                    uid: user.uid,
+                    displayName: user.displayName,
+                    email: user.email,
+                    photoURL: user.photoURL,
+                    isGuest: false
+                };
+                localStorage.setItem('academico_auth_user', JSON.stringify(userData));
+                localStorage.setItem('academico_auth_token', 'firebase_' + Date.now());
+                localStorage.setItem('academico_auth_expiry', (Date.now() + 3600000).toString());
+                
+                loadArticles();
+                
+            } catch (error) {
+                console.error('❌ Erro ao carregar usuário Firebase:', error);
+                currentUser = null;
+                isAdmin = false;
+                isBlocked = false;
+                isBanned = false;
+                updateUI(null, false, false);
+                loadArticles();
+            }
+        }
+
+        // ============================================
+        // FUNÇÃO DE LOGOUT
+        // ============================================
+
+        async function logoutUser() {
+            try {
+                localStorage.removeItem('academico_auth_user');
+                localStorage.removeItem('academico_auth_token');
+                localStorage.removeItem('academico_auth_expiry');
+                await auth.signOut();
+                currentUser = null;
+                isAdmin = false;
+                isBlocked = false;
+                isBanned = false;
+                updateUI(null, false, false);
+                loadArticles();
+            } catch (error) {
+                console.error('Erro ao fazer logout:', error);
+                alert('Erro ao sair. Tente novamente.');
             }
         }
 
@@ -1691,7 +1874,7 @@
                         <button class="action-btn" onclick="showCitation('${article.id}')">
                             <i class="material-icons">format_quote</i> Como Citar
                         </button>
-                        ${isAdmin ? `
+                        ${isAdmin && !isBlocked && !isBanned ? `
                             <a href="https://academico.wazzimagiygg.com/add-article.html?id=${article.id}" class="action-btn">
                                 <i class="material-icons">edit</i> Editar
                             </a>
@@ -1862,39 +2045,21 @@
         // EVENTOS E INICIALIZAÇÃO
         // ============================================
 
-        // Fechar modal de login com ESC
+        // Fechar modal com ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                closeLoginModal();
                 closeModal('citation-modal');
                 closeModal('quickview-modal');
             }
         });
 
         // Fechar modal clicando fora
-        document.getElementById('login-modal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) {
-                closeLoginModal();
-            }
-        });
-
-        // Gerenciar estado de autenticação
-        auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                const status = await checkUserStatus(user);
-                isAdmin = status.isAdmin;
-                isBlocked = status.isBlocked;
-                currentUserData = status.userData;
-                updateUI(user, status.userData, status.isAdmin, status.isBlocked);
-                await loadArticles();
-            } else {
-                currentUser = null;
-                currentUserData = null;
-                isAdmin = false;
-                isBlocked = false;
-                updateUI(null, null, false, false);
-                await loadArticles();
-            }
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
         });
 
         // Event Listeners
@@ -1904,6 +2069,34 @@
         });
         document.getElementById('apply-filters-btn')?.addEventListener('click', applyFilters);
 
+        // ============================================
+        // INICIALIZAÇÃO - VERIFICA SESSÃO
+        // ============================================
+
+        // PASSO 1: Verifica token na URL (retorno do login)
+        const hasToken = checkAuthToken();
+
+        // PASSO 2: Se não tem token, verifica sessão no localStorage
+        if (!hasToken) {
+            const hasSession = checkStoredSession();
+            
+            // PASSO 3: Se não tem sessão, verifica Firebase Auth
+            if (!hasSession) {
+                auth.onAuthStateChanged(async (user) => {
+                    await loadFirebaseUser(user);
+                });
+            }
+        } else {
+            // Se já tem token, registra listener para manter sincronizado
+            auth.onAuthStateChanged(async (user) => {
+                if (user) {
+                    if (!currentUser || currentUser.uid !== user.uid) {
+                        await loadFirebaseUser(user);
+                    }
+                }
+            });
+        }
+
         // Expor funções globalmente
         window.applyFilters = applyFilters;
         window.viewArticle = viewArticle;
@@ -1912,10 +2105,9 @@
         window.copyCitation = copyCitation;
         window.closeModal = closeModal;
         window.goToPage = goToPage;
-        window.openLoginModal = openLoginModal;
-        window.closeLoginModal = closeLoginModal;
-        window.loginWithGoogle = loginWithGoogle;
+        window.redirectToLogin = redirectToLogin;
         window.logoutUser = logoutUser;
+        window.logoutBanned = logoutBanned;
     </script>
 
     <!-- Iframe do verificador/logs -->
