@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca Científica - WazzimaGiygg Academico</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-pink.min.css">
     <link rel="icon" href="https://gspotfverwazzimagiygg.wazzimagiygg.com/academico/Favicom.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Lato:wght@300;400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <style>
+        /* ===== VARIÁVEIS GLOBAIS ===== */
         :root {
             --primary-color: #1a5f7a;
             --primary-dark: #0d3b4f;
@@ -30,78 +32,311 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Lato', 'Roboto', sans-serif;
             background-color: var(--light-bg);
             color: var(--text-dark);
         }
 
-        /* Header Científico */
-        .scientific-header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        /* ===== HEADER PADRONIZADO WAZZIMAGIYGG ===== */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
             color: white;
-            padding: 30px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .scientific-header::before {
-            content: '';
-            position: absolute;
+            padding: 12px 24px;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><path fill="white" d="M20,50 L30,40 L40,50 L30,60 Z M60,30 L70,20 L80,30 L70,40 Z M50,70 L60,60 L70,70 L60,80 Z"/></svg>') repeat;
-            opacity: 0.1;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
         }
-
-        .header-container {
+        .header-content {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 30px;
-            position: relative;
-            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
         }
-
-        .header-logo {
+        .logo-area-header {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 12px;
+            cursor: pointer;
+        }
+        .logo-area-header img {
+            height: 36px;
+            border-radius: 8px;
+        }
+        .logo-area-header h1 {
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        .logo-area-header small {
+            font-size: 0.65em;
+            opacity: 0.7;
+            display: block;
+            font-weight: 300;
+        }
+        .user-info-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
             flex-wrap: wrap;
         }
-
-        .logo-img {
-            height: 70px;
-            width: auto;
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1em;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .user-avatar:hover { transform: scale(1.05); }
+        .user-name { font-weight: 500; font-size: 0.85em; }
+        .user-email { font-size: 0.7em; opacity: 0.7; }
+        .btn-logout {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.75em;
+            transition: all 0.2s;
+        }
+        .btn-logout:hover { background: rgba(255,255,255,0.2); }
+        .btn-login {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.75em;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-login:hover { background: rgba(255,255,255,0.25); }
+        .badge-admin {
+            background: #e94560;
+            color: white;
+            font-size: 0.55em;
+            padding: 2px 10px;
             border-radius: 12px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-            transition: transform 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-banned {
+            background: #dc3545;
+            color: white;
+            font-size: 0.55em;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
-        .logo-img:hover {
-            transform: scale(1.05);
+        /* NOTIFICATION BELL */
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 30px;
+            transition: background 0.2s;
+        }
+        .notification-bell:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .notification-bell .material-icons {
+            font-size: 20px;
+        }
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #e94560;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #1a1a2e;
         }
 
-        .header-title {
-            font-size: 2.2rem;
+        .notification-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 340px;
+            max-height: 350px;
+            overflow-y: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 200;
+            color: #1a1a2e;
+        }
+        .notification-dropdown.show {
+            display: block;
+        }
+        .notification-dropdown-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .notification-dropdown-header h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+        .notification-dropdown-header button {
+            background: none;
+            border: none;
+            color: #4a6cf7;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .notification-item {
+            padding: 10px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        .notification-item:hover {
+            background: #f8f9fa;
+        }
+        .notification-item.unread {
+            background: #eef2ff;
+            border-left: 3px solid #4a6cf7;
+        }
+        .notification-item .notif-title {
+            font-weight: 600;
+            font-size: 12px;
+            color: #1a1a2e;
+        }
+        .notification-item .notif-message {
+            font-size: 11px;
+            color: #666;
+            margin-top: 3px;
+        }
+        .notification-item .notif-time {
+            font-size: 10px;
+            color: #999;
+            margin-top: 3px;
+        }
+        .notification-empty {
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+        }
+        .notification-empty .material-icons {
+            font-size: 36px;
+            opacity: 0.4;
+        }
+
+        /* ===== BANNED OVERLAY ===== */
+        .banned-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .banned-overlay.show { display: flex; }
+        .banned-box {
+            background: #1a1a1a;
+            border: 2px solid #e94560;
+            border-radius: 16px;
+            padding: 50px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+        .banned-box .icon { font-size: 80px; margin-bottom: 20px; }
+        .banned-box h2 { color: #e94560; margin-bottom: 15px; }
+        .banned-box p { color: #aaa; margin-bottom: 20px; line-height: 1.6; }
+        .banned-box .btn-logout-banned {
+            background: #e94560;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .banned-box .btn-logout-banned:hover { background: #c0392b; }
+        .banned-box .ban-details {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 13px;
+            color: #888;
+        }
+
+        /* ===== BANNER CIENTÍFICO ===== */
+        .scientific-banner {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 30px 24px;
+            text-align: center;
+        }
+        .scientific-banner h2 {
+            font-size: 2rem;
             font-weight: 700;
             font-family: 'Roboto Slab', serif;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
-
-        .header-subtitle {
-            font-size: 1rem;
+        .scientific-banner p {
             opacity: 0.9;
+            font-size: 1rem;
         }
 
-        /* Stats Bar */
+        /* ===== STATS BAR ===== */
         .stats-bar {
             background: white;
             border-bottom: 1px solid var(--border-color);
             padding: 15px 0;
             position: sticky;
-            top: 0;
-            z-index: 100;
+            top: 60px;
+            z-index: 99;
             box-shadow: var(--shadow-sm);
         }
 
@@ -133,7 +368,7 @@
             font-size: 14px;
         }
 
-        /* Search Section - Estilo Google Acadêmico */
+        /* ===== SEARCH SECTION ===== */
         .search-section {
             background: white;
             padding: 30px;
@@ -213,17 +448,17 @@
             border-color: var(--primary-color);
         }
 
-        /* Main Layout - Estilo SciELO */
+        /* ===== MAIN LAYOUT ===== */
         .main-layout {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 30px;
+            padding: 0 30px 30px;
             display: grid;
             grid-template-columns: 280px 1fr;
             gap: 30px;
         }
 
-        /* Sidebar - Filtros Avançados */
+        /* Sidebar */
         .sidebar {
             background: white;
             border-radius: 16px;
@@ -286,7 +521,7 @@
             margin-bottom: 0;
         }
 
-        /* Articles List */
+        /* Articles Container */
         .articles-container {
             background: white;
             border-radius: 16px;
@@ -375,26 +610,11 @@
             margin-bottom: 15px;
         }
 
-        .article-keywords {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-
-        .keyword {
-            background: #e3f2fd;
-            color: var(--primary-color);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 500;
-        }
-
         .article-actions {
             display: flex;
             gap: 15px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
 
         .action-btn {
@@ -443,6 +663,7 @@
             margin-top: 30px;
             padding-top: 20px;
             border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
         }
 
         .page-btn {
@@ -464,6 +685,11 @@
             background: var(--primary-color);
             color: white;
             border-color: var(--primary-color);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         /* Loading */
@@ -515,6 +741,10 @@
             align-items: center;
         }
 
+        .modal.show {
+            display: flex;
+        }
+
         .modal-content {
             background: white;
             border-radius: 16px;
@@ -533,6 +763,8 @@
             position: sticky;
             top: 0;
             background: white;
+            z-index: 1;
+            border-radius: 16px 16px 0 0;
         }
 
         .modal-body {
@@ -543,6 +775,8 @@
             cursor: pointer;
             font-size: 24px;
             color: var(--text-light);
+            background: none;
+            border: none;
         }
 
         .citation-box {
@@ -554,7 +788,69 @@
             margin-top: 15px;
         }
 
-        /* Responsive */
+        /* ===== FOOTER PADRONIZADO ===== */
+        .site-footer {
+            background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%);
+            border-top: 1px solid #2a2a2a;
+            margin-top: 40px;
+            padding: 25px 20px 20px;
+            border-radius: 16px 16px 0 0;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px 12px;
+            margin-bottom: 15px;
+        }
+
+        .footer-link {
+            color: #aaa !important;
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            padding: 4px 0;
+            display: inline-block;
+        }
+
+        .footer-link:hover {
+            color: #667eea !important;
+            transform: translateY(-1px);
+        }
+
+        .footer-link.highlight {
+            color: #ffb347 !important;
+        }
+
+        .footer-link.highlight:hover {
+            color: #ff9500 !important;
+            text-shadow: 0 0 8px rgba(255, 180, 71, 0.3);
+        }
+
+        .footer-divider {
+            color: #444;
+            font-size: 11px;
+            margin: 0 2px;
+        }
+
+        .footer-copyright {
+            color: #666;
+            font-size: 11px;
+            padding-top: 12px;
+            border-top: 1px solid #222;
+            margin-top: 8px;
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
             .main-layout {
                 grid-template-columns: 1fr;
@@ -566,7 +862,7 @@
         }
 
         @media (max-width: 768px) {
-            .header-container, .stats-container, .main-layout, .search-section {
+            .header-content, .stats-container, .main-layout, .search-section {
                 padding-left: 20px;
                 padding-right: 20px;
             }
@@ -577,15 +873,58 @@
                 padding: 12px;
                 justify-content: center;
             }
-            .logo-img {
-                height: 50px;
+            .logo-area-header img {
+                height: 30px;
             }
-            .header-title {
+            .logo-area-header h1 {
+                font-size: 0.9em;
+            }
+            .scientific-banner h2 {
                 font-size: 1.5rem;
+            }
+            .stats-number {
+                font-size: 20px;
+            }
+            .stats-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            .notification-dropdown {
+                width: 300px;
+                right: -20px;
+            }
+            .footer-links {
+                gap: 6px 8px;
+            }
+            .footer-link {
+                font-size: 10px;
+            }
+            .footer-divider {
+                font-size: 9px;
+            }
+            .footer-copyright {
+                font-size: 9px;
             }
         }
 
-        /* Toolbar */
+        @media (max-width: 480px) {
+            .user-name, .user-email { display: none; }
+            .notification-dropdown {
+                width: calc(100vw - 40px);
+                right: -10px;
+            }
+            .article-card {
+                padding: 15px;
+            }
+            .article-title {
+                font-size: 16px;
+            }
+            .main-layout {
+                padding: 0 15px 15px;
+            }
+        }
+
+        /* Admin Toolbar */
         .admin-toolbar {
             background: white;
             border-bottom: 1px solid var(--border-color);
@@ -618,790 +957,1092 @@
             background: var(--primary-dark);
             transform: translateY(-2px);
         }
+
+        .btn-add i {
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
-    <!-- Header Científico com Logotipo -->
-    <div class="scientific-header">
-        <div class="header-container">
-            <div class="header-logo">
-                <img src="https://academico.wazzimagiygg.com/Favicom.png" 
-                     alt="Logo WazzimaGiygg Academico" 
-                     class="logo-img"
-                     onerror="this.style.display='none'">
-                <div>
-                    <div class="header-title">
-                        <i class="material-icons" style="font-size: 36px; vertical-align: middle;">menu_book</i>
-                        Biblioteca Científica WazzimaGiygg
+
+<!-- ===== BANNED OVERLAY ===== -->
+<div id="bannedOverlay" class="banned-overlay">
+    <div class="banned-box">
+        <div class="icon">🚫</div>
+        <h2>⚠️ Conta Banida</h2>
+        <p>Sua conta foi banida permanentemente do sistema.</p>
+        <div id="banDetails" class="ban-details">Motivo: Violação das políticas de uso</div>
+        <button class="btn-logout-banned" onclick="logoutBanned()">🚪 Sair da conta</button>
+    </div>
+</div>
+
+<!-- ===== HEADER PADRONIZADO WAZZIMAGIYGG ===== -->
+<header class="header">
+    <div class="header-content">
+        <div class="logo-area-header" onclick="location.reload()">
+            <img src="https://wazzimagiygg.com/favicom.png" alt="Logo">
+            <div>
+                <h1>WazzimaGiygg</h1>
+                <small>Acadêmico</small>
+            </div>
+        </div>
+        <div class="user-info-header" id="userInfo">
+            <div class="user-avatar" id="userAvatar">👤</div>
+            <div>
+                <div class="user-name" id="userName">Carregando...</div>
+                <div class="user-email" id="userEmail">aguarde</div>
+            </div>
+            <span id="userBadge"></span>
+            
+            <!-- NOTIFICATION BELL -->
+            <div class="notification-bell" id="notificationBell" onclick="toggleNotifications(event)">
+                <span class="material-icons">notifications</span>
+                <span class="notification-badge" id="notifBadge" style="display:none;">0</span>
+                <div class="notification-dropdown" id="notifDropdown">
+                    <div class="notification-dropdown-header">
+                        <h3>🔔 Notificações</h3>
+                        <button onclick="markAllAsRead(event)">Marcar todas como lidas</button>
                     </div>
-                    <div class="header-subtitle">
-                        Artigos científicos, revisões, monografias e mais - Acesso livre e gratuito
+                    <div id="notificationList">
+                        <div class="notification-empty">
+                            <span class="material-icons">notifications_off</span>
+                            <p>Nenhuma notificação</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Stats Bar -->
-    <div class="stats-bar">
-        <div class="stats-container">
-            <div class="stats-item">
-                <span class="stats-number" id="total-articles">0</span>
-                <span class="stats-label">Artigos Publicados</span>
-            </div>
-            <div class="stats-item">
-                <span class="stats-number" id="total-authors">0</span>
-                <span class="stats-label">Pesquisadores</span>
-            </div>
-            <div class="stats-item">
-                <span class="stats-number" id="total-views">0</span>
-                <span class="stats-label">Visualizações</span>
-            </div>
-            <div class="stats-item">
-                <span class="stats-number" id="last-update">-</span>
-                <span class="stats-label">Última atualização</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Toolbar -->
-    <div class="admin-toolbar" id="admin-toolbar" style="display: none;">
-        <div class="container">
-            <a href="add-article.html" class="btn-add">
-                <i class="material-icons">add</i> Novo Artigo
-            </a>
-        </div>
-    </div>
-
-    <!-- Search Section -->
-    <div class="search-section">
-        <div class="search-main">
-            <div class="search-input-wrapper">
-                <input type="text" id="search-input" class="search-input" placeholder="Pesquisar por título, autor, palavras-chave..." autocomplete="off">
-            </div>
-            <button id="search-btn" class="search-btn">
-                <i class="material-icons">search</i> Buscar
+            
+            <button class="btn-logout" id="btnLogout" style="display:none;" onclick="logout()">Sair</button>
+            <button class="btn-login" id="btnLogin" onclick="showLoginModal()">
+                <span class="material-icons" style="font-size:16px;">person</span> Entrar
             </button>
         </div>
-        <div class="advanced-filters">
-            <select id="type-filter" class="filter-select">
-                <option value="all">Todos os tipos</option>
-                <option value="cientifico">Científico</option>
-                <option value="revisao">Revisão Bibliográfica</option>
-                <option value="monografia">Monografia</option>
-                <option value="dissertacao">Dissertação</option>
-                <option value="tese">Tese</option>
-                <option value="noticia">Notícia</option>
-                <option value="tutorial">Tutorial</option>
-            </select>
-            <select id="language-filter" class="filter-select">
-                <option value="all">Todos os idiomas</option>
-                <option value="pt-BR">Português</option>
-                <option value="en-US">English</option>
-                <option value="es-ES">Español</option>
-            </select>
-            <select id="sort-by" class="filter-select">
-                <option value="recent">Mais recentes primeiro</option>
-                <option value="oldest">Mais antigos primeiro</option>
-                <option value="title">Título (A-Z)</option>
-                <option value="views">Mais visualizados</option>
-            </select>
+    </div>
+</header>
+
+<!-- ===== BANNER CIENTÍFICO ===== -->
+<div class="scientific-banner">
+    <h2>📚 Biblioteca Científica WazzimaGiygg</h2>
+    <p>Artigos científicos, revisões, monografias, dissertações e teses - Acesso livre e gratuito</p>
+</div>
+
+<!-- ===== STATS BAR ===== -->
+<div class="stats-bar">
+    <div class="stats-container">
+        <div class="stats-item">
+            <span class="stats-number" id="total-articles">0</span>
+            <span class="stats-label">Artigos Publicados</span>
+        </div>
+        <div class="stats-item">
+            <span class="stats-number" id="total-authors">0</span>
+            <span class="stats-label">Pesquisadores</span>
+        </div>
+        <div class="stats-item">
+            <span class="stats-number" id="total-views">0</span>
+            <span class="stats-label">Visualizações</span>
+        </div>
+        <div class="stats-item">
+            <span class="stats-number" id="last-update">-</span>
+            <span class="stats-label">Última atualização</span>
         </div>
     </div>
+</div>
 
-    <!-- Main Layout -->
-    <div class="main-layout">
-        <!-- Sidebar Filters -->
-        <aside class="sidebar">
-            <div class="sidebar-title">Filtros Avançados</div>
-            
-            <div class="filter-group">
-                <label>Ano de publicação</label>
-                <div class="year-range">
-                    <input type="number" id="year-start" placeholder="De" min="1900" max="2025">
-                    <input type="number" id="year-end" placeholder="Até" min="1900" max="2025">
-                </div>
+<!-- ===== ADMIN TOOLBAR ===== -->
+<div class="admin-toolbar" id="admin-toolbar" style="display: none;">
+    <div class="container">
+        <a href="add-article.html" class="btn-add">
+            <i class="material-icons">add</i> Novo Artigo
+        </a>
+    </div>
+</div>
+
+<!-- ===== SEARCH SECTION ===== -->
+<div class="search-section">
+    <div class="search-main">
+        <div class="search-input-wrapper">
+            <input type="text" id="search-input" class="search-input" placeholder="Pesquisar por título, autor, palavras-chave..." autocomplete="off">
+        </div>
+        <button id="search-btn" class="search-btn">
+            <i class="material-icons">search</i> Buscar
+        </button>
+    </div>
+    <div class="advanced-filters">
+        <select id="type-filter" class="filter-select">
+            <option value="all">Todos os tipos</option>
+            <option value="cientifico">Científico</option>
+            <option value="revisao">Revisão Bibliográfica</option>
+            <option value="monografia">Monografia</option>
+            <option value="dissertacao">Dissertação</option>
+            <option value="tese">Tese</option>
+            <option value="noticia">Notícia</option>
+            <option value="tutorial">Tutorial</option>
+        </select>
+        <select id="language-filter" class="filter-select">
+            <option value="all">Todos os idiomas</option>
+            <option value="pt-BR">Português</option>
+            <option value="en-US">English</option>
+            <option value="es-ES">Español</option>
+        </select>
+        <select id="sort-by" class="filter-select">
+            <option value="recent">Mais recentes primeiro</option>
+            <option value="oldest">Mais antigos primeiro</option>
+            <option value="title">Título (A-Z)</option>
+            <option value="views">Mais visualizados</option>
+        </select>
+    </div>
+</div>
+
+<!-- ===== MAIN LAYOUT ===== -->
+<div class="main-layout">
+    <!-- Sidebar Filters -->
+    <aside class="sidebar">
+        <div class="sidebar-title">Filtros Avançados</div>
+        
+        <div class="filter-group">
+            <label>Ano de publicação</label>
+            <div class="year-range">
+                <input type="number" id="year-start" placeholder="De" min="1900" max="2025">
+                <input type="number" id="year-end" placeholder="Até" min="1900" max="2025">
             </div>
+        </div>
 
-            <div class="filter-group">
-                <label>Status</label>
-                <div class="checkbox-group">
-                    <label>
-                        <input type="checkbox" id="status-published" checked> Publicados
-                    </label>
-                    <label>
-                        <input type="checkbox" id="status-draft"> Rascunhos
-                    </label>
-                </div>
+        <div class="filter-group">
+            <label>Status</label>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="status-published" checked> Publicados
+                </label>
+                <label>
+                    <input type="checkbox" id="status-draft"> Rascunhos
+                </label>
             </div>
+        </div>
 
-            <div class="filter-group">
-                <label>Palavras-chave populares</label>
-                <div class="checkbox-group" id="keywords-list">
-                    <!-- Keywords serão carregadas dinamicamente -->
-                </div>
+        <div class="filter-group">
+            <label>Palavras-chave populares</label>
+            <div class="checkbox-group" id="keywords-list">
+                <!-- Keywords serão carregadas dinamicamente -->
             </div>
+        </div>
 
-            <button id="apply-filters-btn" class="search-btn" style="width: 100%; justify-content: center; margin-top: 20px;">
-                <i class="material-icons">filter_list</i> Aplicar Filtros
+        <button id="apply-filters-btn" class="search-btn" style="width: 100%; justify-content: center; margin-top: 20px;">
+            <i class="material-icons">filter_list</i> Aplicar Filtros
+        </button>
+    </aside>
+
+    <!-- Articles List -->
+    <div class="articles-container">
+        <div class="results-header">
+            <div class="results-count" id="results-count">Carregando artigos...</div>
+        </div>
+
+        <div id="articles-list">
+            <div class="loading-container">
+                <div class="spinner"></div>
+                <p style="margin-top: 20px;">Carregando artigos...</p>
+            </div>
+        </div>
+
+        <div id="pagination" class="pagination"></div>
+    </div>
+</div>
+
+<!-- ===== FOOTER PADRONIZADO ===== -->
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="https://wazzimagiygg.com/donate/" class="footer-link" target="_blank">💝 Doação</a>
+            <span class="footer-divider">|</span>
+            <a href="https://wazzimagiygg.com/desktop.html" class="footer-link" target="_blank">🖥️ Desktop</a>
+            <span class="footer-divider">|</span>
+            <a href="https://wazzimagiygg.com/LGPD" class="footer-link" target="_blank">🔒 LGPD</a>
+            <span class="footer-divider">|</span>
+            <a href="https://wazzimagiygg.com/MarcoCivil" class="footer-link" target="_blank">📜 Marco Civil</a>
+            <span class="footer-divider">|</span>
+            <a href="https://support.wazzimagiygg.com/" class="footer-link" target="_blank">🎫 Ticket</a>
+            <span class="footer-divider">|</span>
+            <a href="https://wazzimagiygg.com/produtos" class="footer-link highlight" target="_blank">🛍️ Produtos</a>
+            <span class="footer-divider">|</span>
+            <a href="https://painel.wazzimagiygg.com/" class="footer-link highlight" target="_blank">👤 Sua conta</a>
+        </div>
+        <div class="footer-copyright">
+            © 2026 WazzimaGiygg Acadêmico - Biblioteca Científica Livre e Gratuita
+        </div>
+    </div>
+</footer>
+
+<!-- ===== MODAL CITAÇÃO ===== -->
+<div id="citation-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="material-icons">format_quote</i> Como Citar este Artigo</h3>
+            <button class="close-modal" onclick="closeModal('citation-modal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="citation-content"></div>
+            <button class="search-btn" onclick="copyCitation()" style="margin-top: 20px; padding: 10px 20px;">
+                <i class="material-icons">content_copy</i> Copiar Citação
             </button>
-        </aside>
-
-        <!-- Articles List -->
-        <div class="articles-container">
-            <div class="results-header">
-                <div class="results-count" id="results-count">Carregando artigos...</div>
-            </div>
-
-            <div id="articles-list">
-                <div class="loading-container">
-                    <div class="spinner"></div>
-                    <p style="margin-top: 20px;">Carregando artigos...</p>
-                </div>
-            </div>
-
-            <div id="pagination" class="pagination"></div>
         </div>
     </div>
+</div>
 
-    <!-- Modal de Citação -->
-    <div id="citation-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="material-icons">format_quote</i> Como Citar este Artigo</h3>
-                <span class="close-modal" onclick="closeModal('citation-modal')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div id="citation-content"></div>
-                <button class="search-btn" onclick="copyCitation()" style="margin-top: 20px; padding: 10px 20px;">
-                    <i class="material-icons">content_copy</i> Copiar Citação
-                </button>
+<!-- ===== MODAL VISUALIZAÇÃO RÁPIDA ===== -->
+<div id="quickview-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="quickview-title">Artigo</h3>
+            <button class="close-modal" onclick="closeModal('quickview-modal')">&times;</button>
+        </div>
+        <div class="modal-body" id="quickview-body"></div>
+    </div>
+</div>
+
+<!-- ===== MODAL LOGIN ===== -->
+<div id="login-modal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+            <h3><i class="material-icons">login</i> Entrar na sua conta</h3>
+            <button class="close-modal" onclick="closeModal('login-modal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <button class="google-login-btn" onclick="loginWithGoogle()" style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:8px; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; gap:10px;">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:20px; height:20px;">
+                Continuar com Google
+            </button>
+            
+            <div style="text-align:center; margin:20px 0; color:#999;">ou</div>
+            
+            <form id="login-form-modal">
+                <input type="email" id="modal-email" class="filter-select" placeholder="E-mail" style="width:100%; padding:12px; margin-bottom:10px; border-radius:8px;" required>
+                <input type="password" id="modal-password" class="filter-select" placeholder="Senha" style="width:100%; padding:12px; margin-bottom:10px; border-radius:8px;" required>
+                <button type="submit" class="search-btn" style="width:100%; justify-content:center; padding:12px;">Entrar com e-mail</button>
+            </form>
+            <div style="text-align:center; margin-top:16px;">
+                <a href="#" onclick="showRegister()" style="color: var(--primary-color); text-decoration:none;">Criar nova conta</a>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Modal de Visualização Rápida -->
-    <div id="quickview-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="quickview-title">Artigo</h3>
-                <span class="close-modal" onclick="closeModal('quickview-modal')">&times;</span>
-            </div>
-            <div class="modal-body" id="quickview-body"></div>
-        </div>
-    </div>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+<script>
+// ============================================
+// CONFIGURAÇÃO FIREBASE
+// ============================================
+const firebaseConfig = {
+    apiKey: "AIzaSyB9GkSqTIZ0kbVsba_WOdQeVAETrF9qna0",
+    authDomain: "wzzm-ce3fc.firebaseapp.com",
+    projectId: "wzzm-ce3fc",
+    storageBucket: "wzzm-ce3fc.appspot.com",
+    messagingSenderId: "249427877153",
+    appId: "1:249427877153:web:0e4297294794a5aadeb260"
+};
 
-    <script>
-        // ============================================
-        // CONFIGURAÇÃO FIREBASE
-        // ============================================
-        const firebaseConfig = {
-            apiKey: "AIzaSyB9GkSqTIZ0kbVsba_WOdQeVAETrF9qna0",
-            authDomain: "wzzm-ce3fc.firebaseapp.com",
-            projectId: "wzzm-ce3fc",
-            storageBucket: "wzzm-ce3fc.appspot.com",
-            messagingSenderId: "249427877153",
-            appId: "1:249427877153:web:0e4297294794a5aadeb260"
-        };
+let app, auth, db;
+try {
+    app = firebase.app();
+    auth = firebase.auth();
+    db = firebase.firestore();
+} catch (e) {
+    app = firebase.initializeApp(firebaseConfig);
+    auth = firebase.auth();
+    db = firebase.firestore();
+}
 
-        let app;
-        try {
-            app = firebase.app();
-        } catch (e) {
-            app = firebase.initializeApp(firebaseConfig);
-        }
-        
-        const firestore = firebase.firestore();
-        const auth = firebase.auth();
+// ============================================
+// VARIÁVEIS GLOBAIS
+// ============================================
+let currentUser = null;
+let isAdmin = false;
+let isBanned = false;
+let allArticles = [];
+let filteredArticles = [];
+let currentPage = 1;
+const itemsPerPage = 10;
+let notifications = [];
+let unreadCount = 0;
+let notificationListener = null;
 
-        // ============================================
-        // VARIÁVEIS GLOBAIS
-        // ============================================
-        let currentUser = null;
-        let isAdmin = false;
-        let allArticles = [];
-        let filteredArticles = [];
-        let currentPage = 1;
-        const itemsPerPage = 10;
+// UIDs de administradores
+const ADMIN_UIDS = ['sZxfMuOBPbXdR8nttVPXIN8QOOl1', '6aPqWVh8JVYL5NqEb78iDGPD7dH3'];
 
-        // UIDs de administradores
-        const ADMIN_UIDS = ['sZxfMuOBPbXdR8nttVPXIN8QOOl1', '6aPqWVh8JVYL5NqEb78iDGPD7dH3'];
+// ============================================
+// FUNÇÕES DE UTILIDADE
+// ============================================
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 
-        // ============================================
-        // FUNÇÕES AUXILIARES DE DATA (CORRIGIDAS)
-        // ============================================
-        
-        // Função para converter qualquer formato de data para objeto Date
-        function safeToDate(dateValue) {
-            if (!dateValue) return null;
-            
-            // Se já é um objeto Date válido
-            if (dateValue instanceof Date && !isNaN(dateValue)) {
-                return dateValue;
-            }
-            
-            // Se é um timestamp do Firestore com método toDate()
-            if (dateValue.toDate && typeof dateValue.toDate === 'function') {
-                return dateValue.toDate();
-            }
-            
-            // Se é um timestamp do Firestore com segundos
-            if (dateValue.seconds && typeof dateValue.seconds === 'number') {
-                return new Date(dateValue.seconds * 1000);
-            }
-            
-            // Se é uma string ISO
-            if (typeof dateValue === 'string') {
-                const date = new Date(dateValue);
-                if (!isNaN(date)) return date;
-            }
-            
-            // Se é um número (timestamp Unix)
-            if (typeof dateValue === 'number') {
-                const date = new Date(dateValue);
-                if (!isNaN(date)) return date;
-            }
-            
-            return null;
-        }
+function stripHtml(html) {
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    return temp.textContent || temp.innerText || '';
+}
 
-        function formatDate(date) {
-            if (!date) return 'Data desconhecida';
-            const validDate = safeToDate(date);
-            if (!validDate) return 'Data inválida';
-            return validDate.toLocaleDateString('pt-BR');
-        }
+function getInitials(name) {
+    if (!name) return '?';
+    const parts = name.trim().split(' ');
+    if (parts.length >= 2) return (parts[0][0] + parts[parts.length-1][0]).toUpperCase();
+    return name.substring(0, 2).toUpperCase();
+}
 
-        // Função segura para obter o ano
-        function getSafeYear(date) {
-            const validDate = safeToDate(date);
-            if (!validDate) return new Date().getFullYear();
-            return validDate.getFullYear();
-        }
+function safeToDate(dateValue) {
+    if (!dateValue) return null;
+    if (dateValue instanceof Date && !isNaN(dateValue)) return dateValue;
+    if (dateValue.toDate && typeof dateValue.toDate === 'function') return dateValue.toDate();
+    if (dateValue.seconds && typeof dateValue.seconds === 'number') return new Date(dateValue.seconds * 1000);
+    if (typeof dateValue === 'string') {
+        const date = new Date(dateValue);
+        if (!isNaN(date)) return date;
+    }
+    if (typeof dateValue === 'number') {
+        const date = new Date(dateValue);
+        if (!isNaN(date)) return date;
+    }
+    return null;
+}
 
-        function getTypeLabel(type) {
-            const types = {
-                'cientifico': 'Artigo Científico',
-                'revisao': 'Revisão Bibliográfica',
-                'noticia': 'Notícia',
-                'editorial': 'Editorial',
-                'opiniao': 'Opinião',
-                'entrevista': 'Entrevista',
-                'tutorial': 'Tutorial',
-                'monografia': 'Monografia',
-                'dissertacao': 'Dissertação',
-                'tese': 'Tese'
-            };
-            return types[type] || type;
-        }
+function formatDate(date) {
+    if (!date) return 'Data desconhecida';
+    const validDate = safeToDate(date);
+    if (!validDate) return 'Data inválida';
+    return validDate.toLocaleDateString('pt-BR');
+}
 
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+function getSafeYear(date) {
+    const validDate = safeToDate(date);
+    if (!validDate) return new Date().getFullYear();
+    return validDate.getFullYear();
+}
 
-        function stripHtml(html) {
-            const temp = document.createElement('div');
-            temp.innerHTML = html;
-            return temp.textContent || temp.innerText || '';
-        }
+function getTimeAgo(date) {
+    if (!date) return '';
+    const validDate = safeToDate(date);
+    if (!validDate) return '';
+    const seconds = Math.floor((new Date() - validDate) / 1000);
+    if (seconds < 60) return 'agora';
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes}m`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours}h`;
+    const days = Math.floor(hours / 24);
+    return `${days}d`;
+}
 
-        async function checkIsAdmin(user) {
-            if (!user) return false;
-            if (ADMIN_UIDS.includes(user.uid)) return true;
-            try {
-                const userDoc = await firestore.collection('users').doc(user.uid).get();
-                return userDoc.exists && userDoc.data().isAdmin === true;
-            } catch { return false; }
-        }
+function getTypeLabel(type) {
+    const types = {
+        'cientifico': 'Artigo Científico',
+        'revisao': 'Revisão Bibliográfica',
+        'noticia': 'Notícia',
+        'editorial': 'Editorial',
+        'opiniao': 'Opinião',
+        'entrevista': 'Entrevista',
+        'tutorial': 'Tutorial',
+        'monografia': 'Monografia',
+        'dissertacao': 'Dissertação',
+        'tese': 'Tese'
+    };
+    return types[type] || type;
+}
 
-        // ============================================
-        // FUNÇÃO PRINCIPAL - CARREGAR ARTIGOS
-        // ============================================
-        
-        async function loadArticles() {
-            showLoading();
-            
-            try {
-                const snapshot = await firestore.collection('articlesdoc')
-                    .orderBy('lastModified', 'desc')
-                    .get();
-                
-                allArticles = [];
-                const authorsSet = new Set();
-                let totalViews = 0;
-                
-                for (const doc of snapshot.docs) {
-                    const data = doc.data();
-                    
-                    // Processar autores
-                    if (data.authors && Array.isArray(data.authors)) {
-                        data.authors.forEach(author => authorsSet.add(author));
-                    }
-                    
-                    // Contar visualizações
-                    totalViews += (data.views || 0);
-                    
-                    // Converter datas de forma segura
-                    let createdAt = null;
-                    if (data.createdAt) {
-                        createdAt = safeToDate(data.createdAt);
-                    } else if (data.timestamp) {
-                        createdAt = safeToDate(data.timestamp);
-                    }
-                    
-                    let lastModified = null;
-                    if (data.lastModified) {
-                        lastModified = safeToDate(data.lastModified);
-                    } else if (data.timestamp) {
-                        lastModified = safeToDate(data.timestamp);
-                    }
-                    
-                    allArticles.push({
-                        id: doc.id,
-                        title: data.title || 'Sem título',
-                        description: data.description || '',
-                        content: data.formattedContent || '',
-                        authors: data.authors || [],
-                        students: data.students || [],
-                        type: data.articleType || 'cientifico',
-                        language: data.language || 'pt-BR',
-                        status: data.status || 'published',
-                        uid: data.uid || doc.id,
-                        views: data.views || 0,
-                        shares: data.shares || 0,
-                        citation: data.citation || '',
-                        createdAt: createdAt,
-                        lastModified: lastModified,
-                        sources: data.sources || []
-                    });
-                }
-                
-                // Atualizar estatísticas
-                document.getElementById('total-articles').textContent = allArticles.length;
-                document.getElementById('total-authors').textContent = authorsSet.size;
-                document.getElementById('total-views').textContent = totalViews.toLocaleString();
-                
-                // Última atualização
-                const lastModified = allArticles[0]?.lastModified;
-                if (lastModified) {
-                    document.getElementById('last-update').textContent = formatDate(lastModified);
-                }
-                
-                // Extrair palavras-chave únicas
-                extractKeywords();
-                
-                // Aplicar filtros iniciais
-                applyFilters();
-                
-            } catch (error) {
-                console.error('Erro ao carregar artigos:', error);
-                document.getElementById('articles-list').innerHTML = `
-                    <div class="empty-state">
-                        <i class="material-icons">error</i>
-                        <h3>Erro ao carregar artigos</h3>
-                        <p>${escapeHtml(error.message)}</p>
-                    </div>
-                `;
-            }
-        }
-        
-        function extractKeywords() {
-            const keywordMap = new Map();
-            
-            allArticles.forEach(article => {
-                // Extrair do título
-                const titleWords = article.title.toLowerCase().split(/\s+/);
-                titleWords.forEach(word => {
-                    if (word.length > 4 && !['artigo', 'estudo', 'pesquisa', 'análise'].includes(word)) {
-                        keywordMap.set(word, (keywordMap.get(word) || 0) + 1);
-                    }
-                });
-                
-                // Extrair da descrição
-                if (article.description) {
-                    const descWords = article.description.toLowerCase().split(/\s+/);
-                    descWords.forEach(word => {
-                        if (word.length > 4) {
-                            keywordMap.set(word, (keywordMap.get(word) || 0) + 1);
-                        }
-                    });
-                }
+// ============================================
+// NOTIFICAÇÕES
+// ============================================
+async function loadNotifications() {
+    if (!currentUser) return;
+    try {
+        const snapshot = await db.collection('notifications')
+            .where('userId', '==', currentUser.uid)
+            .orderBy('timestamp', 'desc')
+            .limit(50)
+            .get();
+        notifications = [];
+        snapshot.forEach(doc => {
+            notifications.push({ 
+                id: doc.id, 
+                ...doc.data(),
+                timestamp: doc.data().timestamp || new Date()
             });
-            
-            // Ordenar por frequência e pegar as 10 mais comuns
-            const topKeywords = Array.from(keywordMap.entries())
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, 10);
-            
-            const keywordsList = document.getElementById('keywords-list');
-            if (keywordsList) {
-                keywordsList.innerHTML = topKeywords.map(([keyword, count]) => `
-                    <label>
-                        <input type="checkbox" class="keyword-checkbox" value="${escapeHtml(keyword)}" onchange="applyFilters()">
-                        ${escapeHtml(keyword)} <span style="color:#999;">(${count})</span>
-                    </label>
-                `).join('');
-            }
-        }
-        
-        function showLoading() {
-            const container = document.getElementById('articles-list');
-            container.innerHTML = `
-                <div class="loading-container">
-                    <div class="spinner"></div>
-                    <p>Carregando artigos...</p>
-                </div>
-            `;
-        }
-        
-        function applyFilters() {
-            const searchTerm = document.getElementById('search-input')?.value.toLowerCase() || '';
-            const typeFilter = document.getElementById('type-filter')?.value || 'all';
-            const languageFilter = document.getElementById('language-filter')?.value || 'all';
-            const sortBy = document.getElementById('sort-by')?.value || 'recent';
-            const yearStart = document.getElementById('year-start')?.value;
-            const yearEnd = document.getElementById('year-end')?.value;
-            const showPublished = document.getElementById('status-published')?.checked || false;
-            const showDraft = document.getElementById('status-draft')?.checked || false;
-            
-            // Palavras-chave selecionadas
-            const selectedKeywords = Array.from(document.querySelectorAll('.keyword-checkbox:checked'))
-                .map(cb => cb.value.toLowerCase());
-            
-            filteredArticles = allArticles.filter(article => {
-                // Filtro de status
-                if (!showPublished && article.status === 'published') return false;
-                if (!showDraft && article.status === 'draft') return false;
-                
-                // Filtro de tipo
-                if (typeFilter !== 'all' && article.type !== typeFilter) return false;
-                
-                // Filtro de idioma
-                if (languageFilter !== 'all' && article.language !== languageFilter) return false;
-                
-                // Filtro de ano - USANDO FUNÇÃO SEGURA
-                if (yearStart && article.createdAt) {
-                    const year = getSafeYear(article.createdAt);
-                    if (year < parseInt(yearStart)) return false;
-                }
-                if (yearEnd && article.createdAt) {
-                    const year = getSafeYear(article.createdAt);
-                    if (year > parseInt(yearEnd)) return false;
-                }
-                
-                // Filtro de busca
-                if (searchTerm) {
-                    const inTitle = article.title.toLowerCase().includes(searchTerm);
-                    const inAuthors = article.authors.some(a => a.toLowerCase().includes(searchTerm));
-                    const inDescription = article.description.toLowerCase().includes(searchTerm);
-                    const inContent = stripHtml(article.content).toLowerCase().includes(searchTerm);
-                    if (!inTitle && !inAuthors && !inDescription && !inContent) return false;
-                }
-                
-                // Filtro de palavras-chave
-                if (selectedKeywords.length > 0) {
-                    const articleText = (article.title + ' ' + article.description).toLowerCase();
-                    const hasKeyword = selectedKeywords.some(kw => articleText.includes(kw));
-                    if (!hasKeyword) return false;
-                }
-                
-                return true;
-            });
-            
-            // Ordenação
-            if (sortBy === 'recent') {
-                filteredArticles.sort((a, b) => (b.lastModified?.getTime() || 0) - (a.lastModified?.getTime() || 0));
-            } else if (sortBy === 'oldest') {
-                filteredArticles.sort((a, b) => (a.lastModified?.getTime() || 0) - (b.lastModified?.getTime() || 0));
-            } else if (sortBy === 'title') {
-                filteredArticles.sort((a, b) => a.title.localeCompare(b.title));
-            } else if (sortBy === 'views') {
-                filteredArticles.sort((a, b) => (b.views || 0) - (a.views || 0));
-            }
-            
-            // Resetar página
-            currentPage = 1;
-            
-            // Atualizar contagem
-            document.getElementById('results-count').textContent = `${filteredArticles.length} artigo(s) encontrado(s)`;
-            
-            // Renderizar
-            renderArticles();
-            renderPagination();
-        }
-        
-        function renderArticles() {
-            const container = document.getElementById('articles-list');
-            const start = (currentPage - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            const pageArticles = filteredArticles.slice(start, end);
-            
-            if (pageArticles.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <i class="material-icons">search_off</i>
-                        <h3>Nenhum artigo encontrado</h3>
-                        <p>Tente ajustar seus filtros ou buscar por outros termos.</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            container.innerHTML = pageArticles.map(article => `
-                <div class="article-card">
-                    <div class="article-title">
-                        <a href="#" onclick="viewArticle('${article.id}'); return false;">
-                            ${escapeHtml(article.title)}
-                        </a>
-                        ${article.status === 'draft' ? '<span class="status-badge status-draft">Rascunho</span>' : ''}
-                    </div>
-                    
-                    <div class="article-authors">
-                        <i class="material-icons" style="font-size: 14px;">people</i>
-                        ${article.authors.length > 0 ? article.authors.join('; ') : 'Autor não informado'}
-                        ${article.students && article.students.length > 0 ? ` (Orientandos: ${article.students.join(', ')})` : ''}
-                    </div>
-                    
-                    <div class="article-meta">
-                        <span><i class="material-icons">schedule</i> ${formatDate(article.lastModified)}</span>
-                        <span><i class="material-icons">category</i> ${getTypeLabel(article.type)}</span>
-                        <span><i class="material-icons">language</i> ${article.language === 'pt-BR' ? 'Português' : article.language === 'en-US' ? 'English' : 'Español'}</span>
-                        <span><i class="material-icons">visibility</i> ${(article.views || 0).toLocaleString()} visualizações</span>
-                    </div>
-                    
-                    <div class="article-abstract">
-                        ${escapeHtml(article.description.substring(0, 200))}${article.description.length > 200 ? '...' : ''}
-                    </div>
-                    
-                    <div class="article-actions">
-                        <button class="action-btn" onclick="quickView('${article.id}')">
-                            <i class="material-icons">visibility</i> Visualizar
-                        </button>
-                        <button class="action-btn" onclick="showCitation('${article.id}')">
-                            <i class="material-icons">format_quote</i> Como Citar
-                        </button>
-                        ${isAdmin ? `
-                            <a href="add-article.html?id=${article.id}" class="action-btn">
-                                <i class="material-icons">edit</i> Editar
-                            </a>
-                        ` : ''}
-                    </div>
-                </div>
-            `).join('');
-        }
-        
-        function renderPagination() {
-            const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
-            const pagination = document.getElementById('pagination');
-            
-            if (totalPages <= 1) {
-                pagination.innerHTML = '';
-                return;
-            }
-            
-            let html = '';
-            
-            // Botão anterior
-            html += `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>«</button>`;
-            
-            // Números das páginas
-            const startPage = Math.max(1, currentPage - 2);
-            const endPage = Math.min(totalPages, currentPage + 2);
-            
-            if (startPage > 1) {
-                html += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
-                if (startPage > 2) html += `<span class="page-btn" style="background:none;">...</span>`;
-            }
-            
-            for (let i = startPage; i <= endPage; i++) {
-                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
-            }
-            
-            if (endPage < totalPages) {
-                if (endPage < totalPages - 1) html += `<span class="page-btn" style="background:none;">...</span>`;
-                html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
-            }
-            
-            // Botão próximo
-            html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>»</button>`;
-            
-            pagination.innerHTML = html;
-        }
-        
-        function goToPage(page) {
-            const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
-            if (page < 1 || page > totalPages) return;
-            currentPage = page;
-            renderArticles();
-            renderPagination();
-            window.scrollTo({ top: 400, behavior: 'smooth' });
-        }
-        
-        // ============================================
-        // FUNÇÕES DE VISUALIZAÇÃO
-        // ============================================
-        
-        async function viewArticle(articleId) {
-            const article = allArticles.find(a => a.id === articleId);
-            if (!article) return;
-            
-            // Incrementar visualizações
-            try {
-                await firestore.collection('articlesdoc').doc(articleId).update({
-                    views: firebase.firestore.FieldValue.increment(1)
-                });
-                article.views = (article.views || 0) + 1;
-                
-                // Atualizar estatísticas
-                const totalViews = allArticles.reduce((sum, a) => sum + (a.views || 0), 0);
-                document.getElementById('total-views').textContent = totalViews.toLocaleString();
-            } catch (e) {
-                console.warn('Erro ao incrementar visualizações:', e);
-            }
-            
-            // Abrir em nova aba
-            window.open(`view-article.html?uid=${article.uid}`, '_blank');
-        }
-        
-        function quickView(articleId) {
-            const article = allArticles.find(a => a.id === articleId);
-            if (!article) return;
-            
-            const modal = document.getElementById('quickview-modal');
-            const title = document.getElementById('quickview-title');
-            const body = document.getElementById('quickview-body');
-            
-            title.textContent = article.title;
-            body.innerHTML = `
-                <div class="article-authors">
-                    <strong>Autores:</strong> ${article.authors.join('; ') || 'Não informado'}
-                </div>
-                <div class="article-meta" style="margin: 15px 0;">
-                    <span><strong>Tipo:</strong> ${getTypeLabel(article.type)}</span>
-                    <span><strong>Idioma:</strong> ${article.language === 'pt-BR' ? 'Português' : article.language === 'en-US' ? 'English' : 'Español'}</span>
-                    <span><strong>Publicado:</strong> ${formatDate(article.lastModified)}</span>
-                </div>
-                <div class="article-abstract" style="margin: 15px 0;">
-                    <strong>Resumo:</strong><br>
-                    ${escapeHtml(article.description || 'Sem resumo disponível')}
-                </div>
-                <div style="margin: 15px 0;">
-                    <strong>Conteúdo:</strong>
-                    <div style="margin-top: 10px; padding: 15px; background: #f8f9fa; border-radius: 8px; max-height: 300px; overflow-y: auto;">
-                        ${article.content || '<em>Conteúdo não disponível para visualização rápida</em>'}
-                    </div>
-                </div>
-                <div style="text-align: right; margin-top: 20px;">
-                    <button class="search-btn" onclick="window.open('view-article.html?uid=${article.uid}', '_blank')">
-                        <i class="material-icons">open_in_new</i> Ler Artigo Completo
-                    </button>
-                </div>
-            `;
-            
-            modal.style.display = 'flex';
-        }
-        
-        // ============================================
-        // FUNÇÃO DE CITAÇÃO CORRIGIDA
-        // ============================================
-        
-        function showCitation(articleId) {
-            const article = allArticles.find(a => a.id === articleId);
-            if (!article) return;
-            
-            const modal = document.getElementById('citation-modal');
-            const content = document.getElementById('citation-content');
-            
-            let citation = article.citation;
-            if (!citation || citation === '') {
-                // Gerar citação automática
-                const authors = article.authors.length > 0 ? article.authors.join(', ') : 'Autor desconhecido';
-                
-                // CORREÇÃO: Usar a função segura para obter o ano
-                const year = getSafeYear(article.createdAt);
-                
-                citation = `${authors}. ${article.title}. WZZM Academic. ${year}. Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}. Acesso em: ${new Date().toLocaleDateString('pt-BR')}.`;
-            }
-            
-            // Obter o ano novamente para as outras citações
-            const citationYear = getSafeYear(article.createdAt);
-            
-            content.innerHTML = `
-                <div class="citation-box">
-                    <strong>ABNT:</strong><br>
-                    ${escapeHtml(citation)}
-                </div>
-                <div class="citation-box" style="margin-top: 15px;">
-                    <strong>APA (7ª edição):</strong><br>
-                    ${escapeHtml(article.authors.join(', '))}. (${citationYear}). ${article.title}. <em>WZZM Academic</em>. Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}
-                </div>
-                <div class="citation-box" style="margin-top: 15px;">
-                    <strong>Vancouver:</strong><br>
-                    ${escapeHtml(article.authors.join(', '))}. ${article.title}. WZZM Academic. ${citationYear}; Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}.
-                </div>
-            `;
-            
-            modal.style.display = 'flex';
-        }
-        
-        function copyCitation() {
-            const citationText = document.querySelector('#citation-content .citation-box:first-child')?.innerText || '';
-            if (citationText) {
-                navigator.clipboard.writeText(citationText).then(() => {
-                    alert('Citação copiada para a área de transferência!');
-                }).catch(() => {
-                    alert('Erro ao copiar. Selecione manualmente.');
-                });
-            }
-        }
-        
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-        
-        // ============================================
-        // AUTENTICAÇÃO
-        // ============================================
-        
-        auth.onAuthStateChanged(async (user) => {
-            currentUser = user;
-            if (user) {
-                isAdmin = await checkIsAdmin(user);
-                if (isAdmin) {
-                    document.getElementById('admin-toolbar').style.display = 'block';
-                }
-                await loadArticles();
-            } else {
-                await loadArticles();
-            }
         });
-        
-        // Event Listeners
-        document.getElementById('search-btn')?.addEventListener('click', applyFilters);
-        document.getElementById('search-input')?.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') applyFilters();
-        });
-        document.getElementById('apply-filters-btn')?.addEventListener('click', applyFilters);
-        
-        // Expor funções globalmente
-        window.applyFilters = applyFilters;
-        window.viewArticle = viewArticle;
-        window.quickView = quickView;
-        window.showCitation = showCitation;
-        window.copyCitation = copyCitation;
-        window.closeModal = closeModal;
-        window.goToPage = goToPage;
-    </script>
+        unreadCount = notifications.filter(n => !n.lida).length;
+        updateNotificationBadge();
+        renderNotifications();
+    } catch (error) {
+        console.error('Erro ao carregar notificações:', error);
+    }
+}
 
-        <!-- Iframe do verificador/logs (mantido como você tinha) -->
-<script src="https://gspotfverwazzimagiygg.wazzimagiygg.com/D6FefD0De/EfdFeF1ExcE0C/De0Var6H6f/QXdv0/dddcefb.js"></script>
+function updateNotificationBadge() {
+    const badge = document.getElementById('notifBadge');
+    if (unreadCount > 0) {
+        badge.style.display = 'flex';
+        badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+    } else {
+        badge.style.display = 'none';
+    }
+}
+
+function renderNotifications() {
+    const list = document.getElementById('notificationList');
+    if (!list) return;
+    if (notifications.length === 0) {
+        list.innerHTML = `<div class="notification-empty"><span class="material-icons">notifications_off</span><p>Nenhuma notificação</p></div>`;
+        return;
+    }
+    list.innerHTML = notifications.slice(0, 10).map(notif => `
+        <div class="notification-item ${notif.lida ? '' : 'unread'}" onclick="markAsRead('${notif.id}')">
+            <div class="notif-title">${escapeHtml(notif.titulo || 'Notificação')}</div>
+            <div class="notif-message">${escapeHtml(notif.mensagem || '')}</div>
+            <div class="notif-time">${getTimeAgo(notif.timestamp)}</div>
+        </div>
+    `).join('');
+}
+
+async function markAsRead(id) {
+    if (!id) return;
+    try {
+        await db.collection('notifications').doc(id).update({ lida: true });
+        const notif = notifications.find(n => n.id === id);
+        if (notif && !notif.lida) { notif.lida = true; unreadCount--; updateNotificationBadge(); renderNotifications(); }
+    } catch (error) { console.error('Erro:', error); }
+}
+
+async function markAllAsRead(event) {
+    if (event) event.stopPropagation();
+    if (unreadCount === 0) return;
+    try {
+        const batch = db.batch();
+        notifications.filter(n => !n.lida).forEach(n => batch.update(db.collection('notifications').doc(n.id), { lida: true }));
+        await batch.commit();
+        notifications.forEach(n => n.lida = true);
+        unreadCount = 0;
+        updateNotificationBadge();
+        renderNotifications();
+    } catch (error) { console.error('Erro:', error); }
+}
+
+function toggleNotifications(event) {
+    if (event) event.stopPropagation();
+    const dropdown = document.getElementById('notifDropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('show');
+        if (dropdown.classList.contains('show')) loadNotifications();
+    }
+}
+
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.notification-bell')) {
+        const dropdown = document.getElementById('notifDropdown');
+        if (dropdown) dropdown.classList.remove('show');
+    }
+});
+
+function listenNotifications() {
+    if (notificationListener) { notificationListener(); notificationListener = null; }
+    if (!currentUser) return;
+    notificationListener = db.collection('notifications')
+        .where('userId', '==', currentUser.uid)
+        .orderBy('timestamp', 'desc')
+        .limit(50)
+        .onSnapshot((snapshot) => {
+            notifications = [];
+            snapshot.forEach(doc => notifications.push({ id: doc.id, ...doc.data(), timestamp: doc.data().timestamp || new Date() }));
+            unreadCount = notifications.filter(n => !n.lida).length;
+            updateNotificationBadge();
+            renderNotifications();
+        }, (error) => console.error('Erro no listener:', error));
+}
+
+// ============================================
+// AUTENTICAÇÃO
+// ============================================
+async function checkIfUserIsBanned(user) {
+    if (!user) return false;
+    try {
+        const doc = await db.collection('users').doc(user.uid).get();
+        if (doc.exists) return doc.data().isBanned === true || doc.data().isBan === true;
+    } catch (e) {}
+    return false;
+}
+
+async function checkIsAdmin(user) {
+    if (!user) return false;
+    if (ADMIN_UIDS.includes(user.uid)) return true;
+    try {
+        const userDoc = await db.collection('users').doc(user.uid).get();
+        return userDoc.exists && userDoc.data().isAdmin === true;
+    } catch { return false; }
+}
+
+function showBannedScreen(reason = 'Violação das políticas de uso') {
+    document.getElementById('bannedOverlay').classList.add('show');
+    document.getElementById('banDetails').textContent = `Motivo: ${reason}`;
+}
+
+async function logoutBanned() {
+    try { await auth.signOut(); location.reload(); } catch (e) { location.reload(); }
+}
+
+function updateUI() {
+    const avatar = document.getElementById('userAvatar');
+    const name = document.getElementById('userName');
+    const email = document.getElementById('userEmail');
+    const badge = document.getElementById('userBadge');
+    const btnLogin = document.getElementById('btnLogin');
+    const btnLogout = document.getElementById('btnLogout');
     
+    if (currentUser && !isBanned) {
+        let displayName = currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Usuário');
+        if (currentUser.photoURL) {
+            avatar.innerHTML = `<img src="${currentUser.photoURL}" alt="Avatar">`;
+        } else {
+            avatar.textContent = getInitials(displayName);
+        }
+        name.textContent = displayName.length > 20 ? displayName.substring(0,17)+'...' : displayName;
+        email.textContent = currentUser.email || '';
+        let badges = '';
+        if (isBanned) badges += '<span class="badge-banned">🚫 Banido</span> ';
+        if (isAdmin) badges += '<span class="badge-admin">Admin</span> ';
+        badge.innerHTML = badges;
+        btnLogin.style.display = 'none';
+        btnLogout.style.display = 'inline-block';
+    } else {
+        avatar.innerHTML = '👤';
+        name.textContent = 'Visitante';
+        email.textContent = '';
+        badge.innerHTML = '';
+        btnLogin.style.display = 'inline-block';
+        btnLogout.style.display = 'none';
+    }
+}
+
+function showLoginModal() { document.getElementById('login-modal').classList.add('show'); }
+function closeLoginModal() { document.getElementById('login-modal').classList.remove('show'); }
+
+async function loginWithGoogle() {
+    try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const result = await auth.signInWithPopup(provider);
+        currentUser = result.user;
+        isBanned = await checkIfUserIsBanned(currentUser);
+        if (isBanned) { showBannedScreen('Sua conta foi banida.'); await auth.signOut(); updateUI(); return; }
+        isAdmin = await checkIsAdmin(currentUser);
+        await db.collection('users').doc(currentUser.uid).set({
+            email: currentUser.email,
+            displayName: currentUser.displayName || currentUser.email.split('@')[0],
+            photoURL: currentUser.photoURL || null,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            isAdmin: isAdmin,
+            isBanned: false
+        }, { merge: true });
+        updateUI();
+        closeLoginModal();
+        await loadNotifications();
+        listenNotifications();
+        if (isAdmin) document.getElementById('admin-toolbar').style.display = 'block';
+    } catch (error) {
+        console.error('Erro no login:', error);
+        alert('Erro ao fazer login: ' + error.message);
+    }
+}
+
+async function logout() {
+    try {
+        await auth.signOut();
+        currentUser = null;
+        isBanned = false;
+        isAdmin = false;
+        if (notificationListener) { notificationListener(); notificationListener = null; }
+        notifications = [];
+        unreadCount = 0;
+        updateNotificationBadge();
+        updateUI();
+        document.getElementById('admin-toolbar').style.display = 'none';
+        console.log('✅ Logout realizado com sucesso!');
+    } catch (error) {
+        console.error('❌ Erro no logout:', error);
+        alert('Erro ao sair: ' + error.message);
+    }
+}
+
+function showRegister() {
+    const email = prompt('Digite seu e-mail:');
+    if (!email) return;
+    const password = prompt('Digite sua senha (mínimo 6 caracteres):');
+    if (!password || password.length < 6) { alert('A senha deve ter pelo menos 6 caracteres'); return; }
+    registerUserEmail(email, password);
+}
+
+async function registerUserEmail(email, password) {
+    try {
+        const result = await auth.createUserWithEmailAndPassword(email, password);
+        currentUser = result.user;
+        await db.collection('users').doc(currentUser.uid).set({
+            email: currentUser.email,
+            displayName: currentUser.email.split('@')[0],
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            isAdmin: false,
+            isBanned: false
+        });
+        updateUI();
+        closeLoginModal();
+        alert('Conta criada com sucesso!');
+    } catch (error) {
+        console.error('Erro ao criar conta:', error);
+        alert('Erro ao criar conta: ' + error.message);
+    }
+}
+
+// ============================================
+// CARREGAR ARTIGOS
+// ============================================
+function showLoading() {
+    document.getElementById('articles-list').innerHTML = `
+        <div class="loading-container">
+            <div class="spinner"></div>
+            <p>Carregando artigos...</p>
+        </div>
+    `;
+}
+
+async function loadArticles() {
+    showLoading();
+    try {
+        const snapshot = await db.collection('articlesdoc')
+            .orderBy('lastModified', 'desc')
+            .get();
+        
+        allArticles = [];
+        const authorsSet = new Set();
+        let totalViews = 0;
+        
+        for (const doc of snapshot.docs) {
+            const data = doc.data();
+            if (data.authors && Array.isArray(data.authors)) {
+                data.authors.forEach(author => authorsSet.add(author));
+            }
+            totalViews += (data.views || 0);
+            
+            allArticles.push({
+                id: doc.id,
+                title: data.title || 'Sem título',
+                description: data.description || '',
+                content: data.formattedContent || '',
+                authors: data.authors || [],
+                students: data.students || [],
+                type: data.articleType || 'cientifico',
+                language: data.language || 'pt-BR',
+                status: data.status || 'published',
+                uid: data.uid || doc.id,
+                views: data.views || 0,
+                shares: data.shares || 0,
+                citation: data.citation || '',
+                createdAt: safeToDate(data.createdAt),
+                lastModified: safeToDate(data.lastModified),
+                sources: data.sources || []
+            });
+        }
+        
+        document.getElementById('total-articles').textContent = allArticles.length;
+        document.getElementById('total-authors').textContent = authorsSet.size;
+        document.getElementById('total-views').textContent = totalViews.toLocaleString();
+        
+        const lastModified = allArticles[0]?.lastModified;
+        if (lastModified) {
+            document.getElementById('last-update').textContent = formatDate(lastModified);
+        }
+        
+        extractKeywords();
+        applyFilters();
+        
+    } catch (error) {
+        console.error('Erro ao carregar artigos:', error);
+        document.getElementById('articles-list').innerHTML = `
+            <div class="empty-state">
+                <i class="material-icons">error</i>
+                <h3>Erro ao carregar artigos</h3>
+                <p>${escapeHtml(error.message)}</p>
+            </div>
+        `;
+    }
+}
+
+function extractKeywords() {
+    const keywordMap = new Map();
+    allArticles.forEach(article => {
+        const titleWords = article.title.toLowerCase().split(/\s+/);
+        titleWords.forEach(word => {
+            if (word.length > 4 && !['artigo', 'estudo', 'pesquisa', 'análise'].includes(word)) {
+                keywordMap.set(word, (keywordMap.get(word) || 0) + 1);
+            }
+        });
+        if (article.description) {
+            const descWords = article.description.toLowerCase().split(/\s+/);
+            descWords.forEach(word => {
+                if (word.length > 4) {
+                    keywordMap.set(word, (keywordMap.get(word) || 0) + 1);
+                }
+            });
+        }
+    });
+    
+    const topKeywords = Array.from(keywordMap.entries())
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+    
+    const keywordsList = document.getElementById('keywords-list');
+    if (keywordsList) {
+        keywordsList.innerHTML = topKeywords.map(([keyword, count]) => `
+            <label>
+                <input type="checkbox" class="keyword-checkbox" value="${escapeHtml(keyword)}" onchange="applyFilters()">
+                ${escapeHtml(keyword)} <span style="color:#999;">(${count})</span>
+            </label>
+        `).join('');
+    }
+}
+
+function applyFilters() {
+    const searchTerm = document.getElementById('search-input')?.value.toLowerCase() || '';
+    const typeFilter = document.getElementById('type-filter')?.value || 'all';
+    const languageFilter = document.getElementById('language-filter')?.value || 'all';
+    const sortBy = document.getElementById('sort-by')?.value || 'recent';
+    const yearStart = document.getElementById('year-start')?.value;
+    const yearEnd = document.getElementById('year-end')?.value;
+    const showPublished = document.getElementById('status-published')?.checked || false;
+    const showDraft = document.getElementById('status-draft')?.checked || false;
+    const selectedKeywords = Array.from(document.querySelectorAll('.keyword-checkbox:checked'))
+        .map(cb => cb.value.toLowerCase());
+    
+    filteredArticles = allArticles.filter(article => {
+        if (!showPublished && article.status === 'published') return false;
+        if (!showDraft && article.status === 'draft') return false;
+        if (typeFilter !== 'all' && article.type !== typeFilter) return false;
+        if (languageFilter !== 'all' && article.language !== languageFilter) return false;
+        
+        if (yearStart && article.createdAt) {
+            const year = getSafeYear(article.createdAt);
+            if (year < parseInt(yearStart)) return false;
+        }
+        if (yearEnd && article.createdAt) {
+            const year = getSafeYear(article.createdAt);
+            if (year > parseInt(yearEnd)) return false;
+        }
+        
+        if (searchTerm) {
+            const inTitle = article.title.toLowerCase().includes(searchTerm);
+            const inAuthors = article.authors.some(a => a.toLowerCase().includes(searchTerm));
+            const inDescription = article.description.toLowerCase().includes(searchTerm);
+            const inContent = stripHtml(article.content).toLowerCase().includes(searchTerm);
+            if (!inTitle && !inAuthors && !inDescription && !inContent) return false;
+        }
+        
+        if (selectedKeywords.length > 0) {
+            const articleText = (article.title + ' ' + article.description).toLowerCase();
+            const hasKeyword = selectedKeywords.some(kw => articleText.includes(kw));
+            if (!hasKeyword) return false;
+        }
+        
+        return true;
+    });
+    
+    if (sortBy === 'recent') {
+        filteredArticles.sort((a, b) => (b.lastModified?.getTime() || 0) - (a.lastModified?.getTime() || 0));
+    } else if (sortBy === 'oldest') {
+        filteredArticles.sort((a, b) => (a.lastModified?.getTime() || 0) - (b.lastModified?.getTime() || 0));
+    } else if (sortBy === 'title') {
+        filteredArticles.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortBy === 'views') {
+        filteredArticles.sort((a, b) => (b.views || 0) - (a.views || 0));
+    }
+    
+    currentPage = 1;
+    document.getElementById('results-count').textContent = `${filteredArticles.length} artigo(s) encontrado(s)`;
+    renderArticles();
+    renderPagination();
+}
+
+function renderArticles() {
+    const container = document.getElementById('articles-list');
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageArticles = filteredArticles.slice(start, end);
+    
+    if (pageArticles.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="material-icons">search_off</i>
+                <h3>Nenhum artigo encontrado</h3>
+                <p>Tente ajustar seus filtros ou buscar por outros termos.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = pageArticles.map(article => `
+        <div class="article-card">
+            <div class="article-title">
+                <a href="#" onclick="viewArticle('${article.id}'); return false;">
+                    ${escapeHtml(article.title)}
+                </a>
+                ${article.status === 'draft' ? '<span class="status-badge status-draft">Rascunho</span>' : ''}
+            </div>
+            
+            <div class="article-authors">
+                <i class="material-icons" style="font-size: 14px;">people</i>
+                ${article.authors.length > 0 ? article.authors.join('; ') : 'Autor não informado'}
+                ${article.students && article.students.length > 0 ? ` (Orientandos: ${article.students.join(', ')})` : ''}
+            </div>
+            
+            <div class="article-meta">
+                <span><i class="material-icons">schedule</i> ${formatDate(article.lastModified)}</span>
+                <span><i class="material-icons">category</i> ${getTypeLabel(article.type)}</span>
+                <span><i class="material-icons">language</i> ${article.language === 'pt-BR' ? 'Português' : article.language === 'en-US' ? 'English' : 'Español'}</span>
+                <span><i class="material-icons">visibility</i> ${(article.views || 0).toLocaleString()} visualizações</span>
+            </div>
+            
+            <div class="article-abstract">
+                ${escapeHtml(article.description.substring(0, 200))}${article.description.length > 200 ? '...' : ''}
+            </div>
+            
+            <div class="article-actions">
+                <button class="action-btn" onclick="quickView('${article.id}')">
+                    <i class="material-icons">visibility</i> Visualizar
+                </button>
+                <button class="action-btn" onclick="showCitation('${article.id}')">
+                    <i class="material-icons">format_quote</i> Como Citar
+                </button>
+                ${isAdmin ? `
+                    <a href="add-article.html?id=${article.id}" class="action-btn">
+                        <i class="material-icons">edit</i> Editar
+                    </a>
+                ` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderPagination() {
+    const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
+    const pagination = document.getElementById('pagination');
+    
+    if (totalPages <= 1) {
+        pagination.innerHTML = '';
+        return;
+    }
+    
+    let html = '';
+    html += `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>«</button>`;
+    
+    const startPage = Math.max(1, currentPage - 2);
+    const endPage = Math.min(totalPages, currentPage + 2);
+    
+    if (startPage > 1) {
+        html += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
+        if (startPage > 2) html += `<span class="page-btn" style="background:none;">...</span>`;
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+        html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+    }
+    
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) html += `<span class="page-btn" style="background:none;">...</span>`;
+        html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+    }
+    
+    html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>»</button>`;
+    pagination.innerHTML = html;
+}
+
+function goToPage(page) {
+    const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    renderArticles();
+    renderPagination();
+    window.scrollTo({ top: 400, behavior: 'smooth' });
+}
+
+// ============================================
+// FUNÇÕES DE VISUALIZAÇÃO
+// ============================================
+async function viewArticle(articleId) {
+    const article = allArticles.find(a => a.id === articleId);
+    if (!article) return;
+    try {
+        await db.collection('articlesdoc').doc(articleId).update({
+            views: firebase.firestore.FieldValue.increment(1)
+        });
+        article.views = (article.views || 0) + 1;
+        const totalViews = allArticles.reduce((sum, a) => sum + (a.views || 0), 0);
+        document.getElementById('total-views').textContent = totalViews.toLocaleString();
+    } catch (e) { console.warn('Erro ao incrementar visualizações:', e); }
+    window.open(`view-article.html?uid=${article.uid}`, '_blank');
+}
+
+function quickView(articleId) {
+    const article = allArticles.find(a => a.id === articleId);
+    if (!article) return;
+    const modal = document.getElementById('quickview-modal');
+    document.getElementById('quickview-title').textContent = article.title;
+    document.getElementById('quickview-body').innerHTML = `
+        <div class="article-authors"><strong>Autores:</strong> ${article.authors.join('; ') || 'Não informado'}</div>
+        <div class="article-meta" style="margin: 15px 0;">
+            <span><strong>Tipo:</strong> ${getTypeLabel(article.type)}</span>
+            <span><strong>Idioma:</strong> ${article.language === 'pt-BR' ? 'Português' : article.language === 'en-US' ? 'English' : 'Español'}</span>
+            <span><strong>Publicado:</strong> ${formatDate(article.lastModified)}</span>
+        </div>
+        <div class="article-abstract" style="margin: 15px 0;">
+            <strong>Resumo:</strong><br>
+            ${escapeHtml(article.description || 'Sem resumo disponível')}
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Conteúdo:</strong>
+            <div style="margin-top: 10px; padding: 15px; background: #f8f9fa; border-radius: 8px; max-height: 300px; overflow-y: auto;">
+                ${article.content || '<em>Conteúdo não disponível para visualização rápida</em>'}
+            </div>
+        </div>
+        <div style="text-align: right; margin-top: 20px;">
+            <button class="search-btn" onclick="window.open('view-article.html?uid=${article.uid}', '_blank')">
+                <i class="material-icons">open_in_new</i> Ler Artigo Completo
+            </button>
+        </div>
+    `;
+    modal.classList.add('show');
+}
+
+function showCitation(articleId) {
+    const article = allArticles.find(a => a.id === articleId);
+    if (!article) return;
+    const modal = document.getElementById('citation-modal');
+    const content = document.getElementById('citation-content');
+    
+    let citation = article.citation;
+    const year = getSafeYear(article.createdAt);
+    const authors = article.authors.length > 0 ? article.authors.join(', ') : 'Autor desconhecido';
+    
+    if (!citation || citation === '') {
+        citation = `${authors}. ${article.title}. WZZM Academic. ${year}. Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}. Acesso em: ${new Date().toLocaleDateString('pt-BR')}.`;
+    }
+    
+    content.innerHTML = `
+        <div class="citation-box"><strong>ABNT:</strong><br>${escapeHtml(citation)}</div>
+        <div class="citation-box" style="margin-top: 15px;">
+            <strong>APA (7ª edição):</strong><br>
+            ${escapeHtml(article.authors.join(', '))}. (${year}). ${article.title}. <em>WZZM Academic</em>. Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}
+        </div>
+        <div class="citation-box" style="margin-top: 15px;">
+            <strong>Vancouver:</strong><br>
+            ${escapeHtml(article.authors.join(', '))}. ${article.title}. WZZM Academic. ${year}; Disponível em: ${window.location.origin}/view-article.html?uid=${article.uid}.
+        </div>
+    `;
+    modal.classList.add('show');
+}
+
+function copyCitation() {
+    const citationText = document.querySelector('#citation-content .citation-box:first-child')?.innerText || '';
+    if (citationText) {
+        navigator.clipboard.writeText(citationText).then(() => {
+            alert('Citação copiada para a área de transferência!');
+        }).catch(() => {
+            alert('Erro ao copiar. Selecione manualmente.');
+        });
+    }
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('show');
+}
+
+// ============================================
+// EVENT LISTENERS
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('search-btn')?.addEventListener('click', applyFilters);
+    document.getElementById('search-input')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') applyFilters();
+    });
+    document.getElementById('apply-filters-btn')?.addEventListener('click', applyFilters);
+    
+    // Login form
+    document.getElementById('login-form-modal')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('modal-email').value;
+        const password = document.getElementById('modal-password').value;
+        try {
+            const result = await auth.signInWithEmailAndPassword(email, password);
+            currentUser = result.user;
+            updateUI();
+            closeLoginModal();
+        } catch (error) {
+            alert('Erro ao fazer login: ' + error.message);
+        }
+    });
+    
+    // Fechar modais ao clicar fora
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('show');
+        });
+    });
+});
+
+// ============================================
+// INICIALIZAÇÃO
+// ============================================
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
+        currentUser = user;
+        isBanned = await checkIfUserIsBanned(user);
+        if (isBanned) { showBannedScreen('Sua conta foi banida.'); await auth.signOut(); updateUI(); return; }
+        isAdmin = await checkIsAdmin(user);
+        updateUI();
+        await loadNotifications();
+        listenNotifications();
+        if (isAdmin) document.getElementById('admin-toolbar').style.display = 'block';
+        await loadArticles();
+    } else {
+        currentUser = null;
+        isBanned = false;
+        isAdmin = false;
+        updateUI();
+        document.getElementById('admin-toolbar').style.display = 'none';
+        if (notificationListener) { notificationListener(); notificationListener = null; }
+        notifications = [];
+        unreadCount = 0;
+        updateNotificationBadge();
+        await loadArticles();
+    }
+});
+
+// Expor funções globalmente
+window.applyFilters = applyFilters;
+window.viewArticle = viewArticle;
+window.quickView = quickView;
+window.showCitation = showCitation;
+window.copyCitation = copyCitation;
+window.closeModal = closeModal;
+window.goToPage = goToPage;
+window.logout = logout;
+window.loginWithGoogle = loginWithGoogle;
+window.showLoginModal = showLoginModal;
+window.closeLoginModal = closeLoginModal;
+window.showRegister = showRegister;
+window.logoutBanned = logoutBanned;
+window.toggleNotifications = toggleNotifications;
+window.markAllAsRead = markAllAsRead;
+
+console.log('📚 Biblioteca Científica WazzimaGiygg inicializada com sucesso!');
+console.log('🔔 Notificações integradas via coleção "notifications"');
+</script>
+
 </body>
 </html>
