@@ -45,7 +45,8 @@
             "oldest": "Oldest first",
             "title": "Title (A-Z)",
             "views": "Most viewed"
-        }
+        },
+        "applyFilters": "Apply Filters"
     },
     "filters": {
         "title": "Advanced Filters",
@@ -159,31 +160,5 @@
     "status": {
         "published": "Published",
         "draft": "Draft"
-    },
-    "viewer": {
-        "pageTitle": "View Article - WazzimaGiygg Scientific Library",
-        "headerTitle": "WazzimaGiygg Scientific Library",
-        "share": "Share",
-        "print": "Print",
-        "home": "Home",
-        "articleNotFound": "Article not found",
-        "articleRemoved": "The article you are looking for may have been removed or the link may be incorrect.",
-        "backToLibrary": "Back to library",
-        "authorUnknown": "Author not informed",
-        "documentInfo": "Document Information",
-        "doi": "DOI/UID",
-        "language": "Language",
-        "publishedOn": "Published on",
-        "sources": "Sources",
-        "keywords": "Keywords",
-        "howToCite": "How to Cite this Article",
-        "copyCitation": "Copy citation",
-        "contentNotAvailable": "Content not available.",
-        "access": "Access",
-        "shareTitle": "Scientific Article",
-        "shareText": "Read this article at WZZM Scientific Library",
-        "linkCopied": "Link copied to share!",
-        "noArticleSpecified": "No article specified",
-        "noArticleMessage": "No article identifier was provided in the URL."
     }
 }
