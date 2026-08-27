@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="viewer.pageTitle">Visualizar Artigo - Biblioteca Científica WazzimaGiygg</title>
+    <title>Visualizar Artigo - Biblioteca Científica WazzimaGiygg</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="icon" href="https://academico.wazzimagiygg.com/Favicom.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Estilos -->
     <style>
         :root {
             --primary-color: #1a5f7a;
@@ -37,7 +36,6 @@
             line-height: 1.6;
         }
 
-        /* Language Selector */
         .language-selector-container {
             position: fixed;
             top: 75px;
@@ -98,7 +96,6 @@
             }
         }
 
-        /* Header */
         .scientific-header {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
@@ -168,14 +165,12 @@
             font-size: 18px;
         }
 
-        /* Main Content */
         .main-container {
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 30px;
         }
 
-        /* Loading */
         .loading-container {
             display: flex;
             flex-direction: column;
@@ -200,7 +195,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Article Card */
         .article-card {
             background: white;
             border-radius: 20px;
@@ -351,7 +345,6 @@
             background: var(--light-bg);
         }
 
-        /* Article Sidebar */
         .article-sidebar {
             padding: 0 40px 40px 40px;
             display: grid;
@@ -423,7 +416,6 @@
             color: var(--primary-color);
         }
 
-        /* Error State */
         .error-container {
             text-align: center;
             padding: 80px;
@@ -448,7 +440,6 @@
             margin-bottom: 30px;
         }
 
-        /* Toast */
         .toast-container {
             position: fixed;
             bottom: 30px;
@@ -480,7 +471,6 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
-        /* Footer */
         .footer {
             background: var(--primary-dark);
             color: rgba(255,255,255,0.7);
@@ -513,34 +503,27 @@
             gap: 5px 15px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
                 text-align: center;
             }
-            
             .article-header, .article-content, .article-sidebar {
                 padding: 25px;
             }
-            
             .article-title {
                 font-size: 24px;
             }
-            
             .article-meta {
                 gap: 15px;
             }
-
             .header-actions {
                 justify-content: center;
             }
-
             .btn-icon {
                 padding: 6px 12px;
                 font-size: 12px;
             }
-
             .article-sidebar {
                 grid-template-columns: 1fr;
             }
@@ -584,18 +567,18 @@
         <div class="header-title">
             <a href="/">
                 <i class="material-icons">menu_book</i>
-                <span data-i18n="viewer.headerTitle">Biblioteca Científica WazzimaGiygg</span>
+                <span>Biblioteca Científica WazzimaGiygg</span>
             </a>
         </div>
         <div class="header-actions">
-            <button class="btn-icon" onclick="shareArticle()" data-i18n-title="viewer.share">
-                <i class="material-icons">share</i> <span data-i18n="viewer.share">Compartilhar</span>
+            <button class="btn-icon" onclick="shareArticle()">
+                <i class="material-icons">share</i> Compartilhar
             </button>
-            <button class="btn-icon" onclick="window.print()" data-i18n-title="viewer.print">
-                <i class="material-icons">print</i> <span data-i18n="viewer.print">Imprimir</span>
+            <button class="btn-icon" onclick="window.print()">
+                <i class="material-icons">print</i> Imprimir
             </button>
             <a href="/" class="btn-icon">
-                <i class="material-icons">home</i> <span data-i18n="viewer.home">Início</span>
+                <i class="material-icons">home</i> Início
             </a>
         </div>
     </div>
@@ -605,7 +588,7 @@
 <div class="main-container" id="main-container">
     <div class="loading-container">
         <div class="spinner"></div>
-        <p style="margin-top: 20px;" data-i18n="articles.loading">Carregando artigo...</p>
+        <p style="margin-top: 20px;">Carregando artigo...</p>
     </div>
 </div>
 
@@ -617,19 +600,17 @@
     <div class="footer-links">
         <span>Όχι, ο Χρόνος não é ο άρχοντας da γνώσης! - WazzimaGiygg</span>
         <span class="footer-divider">|</span>
-        <a href="https://wazzimagiygg.com/desktop.html" target="_blank" data-i18n="footer.desktop">🖥️ Acessar Desktop</a>
+        <a href="https://wazzimagiygg.com/desktop.html" target="_blank">🖥️ Acessar Desktop</a>
         <span class="footer-divider">|</span>
-        <a href="https://wazzimagiygg.com/LGPD" style="color:white;" data-i18n="footer.lgpd">LGPD</a>
+        <a href="https://wazzimagiygg.com/LGPD" style="color:white;">LGPD</a>
         <span class="footer-divider">|</span>
-        <a href="https://wazzimagiygg.com/MarcoCivil" style="color:white;" data-i18n="footer.marcoCivil">Marco Civil</a>
+        <a href="https://wazzimagiygg.com/MarcoCivil" style="color:white;">Marco Civil</a>
         <span class="footer-divider">|</span>
         <a href="https://wazzimagiygg.com/relatorio-wikipedia.html" target="_blank" style="color:#ffb347;">📄 Relatório Wikipédia</a>
         <span class="footer-divider">|</span>
-        <a href="https://support.wazzimagiygg.com/" target="_blank" class="footer-ticket" data-i18n="footer.ticket">
-            🎫 Contato por Ticket
-        </a>
+        <a href="https://support.wazzimagiygg.com/" target="_blank" class="footer-ticket">🎫 Contato por Ticket</a>
         <span class="footer-divider">|</span>
-        <a href="https://wazzimagiygg.com/produtos" target="_blank" style="color:#ffb347;" data-i18n="footer.products">🛍️ Produtos WazzimaGiygg</a>
+        <a href="https://wazzimagiygg.com/produtos" target="_blank" style="color:#ffb347;">🛍️ Produtos WazzimaGiygg</a>
     </div>
 </div>
 
@@ -638,93 +619,8 @@
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
 
-<!-- ===== I18N - TENTAR VÁRIOS CAMINHOS ===== -->
-<script>
-    // Função para carregar o i18n dinamicamente
-    function loadI18n() {
-        const paths = [
-            '/translate/i18n.js',
-            '../i18n.js',
-            'i18n.js',
-            '/i18n.js'
-        ];
-        
-        let loaded = false;
-        
-        function tryLoad(index) {
-            if (index >= paths.length || loaded) return;
-            
-            const script = document.createElement('script');
-            script.src = paths[index];
-            script.onload = function() {
-                loaded = true;
-                console.log('✅ I18n carregado de:', paths[index]);
-                // Inicializar após carregar
-                if (typeof I18n !== 'undefined' && !I18n.initialized) {
-                    I18n.init().then(() => {
-                        // Inicializar a página após o I18n
-                        initPage();
-                    });
-                } else if (typeof I18n !== 'undefined') {
-                    initPage();
-                }
-            };
-            script.onerror = function() {
-                console.warn('❌ Falha ao carregar i18n de:', paths[index]);
-                tryLoad(index + 1);
-            };
-            document.head.appendChild(script);
-        }
-        
-        tryLoad(0);
-        
-        // Fallback: se após 3 segundos não carregar, usar fallback manual
-        setTimeout(function() {
-            if (!loaded && typeof I18n === 'undefined') {
-                console.warn('⏰ Timeout carregando i18n, usando fallback');
-                // Criar objeto I18n mínimo
-                window.I18n = {
-                    currentLocale: 'pt-BR',
-                    initialized: true,
-                    t: function(key) { return key; },
-                    formatDate: function(date) { 
-                        try { return new Date(date).toLocaleDateString('pt-BR'); } 
-                        catch(e) { return ''; }
-                    },
-                    formatNumber: function(num) { return String(num); },
-                    getTypeLabel: function(type) {
-                        const types = {
-                            'cientifico': 'Artigo Científico',
-                            'revisao': 'Revisão Bibliográfica',
-                            'monografia': 'Monografia',
-                            'dissertacao': 'Dissertação',
-                            'tese': 'Tese',
-                            'noticia': 'Notícia',
-                            'tutorial': 'Tutorial'
-                        };
-                        return types[type] || type;
-                    },
-                    getLanguageLabel: function(lang) {
-                        const langs = {
-                            'pt-BR': 'Português',
-                            'en-US': 'English',
-                            'es-ES': 'Español'
-                        };
-                        return langs[lang] || lang;
-                    },
-                    getTimeAgo: function(date) { return ''; },
-                    getStatusLabel: function(status) {
-                        return status === 'published' ? 'Publicado' : 'Rascunho';
-                    }
-                };
-                initPage();
-            }
-        }, 3000);
-    }
-    
-    // Iniciar carregamento
-    loadI18n();
-</script>
+<!-- ===== I18N ===== -->
+<script src="/translate/i18n.js"></script>
 
 <!-- ===== SCRIPT PRINCIPAL ===== -->
 <script>
@@ -754,31 +650,31 @@
     // VARIÁVEIS
     // ============================================
     let currentArticle = null;
-    let currentUser = null;
     let i18nReady = false;
 
     // ============================================
-    // FUNÇÕES AUXILIARES COM FALLBACK
+    // FUNÇÕES AUXILIARES - SEM DEPENDÊNCIA DE I18N
     // ============================================
     
-    function getI18n() {
-        return (typeof I18n !== 'undefined') ? I18n : null;
-    }
-    
-    function translate(key, params) {
-        const i18n = getI18n();
-        if (i18n && i18n.t) {
-            return i18n.t(key, params);
-        }
-        return key;
+    function safeTranslate(key, fallback) {
+        try {
+            if (typeof I18n !== 'undefined' && I18n.t) {
+                const result = I18n.t(key);
+                if (result && result !== key) return result;
+            }
+        } catch(e) {}
+        return fallback || key;
     }
     
     function formatDate(date) {
-        const i18n = getI18n();
-        if (i18n && i18n.formatDate) {
-            return i18n.formatDate(date) || 'Data inválida';
-        }
         if (!date) return 'Data desconhecida';
+        try {
+            if (typeof I18n !== 'undefined' && I18n.formatDate) {
+                const result = I18n.formatDate(date);
+                if (result) return result;
+            }
+        } catch(e) {}
+        
         let validDate = date;
         try {
             if (date.toDate) validDate = date.toDate();
@@ -799,10 +695,12 @@
     }
 
     function getTypeLabel(type) {
-        const i18n = getI18n();
-        if (i18n && i18n.getTypeLabel) {
-            return i18n.getTypeLabel(type);
-        }
+        try {
+            if (typeof I18n !== 'undefined' && I18n.getTypeLabel) {
+                return I18n.getTypeLabel(type);
+            }
+        } catch(e) {}
+        
         const types = {
             'cientifico': 'Artigo Científico',
             'revisao': 'Revisão Bibliográfica',
@@ -819,10 +717,12 @@
     }
 
     function getLanguageLabel(langCode) {
-        const i18n = getI18n();
-        if (i18n && i18n.getLanguageLabel) {
-            return i18n.getLanguageLabel(langCode);
-        }
+        try {
+            if (typeof I18n !== 'undefined' && I18n.getLanguageLabel) {
+                return I18n.getLanguageLabel(langCode);
+            }
+        } catch(e) {}
+        
         const languages = {
             'pt-BR': 'Português',
             'en-US': 'English',
@@ -832,20 +732,20 @@
     }
 
     function formatNumber(num) {
-        const i18n = getI18n();
-        if (i18n && i18n.formatNumber) {
-            return i18n.formatNumber(num);
-        }
+        try {
+            if (typeof I18n !== 'undefined' && I18n.formatNumber) {
+                return I18n.formatNumber(num);
+            }
+        } catch(e) {}
         return Number(num).toLocaleString('pt-BR');
     }
 
     function extractKeywords(text) {
         if (!text) return [];
         const words = text.toLowerCase().split(/\s+/);
-        const stopWords = ['de', 'a', 'o', 'que', 'e', 'do', 'da', 'em', 'um', 'para', 'com', 'não', 'uma', 'os', 'as', 'se', 'na', 'por', 'mais', 'como', 'mas', 'ao', 'ele', 'das', 'dos', 'era', 'como', 'são', 'sua', 'the', 'and', 'for', 'with', 'from', 'this', 'that', 'have', 'are', 'not', 'but', 'was', 'you', 'all', 'can', 'has', 'its', 'our', 'use', 'new', 'one', 'who', 'about', 'which', 'their', 'when', 'there', 'will', 'would', 'could', 'should', 'after', 'before', 'without', 'through', 'between', 'among', 'during', 'within', 'upon'];
+        const stopWords = ['de', 'a', 'o', 'que', 'e', 'do', 'da', 'em', 'um', 'para', 'com', 'não', 'uma', 'os', 'as', 'se', 'na', 'por', 'mais', 'como', 'mas', 'ao', 'ele', 'das', 'dos', 'era', 'como', 'são', 'sua', 'the', 'and', 'for', 'with', 'from', 'this', 'that', 'have', 'are', 'not', 'but', 'was', 'you', 'all', 'can', 'has', 'its', 'our', 'use', 'new', 'one', 'who', 'about', 'which', 'their', 'when', 'there', 'will', 'would', 'could', 'should'];
         const keywords = words.filter(w => w.length > 4 && !stopWords.includes(w.toLowerCase()));
-        const uniqueKeywords = [...new Set(keywords)].slice(0, 10);
-        return uniqueKeywords;
+        return [...new Set(keywords)].slice(0, 10);
     }
 
     // ============================================
@@ -856,14 +756,8 @@
         const container = document.getElementById('toastContainer');
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
-        
-        const icons = {
-            success: '✅',
-            error: '❌',
-            info: 'ℹ️'
-        };
+        const icons = { success: '✅', error: '❌', info: 'ℹ️' };
         toast.textContent = `${icons[type] || 'ℹ️'} ${message}`;
-        
         container.appendChild(toast);
         setTimeout(() => {
             toast.style.opacity = '0';
@@ -895,42 +789,51 @@
         const container = document.getElementById('main-container');
         
         try {
-            const snapshot = await firestore.collection('articlesdoc')
+            console.log('🔍 Buscando artigo por UID:', uid);
+            
+            // Tentar buscar pelo campo 'uid'
+            let snapshot = await firestore.collection('articlesdoc')
                 .where('uid', '==', uid)
                 .get();
             
             if (snapshot.empty) {
+                // Tentar buscar por ID do documento
+                console.log('📄 Tentando buscar por ID do documento...');
                 const docById = await firestore.collection('articlesdoc').doc(uid).get();
                 if (docById.exists) {
                     currentArticle = { id: docById.id, ...docById.data() };
                 } else {
-                    throw new Error(translate('viewer.articleNotFound') || 'Artigo não encontrado');
+                    throw new Error('Artigo não encontrado');
                 }
             } else {
                 const doc = snapshot.docs[0];
                 currentArticle = { id: doc.id, ...doc.data() };
             }
             
+            console.log('✅ Artigo encontrado:', currentArticle.title);
+            
+            // Incrementar visualizações
             await incrementViews(currentArticle.id);
             currentArticle.views = (currentArticle.views || 0) + 1;
             
+            // Renderizar
             renderArticle();
             
-            const title = currentArticle.title || 'Artigo';
-            document.title = `${title} - ${translate('viewer.pageTitle') || 'Biblioteca Científica WZZM'}`;
+            // Atualizar título
+            document.title = `${currentArticle.title} - Biblioteca Científica WZZM`;
             
         } catch (error) {
-            console.error('Erro ao carregar artigo:', error);
+            console.error('❌ Erro ao carregar artigo:', error);
             container.innerHTML = `
                 <div class="error-container">
                     <div class="error-icon">
                         <i class="material-icons">error_outline</i>
                     </div>
-                    <h2 class="error-title">${translate('viewer.articleNotFound') || 'Artigo não encontrado'}</h2>
+                    <h2 class="error-title">Artigo não encontrado</h2>
                     <p class="error-message">${escapeHtml(error.message)}</p>
-                    <p>${translate('viewer.articleRemoved') || 'O artigo que você está procurando pode ter sido removido ou o link pode estar incorreto.'}</p>
+                    <p>O artigo que você está procurando pode ter sido removido ou o link pode estar incorreto.</p>
                     <a href="/" class="btn-icon" style="background: var(--primary-color); text-decoration: none; display: inline-block; margin-top: 20px;">
-                        <i class="material-icons">home</i> ${translate('viewer.backToLibrary') || 'Voltar para a biblioteca'}
+                        <i class="material-icons">home</i> Voltar para a biblioteca
                     </a>
                 </div>
             `;
@@ -948,24 +851,24 @@
         const keywords = article.keywords || extractKeywords(article.title + ' ' + (article.description || ''));
         
         const year = article.createdAt ? new Date(article.createdAt).getFullYear() : new Date().getFullYear();
-        const authors = article.authors && article.authors.length > 0 ? article.authors.join(', ') : (translate('viewer.authorUnknown') || 'Autor não informado');
+        const authors = article.authors && article.authors.length > 0 ? article.authors.join(', ') : 'Autor não informado';
         const citation = `${authors}. ${article.title}. WZZM Academic. ${year}. Disponível em: ${window.location.href}. Acesso em: ${new Date().toLocaleDateString('pt-BR')}.`;
         
-        const viewsLabel = translate('articles.views') || 'visualizações';
-        const abstractLabel = translate('articles.abstract') || 'Resumo';
-        const authorsLabel = translate('articles.authors') || 'Autores';
-        const studentsLabel = translate('articles.students') || 'Orientandos';
         const typeLabel = getTypeLabel(article.articleType || 'cientifico');
         const languageLabel = getLanguageLabel(article.language || 'pt-BR');
-        const infoLabel = translate('viewer.documentInfo') || 'Informações do Documento';
-        const doiLabel = translate('viewer.doi') || 'DOI/UID';
-        const languageFieldLabel = translate('viewer.language') || 'Idioma';
-        const publishedLabel = translate('viewer.publishedOn') || 'Publicado em';
-        const sourcesLabel = translate('viewer.sources') || 'Fontes';
-        const keywordsLabel = translate('viewer.keywords') || 'Palavras-chave';
-        const citationLabel = translate('viewer.howToCite') || 'Como Citar este Artigo';
-        const copyLabel = translate('viewer.copyCitation') || 'Copiar citação';
-        const contentNotAvailable = translate('viewer.contentNotAvailable') || 'Conteúdo não disponível.';
+        const viewsLabel = safeTranslate('articles.views', 'visualizações');
+        const abstractLabel = safeTranslate('articles.abstract', 'Resumo');
+        const authorsLabel = safeTranslate('articles.authors', 'Autores');
+        const studentsLabel = safeTranslate('articles.students', 'Orientandos');
+        const infoLabel = safeTranslate('viewer.documentInfo', 'Informações do Documento');
+        const doiLabel = safeTranslate('viewer.doi', 'DOI/UID');
+        const languageFieldLabel = safeTranslate('viewer.language', 'Idioma');
+        const publishedLabel = safeTranslate('viewer.publishedOn', 'Publicado em');
+        const sourcesLabel = safeTranslate('viewer.sources', 'Fontes');
+        const keywordsLabel = safeTranslate('viewer.keywords', 'Palavras-chave');
+        const citationLabel = safeTranslate('viewer.howToCite', 'Como Citar este Artigo');
+        const copyLabel = safeTranslate('viewer.copyCitation', 'Copiar citação');
+        const contentNotAvailable = safeTranslate('viewer.contentNotAvailable', 'Conteúdo não disponível.');
         
         container.innerHTML = `
             <div class="article-card">
@@ -1031,7 +934,7 @@
                         <p><strong>${doiLabel}:</strong> ${escapeHtml(article.uid || article.id)}</p>
                         <p><strong>${languageFieldLabel}:</strong> ${escapeHtml(languageLabel)}</p>
                         <p><strong>${publishedLabel}:</strong> ${formatDate(article.lastModified || article.timestamp)}</p>
-                        ${article.originalUrl ? `<p><strong>URL Original:</strong> <a href="${escapeHtml(article.originalUrl)}" target="_blank">${translate('viewer.access') || 'Acessar'}</a></p>` : ''}
+                        ${article.originalUrl ? `<p><strong>URL Original:</strong> <a href="${escapeHtml(article.originalUrl)}" target="_blank">Acessar</a></p>` : ''}
                     </div>
                     
                     ${article.sources && article.sources.length > 0 ? `
@@ -1055,9 +958,9 @@
         const citationText = document.getElementById('citation-text')?.innerText;
         if (citationText) {
             navigator.clipboard.writeText(citationText).then(() => {
-                showToast(translate('modals.citation.copySuccess') || 'Citação copiada para a área de transferência!', 'success');
+                showToast('Citação copiada para a área de transferência!', 'success');
             }).catch(() => {
-                showToast(translate('modals.citation.copySuccess') || 'Citação copiada para a área de transferência!', 'success');
+                showToast('Citação copiada para a área de transferência!', 'success');
             });
         }
     }
@@ -1065,26 +968,36 @@
     function shareArticle() {
         if (navigator.share) {
             navigator.share({
-                title: currentArticle?.title || (translate('viewer.shareTitle') || 'Artigo Científico'),
-                text: currentArticle?.description || (translate('viewer.shareText') || 'Leia este artigo na Biblioteca Científica WZZM'),
+                title: currentArticle?.title || 'Artigo Científico',
+                text: currentArticle?.description || 'Leia este artigo na Biblioteca Científica WZZM',
                 url: window.location.href
             }).catch(() => {});
         } else {
             navigator.clipboard.writeText(window.location.href).then(() => {
-                showToast(translate('viewer.linkCopied') || 'Link copiado para compartilhar!', 'success');
+                showToast('Link copiado para compartilhar!', 'success');
             });
         }
     }
     
     // ============================================
-    // INICIALIZAÇÃO DA PÁGINA
+    // INICIALIZAÇÃO
     // ============================================
     
+    function getUIDFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let uid = urlParams.get('uid') || urlParams.get('id');
+        if (!uid) {
+            const pathSegments = window.location.pathname.split('/');
+            uid = pathSegments[pathSegments.length - 1];
+        }
+        return uid;
+    }
+    
     function initPage() {
-        console.log('📄 Inicializando página de visualização...');
         const uid = getUIDFromURL();
+        console.log('📄 Inicializando página, UID:', uid);
         
-        if (uid && uid !== 'view-article.html' && uid !== 'index.html') {
+        if (uid && uid !== 'view-article.html' && uid !== 'index.html' && uid !== '') {
             loadArticleByUID(uid);
         } else {
             document.getElementById('main-container').innerHTML = `
@@ -1092,26 +1005,61 @@
                     <div class="error-icon">
                         <i class="material-icons">error_outline</i>
                     </div>
-                    <h2 class="error-title">${translate('viewer.noArticleSpecified') || 'Artigo não especificado'}</h2>
-                    <p class="error-message">${translate('viewer.noArticleMessage') || 'Nenhum identificador de artigo foi fornecido na URL.'}</p>
+                    <h2 class="error-title">Artigo não especificado</h2>
+                    <p class="error-message">Nenhum identificador de artigo foi fornecido na URL.</p>
                     <a href="/" class="btn-icon" style="background: var(--primary-color); text-decoration: none; display: inline-block;">
-                        <i class="material-icons">home</i> ${translate('viewer.backToLibrary') || 'Voltar para a biblioteca'}
+                        <i class="material-icons">home</i> Voltar para a biblioteca
                     </a>
                 </div>
             `;
         }
     }
     
-    function getUIDFromURL() {
-        const urlParams = new URLSearchParams(window.location.search);
-        let uid = urlParams.get('uid') || urlParams.get('id');
-        
-        if (!uid) {
-            const pathSegments = window.location.pathname.split('/');
-            uid = pathSegments[pathSegments.length - 1];
+    // ============================================
+    // WAIT FOR I18N E INICIAR
+    // ============================================
+    
+    function waitForI18nAndInit() {
+        // Verificar se I18n já está disponível e inicializado
+        if (typeof I18n !== 'undefined' && I18n.initialized) {
+            console.log('✅ I18n já inicializado, iniciando página...');
+            initPage();
+            return;
         }
         
-        return uid;
+        // Se I18n existe mas não está inicializado, esperar
+        if (typeof I18n !== 'undefined' && !I18n.initialized) {
+            console.log('⏳ Aguardando inicialização do I18n...');
+            // Tentar iniciar manualmente
+            if (I18n.init && typeof I18n.init === 'function') {
+                I18n.init().then(() => {
+                    console.log('✅ I18n inicializado, iniciando página...');
+                    initPage();
+                }).catch(() => {
+                    console.warn('⚠️ Falha ao iniciar I18n, continuando sem tradução...');
+                    initPage();
+                });
+            } else {
+                initPage();
+            }
+            return;
+        }
+        
+        // I18n não existe, verificar periodicamente
+        let attempts = 0;
+        const maxAttempts = 20;
+        const interval = setInterval(() => {
+            attempts++;
+            if (typeof I18n !== 'undefined' && I18n.initialized) {
+                clearInterval(interval);
+                console.log('✅ I18n detectado e inicializado, iniciando página...');
+                initPage();
+            } else if (attempts >= maxAttempts) {
+                clearInterval(interval);
+                console.warn('⚠️ Timeout aguardando I18n, iniciando sem tradução...');
+                initPage();
+            }
+        }, 200);
     }
     
     // ============================================
@@ -1122,7 +1070,18 @@
     window.shareArticle = shareArticle;
     window.showToast = showToast;
     
+    // ============================================
+    // PONTO DE ENTRADA
+    // ============================================
+    
     console.log('📄 Página de visualização de artigo carregada!');
+    
+    // Aguardar DOM carregado
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', waitForI18nAndInit);
+    } else {
+        waitForI18nAndInit();
+    }
 </script>
 
 <!-- ===== IFRAMES DE LOG ===== -->
