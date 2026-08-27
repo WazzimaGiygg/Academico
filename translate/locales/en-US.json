@@ -1,0 +1,164 @@
+{
+    "header": {
+        "title": "WazzimaGiygg Academic",
+        "subtitle": "Scientific Library"
+    },
+    "nav": {
+        "login": "Login",
+        "logout": "Logout",
+        "profile": "Profile"
+    },
+    "banner": {
+        "title": "📚 WazzimaGiygg Scientific Library",
+        "subtitle": "Scientific articles, reviews, monographs, dissertations and theses - Free and open access"
+    },
+    "stats": {
+        "articles": "Published Articles",
+        "authors": "Researchers",
+        "views": "Views",
+        "lastUpdate": "Last Update"
+    },
+    "search": {
+        "placeholder": "Search by title, author, keywords...",
+        "button": "Search",
+        "types": {
+            "all": "All types",
+            "cientifico": "Scientific Article",
+            "revisao": "Literature Review",
+            "monografia": "Monograph",
+            "dissertacao": "Dissertation",
+            "tese": "Thesis",
+            "noticia": "News",
+            "tutorial": "Tutorial",
+            "editorial": "Editorial",
+            "opiniao": "Opinion",
+            "entrevista": "Interview"
+        },
+        "languages": {
+            "all": "All languages",
+            "pt-BR": "Portuguese",
+            "en-US": "English",
+            "es-ES": "Spanish"
+        },
+        "sort": {
+            "recent": "Most recent first",
+            "oldest": "Oldest first",
+            "title": "Title (A-Z)",
+            "views": "Most viewed"
+        },
+        "applyFilters": "Apply Filters"
+    },
+    "filters": {
+        "title": "Advanced Filters",
+        "year": "Publication Year",
+        "yearFrom": "From",
+        "yearTo": "To",
+        "status": "Status",
+        "statusPublished": "Published",
+        "statusDraft": "Drafts",
+        "keywords": "Popular Keywords",
+        "apply": "Apply Filters"
+    },
+    "articles": {
+        "noResults": "No articles found",
+        "loading": "Loading articles...",
+        "error": "Error loading articles",
+        "count": "{{count}} article(s) found",
+        "notFound": "No articles found. Try adjusting your filters.",
+        "authors": "Authors",
+        "students": "Students",
+        "views": "views",
+        "abstract": "Abstract",
+        "content": "Content",
+        "status": "Status",
+        "draft": "Draft"
+    },
+    "actions": {
+        "view": "View",
+        "cite": "How to Cite",
+        "edit": "Edit",
+        "readMore": "Read Full Article",
+        "copy": "Copy Citation",
+        "close": "Close"
+    },
+    "modals": {
+        "citation": {
+            "title": "How to Cite this Article",
+            "abnt": "ABNT",
+            "apa": "APA (7th ed.)",
+            "vancouver": "Vancouver",
+            "copySuccess": "Citation copied to clipboard!"
+        },
+        "login": {
+            "title": "Sign in to your account",
+            "google": "Continue with Google",
+            "or": "or",
+            "email": "Email",
+            "password": "Password",
+            "submit": "Sign in with Email",
+            "register": "Create new account",
+            "error": "Login error",
+            "registerPrompt": "Enter your email:",
+            "passwordPrompt": "Enter your password (min 6 characters):",
+            "passwordMin": "Password must be at least 6 characters",
+            "registerSuccess": "Account created successfully!"
+        },
+        "quickview": {
+            "title": "Article"
+        }
+    },
+    "notifications": {
+        "title": "🔔 Notifications",
+        "empty": "No notifications",
+        "markAllRead": "Mark all as read",
+        "new": "Notification"
+    },
+    "cookie": {
+        "title": "🍪 We use cookies",
+        "message": "This site uses cookies to improve your experience, analyze traffic and display personalized ads. By continuing to browse, you agree to our ",
+        "privacy": "Privacy Policy",
+        "essential": "🔒 Essential (required)",
+        "analytics": "📊 Data analysis",
+        "advertising": "🎯 Personalized advertising",
+        "acceptAll": "✅ Accept All",
+        "rejectAll": "❌ Reject All",
+        "customize": "⚙️ Customize",
+        "saved": "✅ Your preferences have been saved!",
+        "accepted": "✅ All cookies have been accepted!",
+        "rejected": "ℹ️ Non-essential cookies have been rejected."
+    },
+    "banned": {
+        "title": "⚠️ Banned Account",
+        "message": "Your account has been permanently banned from the system.",
+        "reason": "Reason:",
+        "logout": "🚪 Log out"
+    },
+    "admin": {
+        "newArticle": "New Article"
+    },
+    "footer": {
+        "donation": "💝 Donation",
+        "desktop": "🖥️ Desktop",
+        "lgpd": "🔒 Privacy Policy",
+        "marcoCivil": "📜 Civil Rights",
+        "ticket": "🎫 Support Ticket",
+        "products": "🛍️ Products",
+        "account": "👤 Your Account",
+        "copyright": "© 2026 WazzimaGiygg Academic - Free and Open Scientific Library"
+    },
+    "error": {
+        "generic": "An error occurred. Please try again.",
+        "network": "Connection error. Check your internet.",
+        "notFound": "Page not found."
+    },
+    "days": {
+        "now": "now",
+        "minute": "m",
+        "hour": "h",
+        "day": "d"
+    },
+    "status": {
+        "published": "Published",
+        "draft": "Draft"
+    }
+}
