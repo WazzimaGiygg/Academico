@@ -8,7 +8,7 @@
     <link rel="icon" href="https://academico.wazzimagiygg.com/Favicom.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Estilos para o seletor de idioma e tradução -->
+    <!-- Estilos -->
     <style>
         :root {
             --primary-color: #1a5f7a;
@@ -82,6 +82,21 @@
                 padding: 4px 6px;
             }
         }
+        @media (max-width: 480px) {
+            .language-selector-container {
+                top: 65px;
+                right: 8px;
+                padding: 2px 6px;
+            }
+            .language-selector-container select {
+                font-size: 10px;
+                padding: 3px 4px;
+                max-width: 80px;
+            }
+            .language-selector-container .lang-icon {
+                font-size: 12px;
+            }
+        }
 
         /* Header */
         .scientific-header {
@@ -141,6 +156,7 @@
             transition: all 0.3s;
             font-family: 'Roboto', sans-serif;
             font-size: 13px;
+            text-decoration: none;
         }
 
         .btn-icon:hover {
@@ -444,7 +460,6 @@
         }
 
         .toast {
-            background: var(--primary-color);
             color: white;
             padding: 12px 24px;
             border-radius: 50px;
@@ -579,7 +594,7 @@
             <button class="btn-icon" onclick="window.print()" data-i18n-title="viewer.print">
                 <i class="material-icons">print</i> <span data-i18n="viewer.print">Imprimir</span>
             </button>
-            <a href="/" class="btn-icon" style="text-decoration: none;">
+            <a href="/" class="btn-icon">
                 <i class="material-icons">home</i> <span data-i18n="viewer.home">Início</span>
             </a>
         </div>
@@ -623,8 +638,93 @@
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
 
-<!-- ===== I18N ===== -->
-<script src="/translate/i18n.js"></script>
+<!-- ===== I18N - TENTAR VÁRIOS CAMINHOS ===== -->
+<script>
+    // Função para carregar o i18n dinamicamente
+    function loadI18n() {
+        const paths = [
+            '/translate/i18n.js',
+            '../i18n.js',
+            'i18n.js',
+            '/i18n.js'
+        ];
+        
+        let loaded = false;
+        
+        function tryLoad(index) {
+            if (index >= paths.length || loaded) return;
+            
+            const script = document.createElement('script');
+            script.src = paths[index];
+            script.onload = function() {
+                loaded = true;
+                console.log('✅ I18n carregado de:', paths[index]);
+                // Inicializar após carregar
+                if (typeof I18n !== 'undefined' && !I18n.initialized) {
+                    I18n.init().then(() => {
+                        // Inicializar a página após o I18n
+                        initPage();
+                    });
+                } else if (typeof I18n !== 'undefined') {
+                    initPage();
+                }
+            };
+            script.onerror = function() {
+                console.warn('❌ Falha ao carregar i18n de:', paths[index]);
+                tryLoad(index + 1);
+            };
+            document.head.appendChild(script);
+        }
+        
+        tryLoad(0);
+        
+        // Fallback: se após 3 segundos não carregar, usar fallback manual
+        setTimeout(function() {
+            if (!loaded && typeof I18n === 'undefined') {
+                console.warn('⏰ Timeout carregando i18n, usando fallback');
+                // Criar objeto I18n mínimo
+                window.I18n = {
+                    currentLocale: 'pt-BR',
+                    initialized: true,
+                    t: function(key) { return key; },
+                    formatDate: function(date) { 
+                        try { return new Date(date).toLocaleDateString('pt-BR'); } 
+                        catch(e) { return ''; }
+                    },
+                    formatNumber: function(num) { return String(num); },
+                    getTypeLabel: function(type) {
+                        const types = {
+                            'cientifico': 'Artigo Científico',
+                            'revisao': 'Revisão Bibliográfica',
+                            'monografia': 'Monografia',
+                            'dissertacao': 'Dissertação',
+                            'tese': 'Tese',
+                            'noticia': 'Notícia',
+                            'tutorial': 'Tutorial'
+                        };
+                        return types[type] || type;
+                    },
+                    getLanguageLabel: function(lang) {
+                        const langs = {
+                            'pt-BR': 'Português',
+                            'en-US': 'English',
+                            'es-ES': 'Español'
+                        };
+                        return langs[lang] || lang;
+                    },
+                    getTimeAgo: function(date) { return ''; },
+                    getStatusLabel: function(status) {
+                        return status === 'published' ? 'Publicado' : 'Rascunho';
+                    }
+                };
+                initPage();
+            }
+        }, 3000);
+    }
+    
+    // Iniciar carregamento
+    loadI18n();
+</script>
 
 <!-- ===== SCRIPT PRINCIPAL ===== -->
 <script>
@@ -655,14 +755,40 @@
     // ============================================
     let currentArticle = null;
     let currentUser = null;
+    let i18nReady = false;
 
     // ============================================
-    // FUNÇÕES AUXILIARES (com suporte a i18n)
+    // FUNÇÕES AUXILIARES COM FALLBACK
     // ============================================
     
+    function getI18n() {
+        return (typeof I18n !== 'undefined') ? I18n : null;
+    }
+    
+    function translate(key, params) {
+        const i18n = getI18n();
+        if (i18n && i18n.t) {
+            return i18n.t(key, params);
+        }
+        return key;
+    }
+    
     function formatDate(date) {
-        if (!date) return I18n.t('days.now') || 'Data desconhecida';
-        return I18n.formatDate(date) || 'Data inválida';
+        const i18n = getI18n();
+        if (i18n && i18n.formatDate) {
+            return i18n.formatDate(date) || 'Data inválida';
+        }
+        if (!date) return 'Data desconhecida';
+        let validDate = date;
+        try {
+            if (date.toDate) validDate = date.toDate();
+            else if (date.seconds) validDate = new Date(date.seconds * 1000);
+            else validDate = new Date(date);
+            if (!(validDate instanceof Date) || isNaN(validDate)) return 'Data inválida';
+            return validDate.toLocaleDateString('pt-BR');
+        } catch(e) {
+            return 'Data inválida';
+        }
     }
 
     function escapeHtml(text) {
@@ -673,11 +799,44 @@
     }
 
     function getTypeLabel(type) {
-        return I18n.getTypeLabel(type) || type;
+        const i18n = getI18n();
+        if (i18n && i18n.getTypeLabel) {
+            return i18n.getTypeLabel(type);
+        }
+        const types = {
+            'cientifico': 'Artigo Científico',
+            'revisao': 'Revisão Bibliográfica',
+            'monografia': 'Monografia',
+            'dissertacao': 'Dissertação',
+            'tese': 'Tese',
+            'noticia': 'Notícia',
+            'tutorial': 'Tutorial',
+            'editorial': 'Editorial',
+            'opiniao': 'Opinião',
+            'entrevista': 'Entrevista'
+        };
+        return types[type] || type;
     }
 
     function getLanguageLabel(langCode) {
-        return I18n.getLanguageLabel(langCode) || langCode;
+        const i18n = getI18n();
+        if (i18n && i18n.getLanguageLabel) {
+            return i18n.getLanguageLabel(langCode);
+        }
+        const languages = {
+            'pt-BR': 'Português',
+            'en-US': 'English',
+            'es-ES': 'Español'
+        };
+        return languages[langCode] || langCode;
+    }
+
+    function formatNumber(num) {
+        const i18n = getI18n();
+        if (i18n && i18n.formatNumber) {
+            return i18n.formatNumber(num);
+        }
+        return Number(num).toLocaleString('pt-BR');
     }
 
     function extractKeywords(text) {
@@ -703,7 +862,7 @@
             error: '❌',
             info: 'ℹ️'
         };
-        toast.innerHTML = `${icons[type] || 'ℹ️'} ${message}`;
+        toast.textContent = `${icons[type] || 'ℹ️'} ${message}`;
         
         container.appendChild(toast);
         setTimeout(() => {
@@ -741,27 +900,24 @@
                 .get();
             
             if (snapshot.empty) {
-                // Tentar buscar por ID
                 const docById = await firestore.collection('articlesdoc').doc(uid).get();
                 if (docById.exists) {
                     currentArticle = { id: docById.id, ...docById.data() };
                 } else {
-                    throw new Error(I18n.t('viewer.articleNotFound') || 'Artigo não encontrado');
+                    throw new Error(translate('viewer.articleNotFound') || 'Artigo não encontrado');
                 }
             } else {
                 const doc = snapshot.docs[0];
                 currentArticle = { id: doc.id, ...doc.data() };
             }
             
-            // Incrementar visualizações
             await incrementViews(currentArticle.id);
             currentArticle.views = (currentArticle.views || 0) + 1;
             
-            // Renderizar artigo
             renderArticle();
             
-            // Atualizar título da página
-            document.title = `${currentArticle.title} - ${I18n.t('viewer.pageTitle') || 'Biblioteca Científica WZZM'}`;
+            const title = currentArticle.title || 'Artigo';
+            document.title = `${title} - ${translate('viewer.pageTitle') || 'Biblioteca Científica WZZM'}`;
             
         } catch (error) {
             console.error('Erro ao carregar artigo:', error);
@@ -770,11 +926,11 @@
                     <div class="error-icon">
                         <i class="material-icons">error_outline</i>
                     </div>
-                    <h2 class="error-title">${I18n.t('viewer.articleNotFound') || 'Artigo não encontrado'}</h2>
+                    <h2 class="error-title">${translate('viewer.articleNotFound') || 'Artigo não encontrado'}</h2>
                     <p class="error-message">${escapeHtml(error.message)}</p>
-                    <p>${I18n.t('viewer.articleRemoved') || 'O artigo que você está procurando pode ter sido removido ou o link pode estar incorreto.'}</p>
+                    <p>${translate('viewer.articleRemoved') || 'O artigo que você está procurando pode ter sido removido ou o link pode estar incorreto.'}</p>
                     <a href="/" class="btn-icon" style="background: var(--primary-color); text-decoration: none; display: inline-block; margin-top: 20px;">
-                        <i class="material-icons">home</i> ${I18n.t('viewer.backToLibrary') || 'Voltar para a biblioteca'}
+                        <i class="material-icons">home</i> ${translate('viewer.backToLibrary') || 'Voltar para a biblioteca'}
                     </a>
                 </div>
             `;
@@ -789,30 +945,27 @@
         const container = document.getElementById('main-container');
         const article = currentArticle;
         
-        // Extrair palavras-chave do conteúdo
         const keywords = article.keywords || extractKeywords(article.title + ' ' + (article.description || ''));
         
-        // Gerar citação automática
         const year = article.createdAt ? new Date(article.createdAt).getFullYear() : new Date().getFullYear();
-        const authors = article.authors && article.authors.length > 0 ? article.authors.join(', ') : (I18n.t('viewer.authorUnknown') || 'Autor não informado');
+        const authors = article.authors && article.authors.length > 0 ? article.authors.join(', ') : (translate('viewer.authorUnknown') || 'Autor não informado');
         const citation = `${authors}. ${article.title}. WZZM Academic. ${year}. Disponível em: ${window.location.href}. Acesso em: ${new Date().toLocaleDateString('pt-BR')}.`;
         
-        // Obter labels traduzidos
-        const viewsLabel = I18n.t('articles.views') || 'visualizações';
-        const abstractLabel = I18n.t('articles.abstract') || 'Resumo';
-        const authorsLabel = I18n.t('articles.authors') || 'Autores';
-        const studentsLabel = I18n.t('articles.students') || 'Orientandos';
+        const viewsLabel = translate('articles.views') || 'visualizações';
+        const abstractLabel = translate('articles.abstract') || 'Resumo';
+        const authorsLabel = translate('articles.authors') || 'Autores';
+        const studentsLabel = translate('articles.students') || 'Orientandos';
         const typeLabel = getTypeLabel(article.articleType || 'cientifico');
         const languageLabel = getLanguageLabel(article.language || 'pt-BR');
-        const infoLabel = I18n.t('viewer.documentInfo') || 'Informações do Documento';
-        const doiLabel = I18n.t('viewer.doi') || 'DOI/UID';
-        const languageFieldLabel = I18n.t('viewer.language') || 'Idioma';
-        const publishedLabel = I18n.t('viewer.publishedOn') || 'Publicado em';
-        const sourcesLabel = I18n.t('viewer.sources') || 'Fontes';
-        const keywordsLabel = I18n.t('viewer.keywords') || 'Palavras-chave';
-        const citationLabel = I18n.t('viewer.howToCite') || 'Como Citar este Artigo';
-        const copyLabel = I18n.t('viewer.copyCitation') || 'Copiar citação';
-        const contentNotAvailable = I18n.t('viewer.contentNotAvailable') || 'Conteúdo não disponível.';
+        const infoLabel = translate('viewer.documentInfo') || 'Informações do Documento';
+        const doiLabel = translate('viewer.doi') || 'DOI/UID';
+        const languageFieldLabel = translate('viewer.language') || 'Idioma';
+        const publishedLabel = translate('viewer.publishedOn') || 'Publicado em';
+        const sourcesLabel = translate('viewer.sources') || 'Fontes';
+        const keywordsLabel = translate('viewer.keywords') || 'Palavras-chave';
+        const citationLabel = translate('viewer.howToCite') || 'Como Citar este Artigo';
+        const copyLabel = translate('viewer.copyCitation') || 'Copiar citação';
+        const contentNotAvailable = translate('viewer.contentNotAvailable') || 'Conteúdo não disponível.';
         
         container.innerHTML = `
             <div class="article-card">
@@ -822,7 +975,7 @@
                     
                     <div class="article-meta">
                         <span><i class="material-icons">schedule</i> ${formatDate(article.lastModified || article.timestamp)}</span>
-                        <span><i class="material-icons">visibility</i> ${I18n.formatNumber(article.views || 0)} ${viewsLabel}</span>
+                        <span><i class="material-icons">visibility</i> ${formatNumber(article.views || 0)} ${viewsLabel}</span>
                         <span><i class="material-icons">language</i> ${escapeHtml(languageLabel)}</span>
                         <span><i class="material-icons">category</i> ${escapeHtml(typeLabel)}</span>
                     </div>
@@ -878,7 +1031,7 @@
                         <p><strong>${doiLabel}:</strong> ${escapeHtml(article.uid || article.id)}</p>
                         <p><strong>${languageFieldLabel}:</strong> ${escapeHtml(languageLabel)}</p>
                         <p><strong>${publishedLabel}:</strong> ${formatDate(article.lastModified || article.timestamp)}</p>
-                        ${article.originalUrl ? `<p><strong>URL Original:</strong> <a href="${escapeHtml(article.originalUrl)}" target="_blank">${I18n.t('viewer.access') || 'Acessar'}</a></p>` : ''}
+                        ${article.originalUrl ? `<p><strong>URL Original:</strong> <a href="${escapeHtml(article.originalUrl)}" target="_blank">${translate('viewer.access') || 'Acessar'}</a></p>` : ''}
                     </div>
                     
                     ${article.sources && article.sources.length > 0 ? `
@@ -902,9 +1055,9 @@
         const citationText = document.getElementById('citation-text')?.innerText;
         if (citationText) {
             navigator.clipboard.writeText(citationText).then(() => {
-                showToast(I18n.t('modals.citation.copySuccess') || 'Citação copiada para a área de transferência!', 'success');
+                showToast(translate('modals.citation.copySuccess') || 'Citação copiada para a área de transferência!', 'success');
             }).catch(() => {
-                showToast(I18n.t('modals.citation.copySuccess') || 'Citação copiada para a área de transferência!', 'success');
+                showToast(translate('modals.citation.copySuccess') || 'Citação copiada para a área de transferência!', 'success');
             });
         }
     }
@@ -912,41 +1065,23 @@
     function shareArticle() {
         if (navigator.share) {
             navigator.share({
-                title: currentArticle?.title || (I18n.t('viewer.shareTitle') || 'Artigo Científico'),
-                text: currentArticle?.description || (I18n.t('viewer.shareText') || 'Leia este artigo na Biblioteca Científica WZZM'),
+                title: currentArticle?.title || (translate('viewer.shareTitle') || 'Artigo Científico'),
+                text: currentArticle?.description || (translate('viewer.shareText') || 'Leia este artigo na Biblioteca Científica WZZM'),
                 url: window.location.href
             }).catch(() => {});
         } else {
-            // Fallback
             navigator.clipboard.writeText(window.location.href).then(() => {
-                showToast(I18n.t('viewer.linkCopied') || 'Link copiado para compartilhar!', 'success');
+                showToast(translate('viewer.linkCopied') || 'Link copiado para compartilhar!', 'success');
             });
         }
     }
     
     // ============================================
-    // INICIALIZAÇÃO
+    // INICIALIZAÇÃO DA PÁGINA
     // ============================================
     
-    function getUIDFromURL() {
-        const urlParams = new URLSearchParams(window.location.search);
-        let uid = urlParams.get('uid') || urlParams.get('id');
-        
-        if (!uid) {
-            // Tentar extrair da URL path
-            const pathSegments = window.location.pathname.split('/');
-            uid = pathSegments[pathSegments.length - 1];
-        }
-        
-        return uid;
-    }
-    
-    document.addEventListener('DOMContentLoaded', async () => {
-        // Aguardar I18n inicializar
-        if (typeof I18n !== 'undefined' && !I18n.initialized) {
-            await I18n.init();
-        }
-        
+    function initPage() {
+        console.log('📄 Inicializando página de visualização...');
         const uid = getUIDFromURL();
         
         if (uid && uid !== 'view-article.html' && uid !== 'index.html') {
@@ -957,15 +1092,27 @@
                     <div class="error-icon">
                         <i class="material-icons">error_outline</i>
                     </div>
-                    <h2 class="error-title">${I18n.t('viewer.noArticleSpecified') || 'Artigo não especificado'}</h2>
-                    <p class="error-message">${I18n.t('viewer.noArticleMessage') || 'Nenhum identificador de artigo foi fornecido na URL.'}</p>
+                    <h2 class="error-title">${translate('viewer.noArticleSpecified') || 'Artigo não especificado'}</h2>
+                    <p class="error-message">${translate('viewer.noArticleMessage') || 'Nenhum identificador de artigo foi fornecido na URL.'}</p>
                     <a href="/" class="btn-icon" style="background: var(--primary-color); text-decoration: none; display: inline-block;">
-                        <i class="material-icons">home</i> ${I18n.t('viewer.backToLibrary') || 'Voltar para a biblioteca'}
+                        <i class="material-icons">home</i> ${translate('viewer.backToLibrary') || 'Voltar para a biblioteca'}
                     </a>
                 </div>
             `;
         }
-    });
+    }
+    
+    function getUIDFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let uid = urlParams.get('uid') || urlParams.get('id');
+        
+        if (!uid) {
+            const pathSegments = window.location.pathname.split('/');
+            uid = pathSegments[pathSegments.length - 1];
+        }
+        
+        return uid;
+    }
     
     // ============================================
     // EXPORTAÇÃO GLOBAL
@@ -975,7 +1122,7 @@
     window.shareArticle = shareArticle;
     window.showToast = showToast;
     
-    console.log('📄 Página de visualização de artigo carregada com suporte a i18n!');
+    console.log('📄 Página de visualização de artigo carregada!');
 </script>
 
 <!-- ===== IFRAMES DE LOG ===== -->
