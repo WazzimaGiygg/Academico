@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualizar Artigo - Biblioteca Científica WazzimaGiygg</title>
+    <title data-i18n="viewer.pageTitle">Visualizar Artigo - Biblioteca Científica WazzimaGiygg</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="icon" href="https://academico.wazzimagiygg.com/Favicom.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Estilos para o seletor de idioma e tradução -->
     <style>
         :root {
             --primary-color: #1a5f7a;
@@ -33,6 +35,52 @@
             background-color: var(--light-bg);
             color: var(--text-dark);
             line-height: 1.6;
+        }
+
+        /* Language Selector */
+        .language-selector-container {
+            position: fixed;
+            top: 75px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.85);
+            border-radius: 30px;
+            padding: 4px 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .language-selector-container select {
+            background: transparent;
+            color: white;
+            border: none;
+            padding: 6px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            outline: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        .language-selector-container select option {
+            background: #1a1a2e;
+            color: white;
+        }
+        .language-selector-container .lang-icon {
+            color: #aaa;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .language-selector-container {
+                top: 70px;
+                right: 10px;
+                padding: 3px 8px;
+            }
+            .language-selector-container select {
+                font-size: 11px;
+                padding: 4px 6px;
+            }
         }
 
         /* Header */
@@ -77,6 +125,7 @@
         .header-actions {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         .btn-icon {
@@ -90,10 +139,17 @@
             align-items: center;
             gap: 8px;
             transition: all 0.3s;
+            font-family: 'Roboto', sans-serif;
+            font-size: 13px;
         }
 
         .btn-icon:hover {
             background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-icon .material-icons {
+            font-size: 18px;
         }
 
         /* Main Content */
@@ -313,6 +369,8 @@
             font-size: 12px;
             white-space: pre-wrap;
             margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
         }
 
         .btn-copy {
@@ -327,6 +385,11 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            transition: background 0.3s;
+        }
+
+        .btn-copy:hover {
+            background: var(--primary-dark);
         }
 
         .keywords {
@@ -369,6 +432,39 @@
             margin-bottom: 30px;
         }
 
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            animation: slideIn 0.3s ease;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.success { background: #27ae60; }
+        .toast.error { background: #e74c3c; }
+        .toast.info { background: var(--primary-color); }
+
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
         /* Footer */
         .footer {
             background: var(--primary-dark);
@@ -383,6 +479,23 @@
             color: white;
             text-decoration: none;
             margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #61a5c2;
+        }
+
+        .footer-divider {
+            color: rgba(255,255,255,0.2);
+            margin: 0 5px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px 15px;
         }
 
         /* Responsive */
@@ -403,411 +516,480 @@
             .article-meta {
                 gap: 15px;
             }
+
+            .header-actions {
+                justify-content: center;
+            }
+
+            .btn-icon {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .article-sidebar {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .language-selector-container {
+                top: 65px;
+                right: 8px;
+                padding: 2px 6px;
+            }
+            .language-selector-container select {
+                font-size: 10px;
+                padding: 3px 4px;
+                max-width: 80px;
+            }
+            .language-selector-container .lang-icon {
+                font-size: 12px;
+            }
+            .article-title {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <div class="scientific-header">
-        <div class="header-container">
-            <div class="header-title">
-                <a href="/">
-                    <i class="material-icons">menu_book</i>
-                    Biblioteca Científica WazzimaGiygg
-                </a>
-            </div>
-            <div class="header-actions">
-                <button class="btn-icon" onclick="shareArticle()">
-                    <i class="material-icons">share</i> Compartilhar
-                </button>
-                <button class="btn-icon" onclick="window.print()">
-                    <i class="material-icons">print</i> Imprimir
-                </button>
-                <a href="/" class="btn-icon" style="text-decoration: none;">
-                    <i class="material-icons">home</i> Início
-                </a>
-            </div>
-        </div>
-    </div>
 
-    <!-- Main Content -->
-    <div class="main-container" id="main-container">
-        <div class="loading-container">
-            <div class="spinner"></div>
-            <p style="margin-top: 20px;">Carregando artigo...</p>
-        </div>
-    </div>
+<!-- ===== LANGUAGE SELECTOR ===== -->
+<div class="language-selector-container">
+    <span class="lang-icon">🌐</span>
+    <select id="languageSelector" aria-label="Seletor de idioma">
+        <option value="pt-BR">🇧🇷 Português</option>
+        <option value="en-US">🇺🇸 English</option>
+        <option value="es-ES">🇪🇸 Español</option>
+    </select>
+</div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <div class="footer-links">
-            <span>Όχι, ο Χρόνος não é ο άρχοντας da γνώσης! - WazzimaGiygg</span>
-            <span class="footer-divider">|</span>
-            <a href="https://wazzimagiygg.com/desktop.html" target="_blank">🖥️ Acessar Desktop</a>
-            <span class="footer-divider">|</span>
-            <a href="https://wazzimagiygg.com/LGPD" style="color:white;">LGPD</a>
-            <span class="footer-divider">|</span>
-            <a href="https://wazzimagiygg.com/Marco Civil" style="color:white;">Marco Civil</a>
-            <span class="footer-divider">|</span>
-            <a href="https://wazzimagiygg.com/relatorio-wikipedia.html" target="_blank" style="color:#ffb347;">📄 Relatório Wikipédia</a>
-            <span class="footer-divider">|</span>
-            <a href="https://support.wazzimagiygg.com/" target="_blank" class="footer-ticket">
-                🎫 Contato por Ticket
+<!-- ===== HEADER ===== -->
+<div class="scientific-header">
+    <div class="header-container">
+        <div class="header-title">
+            <a href="/">
+                <i class="material-icons">menu_book</i>
+                <span data-i18n="viewer.headerTitle">Biblioteca Científica WazzimaGiygg</span>
             </a>
-            <span class="footer-divider">|</span>
-            <a href="https://wazzimagiygg.com/produtos" target="_blank" style="color:#ffb347;">🛍️ Produtos WazzimaGiygg</a>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon" onclick="shareArticle()" data-i18n-title="viewer.share">
+                <i class="material-icons">share</i> <span data-i18n="viewer.share">Compartilhar</span>
+            </button>
+            <button class="btn-icon" onclick="window.print()" data-i18n-title="viewer.print">
+                <i class="material-icons">print</i> <span data-i18n="viewer.print">Imprimir</span>
+            </button>
+            <a href="/" class="btn-icon" style="text-decoration: none;">
+                <i class="material-icons">home</i> <span data-i18n="viewer.home">Início</span>
+            </a>
         </div>
     </div>
+</div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main-container" id="main-container">
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <p style="margin-top: 20px;" data-i18n="articles.loading">Carregando artigo...</p>
+    </div>
+</div>
 
-    <script>
-        // ============================================
-        // CONFIGURAÇÃO FIREBASE
-        // ============================================
-        const firebaseConfig = {
-            apiKey: "AIzaSyB9GkSqTIZ0kbVsba_WOdQeVAETrF9qna0",
-            authDomain: "wzzm-ce3fc.firebaseapp.com",
-            projectId: "wzzm-ce3fc",
-            storageBucket: "wzzm-ce3fc.appspot.com",
-            messagingSenderId: "249427877153",
-            appId: "1:249427877153:web:0e4297294794a5aadeb260"
+<!-- ===== TOAST CONTAINER ===== -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+    <div class="footer-links">
+        <span>Όχι, ο Χρόνος não é ο άρχοντας da γνώσης! - WazzimaGiygg</span>
+        <span class="footer-divider">|</span>
+        <a href="https://wazzimagiygg.com/desktop.html" target="_blank" data-i18n="footer.desktop">🖥️ Acessar Desktop</a>
+        <span class="footer-divider">|</span>
+        <a href="https://wazzimagiygg.com/LGPD" style="color:white;" data-i18n="footer.lgpd">LGPD</a>
+        <span class="footer-divider">|</span>
+        <a href="https://wazzimagiygg.com/MarcoCivil" style="color:white;" data-i18n="footer.marcoCivil">Marco Civil</a>
+        <span class="footer-divider">|</span>
+        <a href="https://wazzimagiygg.com/relatorio-wikipedia.html" target="_blank" style="color:#ffb347;">📄 Relatório Wikipédia</a>
+        <span class="footer-divider">|</span>
+        <a href="https://support.wazzimagiygg.com/" target="_blank" class="footer-ticket" data-i18n="footer.ticket">
+            🎫 Contato por Ticket
+        </a>
+        <span class="footer-divider">|</span>
+        <a href="https://wazzimagiygg.com/produtos" target="_blank" style="color:#ffb347;" data-i18n="footer.products">🛍️ Produtos WazzimaGiygg</a>
+    </div>
+</div>
+
+<!-- ===== FIREBASE ===== -->
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+
+<!-- ===== I18N ===== -->
+<script src="/translate/i18n.js"></script>
+
+<!-- ===== SCRIPT PRINCIPAL ===== -->
+<script>
+    // ============================================
+    // CONFIGURAÇÃO FIREBASE
+    // ============================================
+    const firebaseConfig = {
+        apiKey: "AIzaSyB9GkSqTIZ0kbVsba_WOdQeVAETrF9qna0",
+        authDomain: "wzzm-ce3fc.firebaseapp.com",
+        projectId: "wzzm-ce3fc",
+        storageBucket: "wzzm-ce3fc.appspot.com",
+        messagingSenderId: "249427877153",
+        appId: "1:249427877153:web:0e4297294794a5aadeb260"
+    };
+
+    let app;
+    try {
+        app = firebase.app();
+    } catch (e) {
+        app = firebase.initializeApp(firebaseConfig);
+    }
+    
+    const firestore = firebase.firestore();
+    const auth = firebase.auth();
+
+    // ============================================
+    // VARIÁVEIS
+    // ============================================
+    let currentArticle = null;
+    let currentUser = null;
+
+    // ============================================
+    // FUNÇÕES AUXILIARES (com suporte a i18n)
+    // ============================================
+    
+    function formatDate(date) {
+        if (!date) return I18n.t('days.now') || 'Data desconhecida';
+        return I18n.formatDate(date) || 'Data inválida';
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function getTypeLabel(type) {
+        return I18n.getTypeLabel(type) || type;
+    }
+
+    function getLanguageLabel(langCode) {
+        return I18n.getLanguageLabel(langCode) || langCode;
+    }
+
+    function extractKeywords(text) {
+        if (!text) return [];
+        const words = text.toLowerCase().split(/\s+/);
+        const stopWords = ['de', 'a', 'o', 'que', 'e', 'do', 'da', 'em', 'um', 'para', 'com', 'não', 'uma', 'os', 'as', 'se', 'na', 'por', 'mais', 'como', 'mas', 'ao', 'ele', 'das', 'dos', 'era', 'como', 'são', 'sua', 'the', 'and', 'for', 'with', 'from', 'this', 'that', 'have', 'are', 'not', 'but', 'was', 'you', 'all', 'can', 'has', 'its', 'our', 'use', 'new', 'one', 'who', 'about', 'which', 'their', 'when', 'there', 'will', 'would', 'could', 'should', 'after', 'before', 'without', 'through', 'between', 'among', 'during', 'within', 'upon'];
+        const keywords = words.filter(w => w.length > 4 && !stopWords.includes(w.toLowerCase()));
+        const uniqueKeywords = [...new Set(keywords)].slice(0, 10);
+        return uniqueKeywords;
+    }
+
+    // ============================================
+    // TOAST
+    // ============================================
+    
+    function showToast(message, type = 'info') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        const icons = {
+            success: '✅',
+            error: '❌',
+            info: 'ℹ️'
         };
+        toast.innerHTML = `${icons[type] || 'ℹ️'} ${message}`;
+        
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(100px)';
+            toast.style.transition = 'all 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
 
-        let app;
+    // ============================================
+    // INCREMENTAR VISUALIZAÇÕES
+    // ============================================
+    
+    async function incrementViews(articleId) {
         try {
-            app = firebase.app();
-        } catch (e) {
-            app = firebase.initializeApp(firebaseConfig);
+            await firestore.collection('articlesdoc').doc(articleId).update({
+                views: firebase.firestore.FieldValue.increment(1)
+            });
+        } catch (error) {
+            console.warn('Erro ao incrementar visualizações:', error);
         }
+    }
+
+    // ============================================
+    // CARREGAR ARTIGO POR UID
+    // ============================================
+    
+    async function loadArticleByUID(uid) {
+        const container = document.getElementById('main-container');
         
-        const firestore = firebase.firestore();
-        const auth = firebase.auth();
-
-        // ============================================
-        // VARIÁVEIS
-        // ============================================
-        let currentArticle = null;
-        let currentUser = null;
-
-        // ============================================
-        // FUNÇÕES AUXILIARES
-        // ============================================
-        
-        function formatDate(date) {
-            if (!date) return 'Data desconhecida';
-            if (date.toDate) date = date.toDate();
-            return date.toLocaleDateString('pt-BR');
-        }
-
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        function getTypeLabel(type) {
-            const types = {
-                'cientifico': 'Artigo Científico',
-                'revisao': 'Revisão Bibliográfica',
-                'noticia': 'Notícia',
-                'editorial': 'Editorial',
-                'opiniao': 'Opinião',
-                'entrevista': 'Entrevista',
-                'tutorial': 'Tutorial',
-                'monografia': 'Monografia',
-                'dissertacao': 'Dissertação',
-                'tese': 'Tese'
-            };
-            return types[type] || type;
-        }
-
-        function extractKeywords(text) {
-            if (!text) return [];
-            const words = text.toLowerCase().split(/\s+/);
-            const stopWords = ['de', 'a', 'o', 'que', 'e', 'do', 'da', 'em', 'um', 'para', 'com', 'não', 'uma', 'os', 'as', 'se', 'na', 'por', 'mais', 'como', 'mas', 'ao', 'ele', 'das', 'dos', 'era', 'como', 'são', 'sua'];
-            const keywords = words.filter(w => w.length > 5 && !stopWords.includes(w));
-            const uniqueKeywords = [...new Set(keywords)].slice(0, 10);
-            return uniqueKeywords;
-        }
-
-        // ============================================
-        // INCREMENTAR VISUALIZAÇÕES
-        // ============================================
-        
-        async function incrementViews(articleId) {
-            try {
-                await firestore.collection('articlesdoc').doc(articleId).update({
-                    views: firebase.firestore.FieldValue.increment(1)
-                });
-            } catch (error) {
-                console.warn('Erro ao incrementar visualizações:', error);
-            }
-        }
-
-        // ============================================
-        // CARREGAR ARTIGO POR UID
-        // ============================================
-        
-        async function loadArticleByUID(uid) {
-            const container = document.getElementById('main-container');
+        try {
+            const snapshot = await firestore.collection('articlesdoc')
+                .where('uid', '==', uid)
+                .get();
             
-            try {
-                const snapshot = await firestore.collection('articlesdoc')
-                    .where('uid', '==', uid)
-                    .get();
-                
-                if (snapshot.empty) {
-                    // Tentar buscar por ID
-                    const docById = await firestore.collection('articlesdoc').doc(uid).get();
-                    if (docById.exists) {
-                        currentArticle = { id: docById.id, ...docById.data() };
-                    } else {
-                        throw new Error('Artigo não encontrado');
-                    }
+            if (snapshot.empty) {
+                // Tentar buscar por ID
+                const docById = await firestore.collection('articlesdoc').doc(uid).get();
+                if (docById.exists) {
+                    currentArticle = { id: docById.id, ...docById.data() };
                 } else {
-                    const doc = snapshot.docs[0];
-                    currentArticle = { id: doc.id, ...doc.data() };
+                    throw new Error(I18n.t('viewer.articleNotFound') || 'Artigo não encontrado');
                 }
-                
-                // Incrementar visualizações
-                await incrementViews(currentArticle.id);
-                currentArticle.views = (currentArticle.views || 0) + 1;
-                
-                // Renderizar artigo
-                renderArticle();
-                
-                // Atualizar título da página
-                document.title = `${currentArticle.title} - Biblioteca Científica WZZM`;
-                
-            } catch (error) {
-                console.error('Erro ao carregar artigo:', error);
-                container.innerHTML = `
-                    <div class="error-container">
-                        <div class="error-icon">
-                            <i class="material-icons">error_outline</i>
-                        </div>
-                        <h2 class="error-title">Artigo não encontrado</h2>
-                        <p class="error-message">${escapeHtml(error.message)}</p>
-                        <p>O artigo que você está procurando pode ter sido removido ou o link pode estar incorreto.</p>
-                        <a href="/" class="btn-icon" style="background: var(--primary-color); text-decoration: none; display: inline-block; margin-top: 20px;">
-                            <i class="material-icons">home</i> Voltar para a biblioteca
-                        </a>
-                    </div>
-                `;
+            } else {
+                const doc = snapshot.docs[0];
+                currentArticle = { id: doc.id, ...doc.data() };
             }
-        }
-        
-        function renderArticle() {
-            const container = document.getElementById('main-container');
-            const article = currentArticle;
             
-            // Extrair palavras-chave do conteúdo
-            const keywords = article.keywords || extractKeywords(article.title + ' ' + (article.description || ''));
+            // Incrementar visualizações
+            await incrementViews(currentArticle.id);
+            currentArticle.views = (currentArticle.views || 0) + 1;
             
-            // Gerar citação automática
-            const year = article.createdAt ? new Date(article.createdAt).getFullYear() : new Date().getFullYear();
-            const authors = article.authors && article.authors.length > 0 ? article.authors.join(', ') : 'Autor não informado';
-            const citation = `${authors}. ${article.title}. WZZM Academic. ${year}. Disponível em: ${window.location.href}. Acesso em: ${new Date().toLocaleDateString('pt-BR')}.`;
+            // Renderizar artigo
+            renderArticle();
             
+            // Atualizar título da página
+            document.title = `${currentArticle.title} - ${I18n.t('viewer.pageTitle') || 'Biblioteca Científica WZZM'}`;
+            
+        } catch (error) {
+            console.error('Erro ao carregar artigo:', error);
             container.innerHTML = `
-                <div class="article-card">
-                    <div class="article-header">
-                        <div class="article-badge">${getTypeLabel(article.articleType || 'cientifico')}</div>
-                        <h1 class="article-title">${escapeHtml(article.title)}</h1>
-                        
-                        <div class="article-meta">
-                            <span><i class="material-icons">schedule</i> ${formatDate(article.lastModified || article.timestamp)}</span>
-                            <span><i class="material-icons">visibility</i> ${(article.views || 0).toLocaleString()} visualizações</span>
-                            <span><i class="material-icons">language</i> ${article.language === 'pt-BR' ? 'Português' : article.language === 'en-US' ? 'English' : 'Español'}</span>
-                            <span><i class="material-icons">category</i> ${getTypeLabel(article.articleType || 'cientifico')}</span>
-                        </div>
-                        
-                        ${article.authors && article.authors.length > 0 ? `
-                            <div class="article-authors">
-                                <span class="authors-label">Autores:</span>
-                                <span class="authors-list">${escapeHtml(article.authors.join('; '))}</span>
-                            </div>
-                        ` : ''}
-                        
-                        ${article.students && article.students.length > 0 ? `
-                            <div class="article-authors">
-                                <span class="authors-label">Orientandos:</span>
-                                <span class="authors-list">${escapeHtml(article.students.join('; '))}</span>
-                            </div>
-                        ` : ''}
-                        
-                        ${article.description ? `
-                            <div class="article-abstract">
-                                <div class="abstract-title">Resumo</div>
-                                <p>${escapeHtml(article.description)}</p>
-                            </div>
-                        ` : ''}
+                <div class="error-container">
+                    <div class="error-icon">
+                        <i class="material-icons">error_outline</i>
                     </div>
-                    
-                    <div class="article-content">
-                        ${article.formattedContent || '<p>Conteúdo não disponível.</p>'}
-                    </div>
-                    
-                    <div class="article-sidebar">
-                        <div class="info-box">
-                            <h3><i class="material-icons">format_quote</i> Como Citar este Artigo</h3>
-                            <div class="citation-box" id="citation-text">
-                                ${escapeHtml(citation)}
-                            </div>
-                            <button class="btn-copy" onclick="copyCitation()">
-                                <i class="material-icons">content_copy</i> Copiar citação
-                            </button>
-                        </div>
-                        
-                        ${keywords.length > 0 ? `
-                            <div class="info-box">
-                                <h3><i class="material-icons">local_offer</i> Palavras-chave</h3>
-                                <div class="keywords">
-                                    ${keywords.map(kw => `<span class="keyword">${escapeHtml(kw)}</span>`).join('')}
-                                </div>
-                            </div>
-                        ` : ''}
-                        
-                        <div class="info-box">
-                            <h3><i class="material-icons">info</i> Informações do Documento</h3>
-                            <p><strong>DOI/UID:</strong> ${escapeHtml(article.uid || article.id)}</p>
-                            <p><strong>Tipo:</strong> ${getTypeLabel(article.articleType || 'cientifico')}</p>
-                            <p><strong>Idioma:</strong> ${article.language === 'pt-BR' ? 'Português (Brasil)' : article.language === 'en-US' ? 'English (US)' : 'Español'}</p>
-                            <p><strong>Publicado em:</strong> ${formatDate(article.lastModified || article.timestamp)}</p>
-                            ${article.originalUrl ? `<p><strong>URL Original:</strong> <a href="${escapeHtml(article.originalUrl)}" target="_blank">Acessar</a></p>` : ''}
-                        </div>
-                        
-                        ${article.sources && article.sources.length > 0 ? `
-                            <div class="info-box">
-                                <h3><i class="material-icons">source</i> Fontes</h3>
-                                <ul style="margin-left: 20px;">
-                                    ${article.sources.map(src => `<li>${escapeHtml(src)}</li>`).join('')}
-                                </ul>
-                            </div>
-                        ` : ''}
-                    </div>
+                    <h2 class="error-title">${I18n.t('viewer.articleNotFound') || 'Artigo não encontrado'}</h2>
+                    <p class="error-message">${escapeHtml(error.message)}</p>
+                    <p>${I18n.t('viewer.articleRemoved') || 'O artigo que você está procurando pode ter sido removido ou o link pode estar incorreto.'}</p>
+                    <a href="/" class="btn-icon" style="background: var(--primary-color); text-decoration: none; display: inline-block; margin-top: 20px;">
+                        <i class="material-icons">home</i> ${I18n.t('viewer.backToLibrary') || 'Voltar para a biblioteca'}
+                    </a>
                 </div>
             `;
         }
+    }
+    
+    // ============================================
+    // RENDERIZAR ARTIGO
+    // ============================================
+    
+    function renderArticle() {
+        const container = document.getElementById('main-container');
+        const article = currentArticle;
         
-        // ============================================
-        // FUNÇÕES DE COMPARTILHAMENTO
-        // ============================================
+        // Extrair palavras-chave do conteúdo
+        const keywords = article.keywords || extractKeywords(article.title + ' ' + (article.description || ''));
         
-        function copyCitation() {
-            const citationText = document.getElementById('citation-text')?.innerText;
-            if (citationText) {
-                navigator.clipboard.writeText(citationText).then(() => {
-                    showToast('Citação copiada para a área de transferência!');
-                }).catch(() => {
-                    alert('Citação copiada para a área de transferência!');
-                });
-            }
-        }
+        // Gerar citação automática
+        const year = article.createdAt ? new Date(article.createdAt).getFullYear() : new Date().getFullYear();
+        const authors = article.authors && article.authors.length > 0 ? article.authors.join(', ') : (I18n.t('viewer.authorUnknown') || 'Autor não informado');
+        const citation = `${authors}. ${article.title}. WZZM Academic. ${year}. Disponível em: ${window.location.href}. Acesso em: ${new Date().toLocaleDateString('pt-BR')}.`;
         
-        function shareArticle() {
-            if (navigator.share) {
-                navigator.share({
-                    title: currentArticle?.title || 'Artigo Científico',
-                    text: currentArticle?.description || 'Leia este artigo na Biblioteca Científica WZZM',
-                    url: window.location.href
-                }).catch(() => {});
-            } else {
-                // Fallback
-                navigator.clipboard.writeText(window.location.href).then(() => {
-                    showToast('Link copiado para compartilhar!');
-                });
-            }
-        }
+        // Obter labels traduzidos
+        const viewsLabel = I18n.t('articles.views') || 'visualizações';
+        const abstractLabel = I18n.t('articles.abstract') || 'Resumo';
+        const authorsLabel = I18n.t('articles.authors') || 'Autores';
+        const studentsLabel = I18n.t('articles.students') || 'Orientandos';
+        const typeLabel = getTypeLabel(article.articleType || 'cientifico');
+        const languageLabel = getLanguageLabel(article.language || 'pt-BR');
+        const infoLabel = I18n.t('viewer.documentInfo') || 'Informações do Documento';
+        const doiLabel = I18n.t('viewer.doi') || 'DOI/UID';
+        const languageFieldLabel = I18n.t('viewer.language') || 'Idioma';
+        const publishedLabel = I18n.t('viewer.publishedOn') || 'Publicado em';
+        const sourcesLabel = I18n.t('viewer.sources') || 'Fontes';
+        const keywordsLabel = I18n.t('viewer.keywords') || 'Palavras-chave';
+        const citationLabel = I18n.t('viewer.howToCite') || 'Como Citar este Artigo';
+        const copyLabel = I18n.t('viewer.copyCitation') || 'Copiar citação';
+        const contentNotAvailable = I18n.t('viewer.contentNotAvailable') || 'Conteúdo não disponível.';
         
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                position: fixed;
-                bottom: 30px;
-                right: 30px;
-                background: var(--primary-color);
-                color: white;
-                padding: 12px 24px;
-                border-radius: 50px;
-                font-size: 14px;
-                z-index: 1000;
-                animation: slideIn 0.3s ease;
-                box-shadow: var(--shadow-md);
-            `;
-            toast.innerHTML = message;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
-        }
-        
-        // ============================================
-        // INICIALIZAÇÃO
-        // ============================================
-        
-        function getUIDFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            let uid = urlParams.get('uid') || urlParams.get('id');
-            
-            if (!uid) {
-                // Tentar extrair da URL path
-                const pathSegments = window.location.pathname.split('/');
-                uid = pathSegments[pathSegments.length - 1];
-            }
-            
-            return uid;
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            const uid = getUIDFromURL();
-            
-            if (uid && uid !== 'view-article.html') {
-                loadArticleByUID(uid);
-            } else {
-                document.getElementById('main-container').innerHTML = `
-                    <div class="error-container">
-                        <div class="error-icon">
-                            <i class="material-icons">error_outline</i>
-                        </div>
-                        <h2 class="error-title">Artigo não especificado</h2>
-                        <p class="error-message">Nenhum identificador de artigo foi fornecido na URL.</p>
-                        <a href="/" class="btn-icon" style="background: var(--primary-color); text-decoration: none; display: inline-block;">
-                            <i class="material-icons">home</i> Voltar para a biblioteca
-                        </a>
+        container.innerHTML = `
+            <div class="article-card">
+                <div class="article-header">
+                    <div class="article-badge">${escapeHtml(typeLabel)}</div>
+                    <h1 class="article-title">${escapeHtml(article.title)}</h1>
+                    
+                    <div class="article-meta">
+                        <span><i class="material-icons">schedule</i> ${formatDate(article.lastModified || article.timestamp)}</span>
+                        <span><i class="material-icons">visibility</i> ${I18n.formatNumber(article.views || 0)} ${viewsLabel}</span>
+                        <span><i class="material-icons">language</i> ${escapeHtml(languageLabel)}</span>
+                        <span><i class="material-icons">category</i> ${escapeHtml(typeLabel)}</span>
                     </div>
-                `;
-            }
-        });
-        
-        // Animação de slideIn para toast
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100px); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
+                    
+                    ${article.authors && article.authors.length > 0 ? `
+                        <div class="article-authors">
+                            <span class="authors-label">${authorsLabel}:</span>
+                            <span class="authors-list">${escapeHtml(article.authors.join('; '))}</span>
+                        </div>
+                    ` : ''}
+                    
+                    ${article.students && article.students.length > 0 ? `
+                        <div class="article-authors">
+                            <span class="authors-label">${studentsLabel}:</span>
+                            <span class="authors-list">${escapeHtml(article.students.join('; '))}</span>
+                        </div>
+                    ` : ''}
+                    
+                    ${article.description ? `
+                        <div class="article-abstract">
+                            <div class="abstract-title">${abstractLabel}</div>
+                            <p>${escapeHtml(article.description)}</p>
+                        </div>
+                    ` : ''}
+                </div>
+                
+                <div class="article-content">
+                    ${article.formattedContent || `<p>${contentNotAvailable}</p>`}
+                </div>
+                
+                <div class="article-sidebar">
+                    <div class="info-box">
+                        <h3><i class="material-icons">format_quote</i> ${citationLabel}</h3>
+                        <div class="citation-box" id="citation-text">
+                            ${escapeHtml(citation)}
+                        </div>
+                        <button class="btn-copy" onclick="copyCitation()">
+                            <i class="material-icons">content_copy</i> ${copyLabel}
+                        </button>
+                    </div>
+                    
+                    ${keywords.length > 0 ? `
+                        <div class="info-box">
+                            <h3><i class="material-icons">local_offer</i> ${keywordsLabel}</h3>
+                            <div class="keywords">
+                                ${keywords.map(kw => `<span class="keyword">${escapeHtml(kw)}</span>`).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="info-box">
+                        <h3><i class="material-icons">info</i> ${infoLabel}</h3>
+                        <p><strong>${doiLabel}:</strong> ${escapeHtml(article.uid || article.id)}</p>
+                        <p><strong>${languageFieldLabel}:</strong> ${escapeHtml(languageLabel)}</p>
+                        <p><strong>${publishedLabel}:</strong> ${formatDate(article.lastModified || article.timestamp)}</p>
+                        ${article.originalUrl ? `<p><strong>URL Original:</strong> <a href="${escapeHtml(article.originalUrl)}" target="_blank">${I18n.t('viewer.access') || 'Acessar'}</a></p>` : ''}
+                    </div>
+                    
+                    ${article.sources && article.sources.length > 0 ? `
+                        <div class="info-box">
+                            <h3><i class="material-icons">source</i> ${sourcesLabel}</h3>
+                            <ul style="margin-left: 20px;">
+                                ${article.sources.map(src => `<li>${escapeHtml(src)}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
         `;
-        document.head.appendChild(style);
+    }
+    
+    // ============================================
+    // FUNÇÕES DE COMPARTILHAMENTO
+    // ============================================
+    
+    function copyCitation() {
+        const citationText = document.getElementById('citation-text')?.innerText;
+        if (citationText) {
+            navigator.clipboard.writeText(citationText).then(() => {
+                showToast(I18n.t('modals.citation.copySuccess') || 'Citação copiada para a área de transferência!', 'success');
+            }).catch(() => {
+                showToast(I18n.t('modals.citation.copySuccess') || 'Citação copiada para a área de transferência!', 'success');
+            });
+        }
+    }
+    
+    function shareArticle() {
+        if (navigator.share) {
+            navigator.share({
+                title: currentArticle?.title || (I18n.t('viewer.shareTitle') || 'Artigo Científico'),
+                text: currentArticle?.description || (I18n.t('viewer.shareText') || 'Leia este artigo na Biblioteca Científica WZZM'),
+                url: window.location.href
+            }).catch(() => {});
+        } else {
+            // Fallback
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                showToast(I18n.t('viewer.linkCopied') || 'Link copiado para compartilhar!', 'success');
+            });
+        }
+    }
+    
+    // ============================================
+    // INICIALIZAÇÃO
+    // ============================================
+    
+    function getUIDFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let uid = urlParams.get('uid') || urlParams.get('id');
         
-        window.copyCitation = copyCitation;
-        window.shareArticle = shareArticle;
-    </script>
+        if (!uid) {
+            // Tentar extrair da URL path
+            const pathSegments = window.location.pathname.split('/');
+            uid = pathSegments[pathSegments.length - 1];
+        }
+        
+        return uid;
+    }
+    
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Aguardar I18n inicializar
+        if (typeof I18n !== 'undefined' && !I18n.initialized) {
+            await I18n.init();
+        }
+        
+        const uid = getUIDFromURL();
+        
+        if (uid && uid !== 'view-article.html' && uid !== 'index.html') {
+            loadArticleByUID(uid);
+        } else {
+            document.getElementById('main-container').innerHTML = `
+                <div class="error-container">
+                    <div class="error-icon">
+                        <i class="material-icons">error_outline</i>
+                    </div>
+                    <h2 class="error-title">${I18n.t('viewer.noArticleSpecified') || 'Artigo não especificado'}</h2>
+                    <p class="error-message">${I18n.t('viewer.noArticleMessage') || 'Nenhum identificador de artigo foi fornecido na URL.'}</p>
+                    <a href="/" class="btn-icon" style="background: var(--primary-color); text-decoration: none; display: inline-block;">
+                        <i class="material-icons">home</i> ${I18n.t('viewer.backToLibrary') || 'Voltar para a biblioteca'}
+                    </a>
+                </div>
+            `;
+        }
+    });
+    
+    // ============================================
+    // EXPORTAÇÃO GLOBAL
+    // ============================================
+    
+    window.copyCitation = copyCitation;
+    window.shareArticle = shareArticle;
+    window.showToast = showToast;
+    
+    console.log('📄 Página de visualização de artigo carregada com suporte a i18n!');
+</script>
 
-            <!-- Iframe do verificador/logs (mantido como você tinha) -->
-    <iframe 
-        src="https://gspotfverwazzimagiygg.wazzimagiygg.com/D390X40F/200FVM20/200V/5002DFE6/ACEF/5CFER.html" 
-        style="width: 300px; height: 150px; border: none; position: fixed; bottom: 10px; right: 10px; z-index: 9999;"
-        title="Registrador de Logs">
-    </iframe>
+<!-- ===== IFRAMES DE LOG ===== -->
+<iframe 
+    src="https://gspotfverwazzimagiygg.wazzimagiygg.com/D390X40F/200FVM20/200V/5002DFE6/ACEF/5CFER.html" 
+    style="width: 300px; height: 150px; border: none; position: fixed; bottom: 10px; right: 10px; z-index: 9999;"
+    title="Registrador de Logs">
+</iframe>
 
-        <iframe 
-        src="https://gspotfverwazzimagiygg.wazzimagiygg.com/D390X40F/200FVM20/200V/5002DFE6/ACEF/tracker.html" 
-        style="width: 300px; height: 150px; border: none; position: fixed; bottom: 10px; right: 10px; z-index: 9999;"
-        title="Registrador de Logs">
-    </iframe>
+<iframe 
+    src="https://gspotfverwazzimagiygg.wazzimagiygg.com/D390X40F/200FVM20/200V/5002DFE6/ACEF/tracker.html" 
+    style="width: 300px; height: 150px; border: none; position: fixed; bottom: 10px; right: 10px; z-index: 9999;"
+    title="Registrador de Logs">
+</iframe>
     
 </body>
 </html>
