@@ -1,0 +1,164 @@
+{
+    "header": {
+        "title": "WazzimaGiygg Académico",
+        "subtitle": "Biblioteca Científica"
+    },
+    "nav": {
+        "login": "Iniciar sesión",
+        "logout": "Cerrar sesión",
+        "profile": "Perfil"
+    },
+    "banner": {
+        "title": "📚 Biblioteca Científica WazzimaGiygg",
+        "subtitle": "Artículos científicos, revisiones, monografías, disertaciones y tesis - Acceso libre y gratuito"
+    },
+    "stats": {
+        "articles": "Artículos Publicados",
+        "authors": "Investigadores",
+        "views": "Visualizaciones",
+        "lastUpdate": "Última actualización"
+    },
+    "search": {
+        "placeholder": "Buscar por título, autor, palabras clave...",
+        "button": "Buscar",
+        "types": {
+            "all": "Todos los tipos",
+            "cientifico": "Artículo Científico",
+            "revisao": "Revisión Bibliográfica",
+            "monografia": "Monografía",
+            "dissertacao": "Disertación",
+            "tese": "Tesis",
+            "noticia": "Noticia",
+            "tutorial": "Tutorial",
+            "editorial": "Editorial",
+            "opiniao": "Opinión",
+            "entrevista": "Entrevista"
+        },
+        "languages": {
+            "all": "Todos los idiomas",
+            "pt-BR": "Portugués",
+            "en-US": "Inglés",
+            "es-ES": "Español"
+        },
+        "sort": {
+            "recent": "Más recientes primero",
+            "oldest": "Más antiguos primero",
+            "title": "Título (A-Z)",
+            "views": "Más vistos"
+        },
+        "applyFilters": "Aplicar Filtros"
+    },
+    "filters": {
+        "title": "Filtros Avanzados",
+        "year": "Año de publicación",
+        "yearFrom": "Desde",
+        "yearTo": "Hasta",
+        "status": "Estado",
+        "statusPublished": "Publicados",
+        "statusDraft": "Borradores",
+        "keywords": "Palabras clave populares",
+        "apply": "Aplicar Filtros"
+    },
+    "articles": {
+        "noResults": "No se encontraron artículos",
+        "loading": "Cargando artículos...",
+        "error": "Error al cargar artículos",
+        "count": "{{count}} artículo(s) encontrado(s)",
+        "notFound": "No se encontraron artículos. Intente ajustar sus filtros.",
+        "authors": "Autores",
+        "students": "Estudiantes",
+        "views": "visualizaciones",
+        "abstract": "Resumen",
+        "content": "Contenido",
+        "status": "Estado",
+        "draft": "Borrador"
+    },
+    "actions": {
+        "view": "Ver",
+        "cite": "Cómo Citar",
+        "edit": "Editar",
+        "readMore": "Leer Artículo Completo",
+        "copy": "Copiar Cita",
+        "close": "Cerrar"
+    },
+    "modals": {
+        "citation": {
+            "title": "Cómo Citar este Artículo",
+            "abnt": "ABNT",
+            "apa": "APA (7ª ed.)",
+            "vancouver": "Vancouver",
+            "copySuccess": "¡Cita copiada al portapapeles!"
+        },
+        "login": {
+            "title": "Iniciar sesión en tu cuenta",
+            "google": "Continuar con Google",
+            "or": "o",
+            "email": "Correo electrónico",
+            "password": "Contraseña",
+            "submit": "Iniciar sesión con correo",
+            "register": "Crear nueva cuenta",
+            "error": "Error al iniciar sesión",
+            "registerPrompt": "Ingresa tu correo electrónico:",
+            "passwordPrompt": "Ingresa tu contraseña (mínimo 6 caracteres):",
+            "passwordMin": "La contraseña debe tener al menos 6 caracteres",
+            "registerSuccess": "¡Cuenta creada exitosamente!"
+        },
+        "quickview": {
+            "title": "Artículo"
+        }
+    },
+    "notifications": {
+        "title": "🔔 Notificaciones",
+        "empty": "Sin notificaciones",
+        "markAllRead": "Marcar todas como leídas",
+        "new": "Notificación"
+    },
+    "cookie": {
+        "title": "🍪 Usamos cookies",
+        "message": "Este sitio utiliza cookies para mejorar tu experiencia, analizar tráfico y mostrar anuncios personalizados. Al continuar navegando, aceptas nuestra ",
+        "privacy": "Política de Privacidad",
+        "essential": "🔒 Esenciales (obligatorios)",
+        "analytics": "📊 Análisis de datos",
+        "advertising": "🎯 Publicidad personalizada",
+        "acceptAll": "✅ Aceptar Todas",
+        "rejectAll": "❌ Rechazar Todas",
+        "customize": "⚙️ Personalizar",
+        "saved": "✅ ¡Tus preferencias han sido guardadas!",
+        "accepted": "✅ ¡Todas las cookies han sido aceptadas!",
+        "rejected": "ℹ️ Las cookies no esenciales han sido rechazadas."
+    },
+    "banned": {
+        "title": "⚠️ Cuenta Baneada",
+        "message": "Tu cuenta ha sido baneada permanentemente del sistema.",
+        "reason": "Motivo:",
+        "logout": "🚪 Cerrar sesión"
+    },
+    "admin": {
+        "newArticle": "Nuevo Artículo"
+    },
+    "footer": {
+        "donation": "💝 Donación",
+        "desktop": "🖥️ Escritorio",
+        "lgpd": "🔒 Política de Privacidad",
+        "marcoCivil": "📜 Marco Civil",
+        "ticket": "🎫 Ticket de Soporte",
+        "products": "🛍️ Productos",
+        "account": "👤 Tu Cuenta",
+        "copyright": "© 2026 WazzimaGiygg Académico - Biblioteca Científica Libre y Gratuita"
+    },
+    "error": {
+        "generic": "Ocurrió un error. Inténtalo de nuevo.",
+        "network": "Error de conexión. Verifica tu internet.",
+        "notFound": "Página no encontrada."
+    },
+    "days": {
+        "now": "ahora",
+        "minute": "m",
+        "hour": "h",
+        "day": "d"
+    },
+    "status": {
+        "published": "Publicado",
+        "draft": "Borrador"
+    }
+}
