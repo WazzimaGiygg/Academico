@@ -45,7 +45,8 @@
             "oldest": "Mais antigos primeiro",
             "title": "Título (A-Z)",
             "views": "Mais visualizados"
-        }
+        },
+        "applyFilters": "Aplicar Filtros"
     },
     "filters": {
         "title": "Filtros Avançados",
@@ -159,31 +160,5 @@
     "status": {
         "published": "Publicado",
         "draft": "Rascunho"
-    },
-    "viewer": {
-        "pageTitle": "Visualizar Artigo - Biblioteca Científica WazzimaGiygg",
-        "headerTitle": "Biblioteca Científica WazzimaGiygg",
-        "share": "Compartilhar",
-        "print": "Imprimir",
-        "home": "Início",
-        "articleNotFound": "Artigo não encontrado",
-        "articleRemoved": "O artigo que você está procurando pode ter sido removido ou o link pode estar incorreto.",
-        "backToLibrary": "Voltar para a biblioteca",
-        "authorUnknown": "Autor não informado",
-        "documentInfo": "Informações do Documento",
-        "doi": "DOI/UID",
-        "language": "Idioma",
-        "publishedOn": "Publicado em",
-        "sources": "Fontes",
-        "keywords": "Palavras-chave",
-        "howToCite": "Como Citar este Artigo",
-        "copyCitation": "Copiar citação",
-        "contentNotAvailable": "Conteúdo não disponível.",
-        "access": "Acessar",
-        "shareTitle": "Artigo Científico",
-        "shareText": "Leia este artigo na Biblioteca Científica WZZM",
-        "linkCopied": "Link copiado para compartilhar!",
-        "noArticleSpecified": "Artigo não especificado",
-        "noArticleMessage": "Nenhum identificador de artigo foi fornecido na URL."
     }
 }
